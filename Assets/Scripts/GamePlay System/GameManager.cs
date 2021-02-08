@@ -10,6 +10,15 @@ namespace Management
     {
         public PlayerManager playerManager;
         public DiceManager diceManager;
+        public GameObject cursor;
+
+        public GameObject enemy;
+        public EnemyBehaviour enemyBehaviour;
+
+        void Start()
+        {
+            enemyBehaviour = enemy.GetComponent<EnemyBehaviour>();
+        }
     }
 }
 

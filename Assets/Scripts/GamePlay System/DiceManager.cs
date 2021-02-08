@@ -21,7 +21,6 @@ public class DiceManager : MonoBehaviour
         for (int i = 0; i < GameManager.Instance.playerManager.initialDiceCount; i++)
         {
             int spawnValue =  Random.Range(0, 6);
-            Debug.Log(spawnValue);
             GameObject spawnedDice =  Instantiate(dices[spawnValue],diceInitialPosition[i].transform.position,Quaternion.identity);
             GameManager.Instance.playerManager.storedDice.Add(spawnedDice);
             GameManager.Instance.playerManager.numberOfDice +=1;

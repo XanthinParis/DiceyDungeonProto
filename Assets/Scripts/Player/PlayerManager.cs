@@ -10,7 +10,18 @@ namespace Player
         public int initialDiceCount;
         public int numberOfDice;
 
+        public float health;
+        public float maxHealth;
+
+        public int LimitBreakPV;
+
         public List<GameObject> storedDice = new List<GameObject>();
+
+        private void Start()
+        {
+            maxHealth = 100f;
+            health = maxHealth;
+        }
 
         // Update is called once per frame
         void Update()
