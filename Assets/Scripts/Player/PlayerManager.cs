@@ -28,9 +28,15 @@ namespace Player
         {
             numberOfDice = storedDice.Count;
 
+            //Le faire au début de tour;
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Management.GameManager.Instance.diceManager.GenerateDice();
+            }
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                Management.GameManager.Instance.diceManager.addDice(1);
             }
         }
 
