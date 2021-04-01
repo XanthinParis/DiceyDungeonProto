@@ -20,33 +20,35 @@ public class DiceBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if(cursorHere && Input.GetMouseButtonDown(0))
+        if(cursorHere && Input.GetMouseButtonDown(0) && Manager.Instance.cursorBehaviour.currentSelected == gameObject)
         {
-            gameObject.transform.parent = Management.GameManager.Instance.cursor.transform;
+            gameObject.transform.parent = Manager.Instance.cursor.transform;
         }
         if (cursorHere && Input.GetMouseButtonUp(0))
         {
             gameObject.transform.parent = null;
+            Manager.Instance.cursorBehaviour.currentSelected = null;
         }
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject == Management.GameManager.Instance.cursor)
+        if(collision.gameObject == Manager.Instance.cursor && Manager.Instance.cursorBehaviour.currentSelected ==null)
         {
             cursorHere = true;
-            Debug.Log("cursorIn");
-            Management.GameManager.Instance.cursor.GetComponent<CursorBehaviour>().currentSelected = gameObject;
+            //Debug.Log("cursorIn");
+            Manager.Instance.cursorBehaviour.currentSelected = gameObject;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collisions)
     {
-        if (collisions.gameObject == Management.GameManager.Instance.cursor)
+        if (collisions.gameObject == Manager.Instance.cursor)
         {
             cursorHere = false;
-            Debug.Log("cursorOut");
+            //Debug.Log("cursorOut");
+            Manager.Instance.cursorBehaviour.currentSelected = null;
         }
     }
 

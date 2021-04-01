@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Player
-{
+
     public class PlayerManager : MonoBehaviour
     {
         public int initialDiceCount;
@@ -22,25 +21,7 @@ namespace Player
             maxHealth = 100f;
             health = maxHealth;
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-            numberOfDice = storedDice.Count;
-
-            //Le faire au début de tour;
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Management.GameManager.Instance.diceManager.GenerateDice();
-            }
-
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                Management.GameManager.Instance.diceManager.addDice(1);
-            }
-        }
-
     }
 
-}
+
 

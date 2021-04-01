@@ -8,7 +8,7 @@ public class GetPositions : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            Management.GameManager.Instance.diceManager.diceInitialPosition.Add(child.gameObject);
+            Manager.Instance.diceManager.diceInitialPosition.Add(child.gameObject);
         }
     }
 }
