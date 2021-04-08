@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 
-    public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
         public int initialDiceCount;
         public int numberOfDice;
@@ -24,7 +24,7 @@ using UnityEngine;
             health = maxHealth;
         }
 
-    }
+}
 
 
 

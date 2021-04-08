@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ef0efb249c92d34dab14fafafa97475, type: 3}
-  m_Name: Equipement Test
+  m_Name: Equipement Test 4
   m_EditorClassIdentifier: 
   isReusable: 0
   reusableTime: 0
-  isBig: 1
+  isBig: 0
   skillName: Test
   skillDescription: Dealing Test Value.
   diceOwn: {fileID: 0}

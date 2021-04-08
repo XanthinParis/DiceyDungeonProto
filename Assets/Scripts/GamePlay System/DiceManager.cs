@@ -4,11 +4,21 @@ using UnityEngine;
 
 public class DiceManager : MonoBehaviour
 {
+
+    [SerializeField] private GameObject waypointsParent;
     //Permet de placer les dés selon des positions;
-    public List<GameObject> diceInitialPosition = new List<GameObject>();
+    public List<Transform> diceInitialPosition = new List<Transform>();
 
     //On stock les prefabs des dés afin de pouvoir les instancier.
     [SerializeField] private GameObject[] dices;
+
+    private void Start()
+    {
+        for (int i = 0; i < waypointsParent.GetComponent<GetPositions>().waypointsPosition.Count; i++)
+        {
+            diceInitialPosition.Add(waypointsParent.GetComponent<GetPositions>().waypointsPosition[i]);        
+        }
+    }
 
     void Update()
     {

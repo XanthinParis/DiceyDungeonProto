@@ -7,4 +7,10 @@ public class EquipementOwner : MonoBehaviour
     public Skill equipementOwn;
 
     public GameObject diceOwn;
+
+    public void UpdateVisuel()
+    {
+
+
+    }
 }

@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class GetPositions : MonoBehaviour
 {
+    public List<Transform> waypointsPosition = new List<Transform>();
+
     private void Awake()
     {
         foreach (Transform child in transform)
         {
-            Manager.Instance.diceManager.diceInitialPosition.Add(child.gameObject);
+            waypointsPosition.Add(child);
         }
     }
 }

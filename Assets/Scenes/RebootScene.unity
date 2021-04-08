@@ -513,6 +513,14 @@ MonoBehaviour:
   enemyBehaviour: {fileID: 1057038027}
   cursorBehaviour: {fileID: 1294098947}
   cursor: {fileID: 1294098942}
+  smallSkill: {fileID: 1533451400068874142, guid: cf269262d5620d14abed569d10a8fdbd,
+    type: 3}
+  bigSkill: {fileID: 7019042793173267749, guid: 60a3e4be9fbb0e84d9b44f5b464e8e3a,
+    type: 3}
+  smallSkillParentPosition: {fileID: 1801197223}
+  smallSkillPosition: []
+  bigSkillParentPosition: {fileID: 1735889347}
+  bigSkillPosition: []
 --- !u!4 &668372213
 Transform:
   m_ObjectHideFlags: 0
@@ -1402,7 +1410,13 @@ MonoBehaviour:
   maxHealth: 0
   LimitBreakPV: 0
   storedDice: []
-  playerSkills: []
+  playerSkills:
+  - {fileID: 11400000, guid: bc7d70395ab87ae41ae6a8afbdb5583f, type: 2}
+  - {fileID: 11400000, guid: e2e8288dce111994c8d9a1e2ce6b69eb, type: 2}
+  - {fileID: 11400000, guid: 01cee95496518a84b8ad2dbc502a9edc, type: 2}
+  - {fileID: 11400000, guid: a334160220d53a241bb244ddfd2fd3d2, type: 2}
+  - {fileID: 11400000, guid: d2a432cbe2771904bb104b80657221ac, type: 2}
+  - {fileID: 11400000, guid: 0212029fcd71ddb4a84fb553c8821a3e, type: 2}
 --- !u!4 &1121895641
 Transform:
   m_ObjectHideFlags: 0
@@ -2482,6 +2496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9aaa27e8918b54fa56c54dbb7a6438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypointsParent: {fileID: 2084746654}
   diceInitialPosition: []
   dices:
   - {fileID: 396846378115323391, guid: 926e25d338ebdf6488f0847ff2565d94, type: 3}
@@ -2529,8 +2544,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1735889348}
+  - component: {fileID: 1735889349}
   m_Layer: 0
-  m_Name: BigEquipementParent
+  m_Name: BigSkillParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2554,6 +2570,19 @@ Transform:
   m_Father: {fileID: 1358233637}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1735889349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735889347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df5fe744bee721447a1ab47832697361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypointsPosition: []
 --- !u!1 &1742329459
 GameObject:
   m_ObjectHideFlags: 0
@@ -2593,8 +2622,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1801197224}
+  - component: {fileID: 1801197225}
   m_Layer: 0
-  m_Name: SmallEquipementParent
+  m_Name: SmallSkillParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2622,6 +2652,19 @@ Transform:
   m_Father: {fileID: 1358233637}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1801197225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801197223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df5fe744bee721447a1ab47832697361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waypointsPosition: []
 --- !u!1 &1849577728
 GameObject:
   m_ObjectHideFlags: 0
@@ -3100,7 +3143,7 @@ GameObject:
   - component: {fileID: 2084746655}
   - component: {fileID: 2084746656}
   m_Layer: 0
-  m_Name: Positions
+  m_Name: WaypointsParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3142,6 +3185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5fe744bee721447a1ab47832697361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypointsPosition: []
 --- !u!1 &2106487314
 GameObject:
   m_ObjectHideFlags: 0
