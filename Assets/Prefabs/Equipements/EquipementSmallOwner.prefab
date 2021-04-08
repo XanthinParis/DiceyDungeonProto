@@ -652,6 +652,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipementOwn: {fileID: 0}
   diceOwn: {fileID: 0}
+  skillName: {fileID: 1533451398642507143}
+  diceValue: {fileID: 7294242325437369507}
+  description: {fileID: 1533451399282634302}
+  diceDescription: {fileID: 6638884988251010804}
 --- !u!1 &4710406012760748399
 GameObject:
   m_ObjectHideFlags: 0

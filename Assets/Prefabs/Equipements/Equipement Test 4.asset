@@ -15,8 +15,9 @@ MonoBehaviour:
   isReusable: 0
   reusableTime: 0
   isBig: 0
-  skillName: Test
+  skillName: Test4
   skillDescription: Dealing Test Value.
+  diceDescription: 
   diceOwn: {fileID: 0}
   conditions: 0
   valueCondition: 0

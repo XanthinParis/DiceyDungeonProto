@@ -12,6 +12,7 @@ public abstract class Skill : ScriptableObject
     [Header("UI things")]
     public string skillName;
     public string skillDescription;
+    public string diceDescription;
     
     //Variable to Store when a Dice is put in a equipement;
     public DiceBehaviour diceOwn;
