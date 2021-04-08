@@ -4,15 +4,31 @@ using UnityEngine;
 
 public abstract class Skill : ScriptableObject
 {
+    [Header("Usability")]
     public bool isReusable;
     public int reusableTime;
-
-    public string skillName;
-    public string skillDescription;
     public bool isBig;
 
-    public enum conditionType {minValue,maxValue,countdown,pair,impair,value}
+    [Header("UI things")]
+    public string skillName;
+    public string skillDescription;
+    
+    //Variable to Store when a Dice is put in a equipement;
+    public DiceBehaviour diceOwn;
 
+    //Type of Conditions
+    public enum conditionType {minValue,maxValue,countdown,pair,impair,value}
+    public conditionType conditions;
+
+    public int valueCondition;
+    public int currentCountdown;
+
+    //Test the value of the Dice according conditionType;
+    public abstract void TestValue();
+
+    //Effect of the Skill;
     public abstract void Use();
+
+    public abstract void DestroyDice();
 
 }
