@@ -15,6 +15,8 @@ public class EquipementOwner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI diceDescription;
 
+    private bool diceHere;
+
     public void UpdateVisuel()
     {
         skillName.text = equipementOwn.skillName;
@@ -29,7 +31,16 @@ public class EquipementOwner : MonoBehaviour
         {
             diceValue.text = equipementOwn.valueCondition.ToString();
         }
+    }
 
-        
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        for (int i = 0; i < Manager.Instance.playerManager.storedDice.Count; i++)
+        {
+            if(collision.gameObject == Manager.Instance.playerManager.storedDice[i])
+            {
+                //StartTest;
+            }
+        }
     }
 }
