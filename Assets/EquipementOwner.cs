@@ -33,6 +33,7 @@ public class EquipementOwner : MonoBehaviour
         if (equipementOwn.conditions == Skill.conditionType.countdown)
         {
             equipementOwn.currentCountdown = equipementOwn.valueCondition;
+            diceValue.text = equipementOwn.currentCountdown.ToString();
         }
     }
 

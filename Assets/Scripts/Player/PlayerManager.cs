@@ -24,6 +24,17 @@ public class PlayerManager : MonoBehaviour
             health = maxHealth;
         }
 
+        public IEnumerator DelayCountdown(int value, EquipementOwner equipementOwner)
+        {
+            for (int i = 0; i < value; i++)
+            {
+                equipementOwner.equipementOwn.currentCountdown--;
+                equipementOwner.diceValue.text = equipementOwner.equipementOwn.currentCountdown.ToString();
+                yield return new WaitForSeconds(0.2f);
+            }
+        }
+        
+
 }
 
 

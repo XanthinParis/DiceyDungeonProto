@@ -8,7 +8,6 @@ public class EquipementTest : Skill
 {
     private void Awake()
     {
-        CreateInstance<EquipementTest>();
 
         if(conditions == conditionType.countdown)
         {
@@ -45,13 +44,19 @@ public class EquipementTest : Skill
                     break;
                 }
                 break;
+            
             //While the countdown is not 0, don't start Use(); Each dice reduce the currentCountdown Value
             case conditionType.countdown:
-                currentCountdown -= equipementOwner.diceOwn.valueDice;
-                equipementOwner.diceValue.text = currentCountdown.ToString();
+
+                equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
+                equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
+                equipementOwner.diceOwn.canMove = false;
+
+                Manager.Instance.playerManager.StartCoroutine(Manager.Instance.playerManager.DelayCountdown(equipementOwner.diceOwn.valueDice, equipementOwner));
 
                 if (currentCountdown < 0)
                 {
+                    DestroyDice();
                     currentCountdown = 0;
                     
                     currentCountdown = valueCondition;
@@ -59,7 +64,7 @@ public class EquipementTest : Skill
                 }
                 else
                 {
-                    //Manger le Dé
+                    DestroyDice();
                     break;
                 }
                 break;
