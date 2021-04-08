@@ -15,10 +15,10 @@ MonoBehaviour:
   isReusable: 0
   reusableTime: 0
   isBig: 0
-  skillName: Test5
+  skillName: Min
   skillDescription: Dealing Test Value.
-  diceDescription: 
-  diceOwn: {fileID: 0}
+  diceDescription: Min3
+  equipementOwner: {fileID: 0}
   conditions: 0
-  valueCondition: 0
+  valueCondition: 3
   currentCountdown: 0

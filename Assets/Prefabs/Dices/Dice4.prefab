@@ -49,6 +49,7 @@ MonoBehaviour:
   dice: {fileID: 11400000, guid: 36f93d0474bc84f4ab1504630574d6d9, type: 2}
   valueDice: 4
   cursorHere: 0
+  canMove: 1
 --- !u!212 &8407192860683771072
 SpriteRenderer:
   m_ObjectHideFlags: 0

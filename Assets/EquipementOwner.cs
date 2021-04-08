@@ -11,11 +11,13 @@ public class EquipementOwner : MonoBehaviour
 
     [Header("Visual Stuff")]
     [SerializeField] private TextMeshProUGUI skillName;
-    [SerializeField] private TextMeshProUGUI diceValue;
+    [SerializeField] public TextMeshProUGUI diceValue;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI diceDescription;
 
     public Transform dicePosition;
+
+    public bool diceHere;
 
     private void Start()
     {
@@ -51,6 +53,14 @@ public class EquipementOwner : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (diceHere && Input.GetMouseButtonUp(0))
+        {
+            equipementOwn.TestValue();
+        }
+    }
+
     #region OnTrigger
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -60,7 +70,7 @@ public class EquipementOwner : MonoBehaviour
             {
                 diceOwn = collision.gameObject.GetComponent<DiceBehaviour>();
                 Debug.Log("Collide");
-                equipementOwn.TestValue();
+                diceHere = true;
             }
         }
     }
@@ -71,6 +81,7 @@ public class EquipementOwner : MonoBehaviour
         {
             if (collision.gameObject == Manager.Instance.playerManager.storedDice[i])
             {
+                diceHere = false;
                 diceOwn = null;
                 Debug.Log("ExitCollide");
             }

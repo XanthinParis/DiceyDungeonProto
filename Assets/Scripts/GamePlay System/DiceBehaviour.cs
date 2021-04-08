@@ -10,6 +10,8 @@ public class DiceBehaviour : MonoBehaviour
 
     [SerializeField] private bool cursorHere;
 
+    [SerializeField] public bool canMove = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +22,7 @@ public class DiceBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if(cursorHere && Input.GetMouseButtonDown(0) && Manager.Instance.cursorBehaviour.currentSelected == gameObject)
+        if(cursorHere && Input.GetMouseButtonDown(0) && Manager.Instance.cursorBehaviour.currentSelected == gameObject && canMove)
         {
             gameObject.transform.parent = Manager.Instance.cursor.transform;
         }

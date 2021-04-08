@@ -21,7 +21,7 @@ public class EquipementTest : Skill
         switch (conditions)
         {
             //The Dice Value need to be lower or equal to the value ask;
-            case conditionType.minValue:
+            case conditionType.maxValue:
                 if (equipementOwner.diceOwn.valueDice <= valueCondition)
                 {
                     Use();
@@ -34,7 +34,7 @@ public class EquipementTest : Skill
                 break;
 
             //The Dice Value need to be higher or equal to the value ask;
-            case conditionType.maxValue:
+            case conditionType.minValue:
                 if (equipementOwner.diceOwn.valueDice >= valueCondition)
                 {
                     Use();
@@ -48,10 +48,12 @@ public class EquipementTest : Skill
             //While the countdown is not 0, don't start Use(); Each dice reduce the currentCountdown Value
             case conditionType.countdown:
                 currentCountdown -= equipementOwner.diceOwn.valueDice;
+                equipementOwner.diceValue.text = currentCountdown.ToString();
 
                 if (currentCountdown < 0)
                 {
                     currentCountdown = 0;
+                    
                     currentCountdown = valueCondition;
                     Use();
                 }
@@ -78,7 +80,7 @@ public class EquipementTest : Skill
             case conditionType.impair:
                 if (equipementOwner.diceOwn.valueDice == 1 || equipementOwner.diceOwn.valueDice == 3 || equipementOwner.diceOwn.valueDice == 5)
                 {
-                    Debug.Log(equipementOwner.diceOwn.valueDice);
+                   
                     Use();
                 }
                 else
@@ -100,6 +102,7 @@ public class EquipementTest : Skill
     {
         equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
         equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
+        equipementOwner.diceOwn.canMove = false;
 
         //Stored Dice Value;
         int currentDiceValue = equipementOwner.diceOwn.valueDice;

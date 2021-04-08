@@ -15,10 +15,10 @@ MonoBehaviour:
   isReusable: 0
   reusableTime: 0
   isBig: 0
-  skillName: Test2
+  skillName: Countdown
   skillDescription: Dealing Test Value.
   diceDescription: 
-  diceOwn: {fileID: 0}
-  conditions: 0
-  valueCondition: 0
-  currentCountdown: 0
+  equipementOwner: {fileID: 0}
+  conditions: 2
+  valueCondition: 10
+  currentCountdown: 10
