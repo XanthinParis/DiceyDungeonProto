@@ -29,8 +29,12 @@ public class DiceBehaviour : MonoBehaviour
             gameObject.transform.parent = null;
             Manager.Instance.cursorBehaviour.currentSelected = null;
         }
-    }
 
+        if (cursorHere)
+        {
+            Manager.Instance.cursorBehaviour.currentSelected = gameObject;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -38,8 +42,10 @@ public class DiceBehaviour : MonoBehaviour
         {
             cursorHere = true;
             //Debug.Log("cursorIn");
-            Manager.Instance.cursorBehaviour.currentSelected = gameObject;
-        }
+            
+        } 
+
+        //Checker si ca rentre dans la collision d'une compétence.
     }
 
     private void OnTriggerExit2D(Collider2D collisions)
@@ -50,6 +56,11 @@ public class DiceBehaviour : MonoBehaviour
             //Debug.Log("cursorOut");
             Manager.Instance.cursorBehaviour.currentSelected = null;
         }
+    }
+
+    private void TestDiceState()
+    {
+        //if is burn etc etc...
     }
 
 }

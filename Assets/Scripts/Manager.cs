@@ -13,8 +13,20 @@ public class Manager : Singleton<Manager>
     
     [Header("Character")]
     public PlayerManager playerManager;
+    public EnemyBehaviour enemyBehaviour;
     
     [Header("Cursor")]    
     public CursorBehaviour cursorBehaviour;
     public GameObject cursor;
+
+
+    private void Awake()
+    {
+        InitialiseCombat();
+    }
+
+    private void InitialiseCombat()
+    {
+        playerManager.InitPlayer();
+    }
 }

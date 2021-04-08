@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[CreateAssetMenu(menuName = "Equipements/Test")]
 public class EquipementTest : Skill
 {
     private void Awake()
@@ -95,9 +97,6 @@ public class EquipementTest : Skill
     {
         //Stored Dice Value;
         int currentDiceValue = diceOwn.valueDice;
-
-        //DestroyDice
-        DestroyDice();
 
         //Effect;
 

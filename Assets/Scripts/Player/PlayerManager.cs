@@ -5,7 +5,7 @@ using UnityEngine;
 
 
     public class PlayerManager : MonoBehaviour
-    {
+{
         public int initialDiceCount;
         public int numberOfDice;
 
@@ -16,11 +16,14 @@ using UnityEngine;
 
         public List<GameObject> storedDice = new List<GameObject>();
 
-        private void Start()
+        public List<Skill> playerSkills = new List<Skill>();
+
+
+        public void InitPlayer()
         {
-            maxHealth = 100f;
             health = maxHealth;
         }
+
     }
 
 
