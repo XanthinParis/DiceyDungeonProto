@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dice: {fileID: 11400000, guid: e6e906e6252645e47a3d6dd491a4ccc0, type: 2}
-  valueDice: 0
+  valueDice: 1
   cursorHere: 0
 --- !u!212 &8470461963053525150
 SpriteRenderer:

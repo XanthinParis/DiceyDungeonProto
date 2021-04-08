@@ -15,7 +15,7 @@ public abstract class Skill : ScriptableObject
     public string diceDescription;
     
     //Variable to Store when a Dice is put in a equipement;
-    public DiceBehaviour diceOwn;
+    public EquipementOwner equipementOwner;
 
     //Type of Conditions
     public enum conditionType {minValue,maxValue,countdown,pair,impair,value}

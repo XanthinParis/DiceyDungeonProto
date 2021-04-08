@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 7019042793173267747}
   - component: {fileID: 7019042793173267746}
   - component: {fileID: 2504464914825516899}
+  - component: {fileID: -4255120502530320910}
   m_Layer: 0
   m_Name: EquipementBigOwner
   m_TagString: Untagged
@@ -184,6 +185,7 @@ MonoBehaviour:
   diceValue: {fileID: 1487705790303630785}
   description: {fileID: 8710982493155338627}
   diceDescription: {fileID: 7019042792358970373}
+  dicePosition: {fileID: 8710982492506508204}
 --- !u!61 &2504464914825516899
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -210,6 +212,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.1163583, y: 1.0740464}
   m_EdgeRadius: 0
+--- !u!50 &-4255120502530320910
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7019042793173267749}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &8710982492270198738
 GameObject:
   m_ObjectHideFlags: 0

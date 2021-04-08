@@ -7,7 +7,7 @@ public class EquipementOwner : MonoBehaviour
 {
     public Skill equipementOwn;
 
-    public GameObject diceOwn;
+    public DiceBehaviour diceOwn;
 
     [Header("Visual Stuff")]
     [SerializeField] private TextMeshProUGUI skillName;
@@ -15,8 +15,26 @@ public class EquipementOwner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI diceDescription;
 
-    private bool diceHere;
+    public Transform dicePosition;
 
+    private void Start()
+    {
+        
+        InitSkill();
+    }
+    
+    public void InitSkill()
+    {
+        equipementOwn.equipementOwner = this;
+        Debug.Log(equipementOwn.equipementOwner);
+
+        if (equipementOwn.conditions == Skill.conditionType.countdown)
+        {
+            equipementOwn.currentCountdown = equipementOwn.valueCondition;
+        }
+    }
+
+    //Se lance quand l'équipement est instantier.
     public void UpdateVisuel()
     {
         skillName.text = equipementOwn.skillName;
@@ -33,14 +51,31 @@ public class EquipementOwner : MonoBehaviour
         }
     }
 
+    #region OnTrigger
     private void OnTriggerEnter2D(Collider2D collision)
     {
         for (int i = 0; i < Manager.Instance.playerManager.storedDice.Count; i++)
         {
             if(collision.gameObject == Manager.Instance.playerManager.storedDice[i])
             {
-                //StartTest;
+                diceOwn = collision.gameObject.GetComponent<DiceBehaviour>();
+                Debug.Log("Collide");
+                equipementOwn.TestValue();
             }
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        for (int i = 0; i < Manager.Instance.playerManager.storedDice.Count; i++)
+        {
+            if (collision.gameObject == Manager.Instance.playerManager.storedDice[i])
+            {
+                diceOwn = null;
+                Debug.Log("ExitCollide");
+            }
+        }
+    }
+    #endregion
+
 }

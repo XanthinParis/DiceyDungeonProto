@@ -8,6 +8,8 @@ public class EquipementTest : Skill
 {
     private void Awake()
     {
+        CreateInstance<EquipementTest>();
+
         if(conditions == conditionType.countdown)
         {
             currentCountdown = valueCondition;
@@ -20,7 +22,7 @@ public class EquipementTest : Skill
         {
             //The Dice Value need to be lower or equal to the value ask;
             case conditionType.minValue:
-                if (diceOwn.valueDice <= valueCondition)
+                if (equipementOwner.diceOwn.valueDice <= valueCondition)
                 {
                     Use();
                 }
@@ -33,7 +35,7 @@ public class EquipementTest : Skill
 
             //The Dice Value need to be higher or equal to the value ask;
             case conditionType.maxValue:
-                if (diceOwn.valueDice >= valueCondition)
+                if (equipementOwner.diceOwn.valueDice >= valueCondition)
                 {
                     Use();
                 }
@@ -45,7 +47,7 @@ public class EquipementTest : Skill
                 break;
             //While the countdown is not 0, don't start Use(); Each dice reduce the currentCountdown Value
             case conditionType.countdown:
-                currentCountdown -= diceOwn.valueDice;
+                currentCountdown -= equipementOwner.diceOwn.valueDice;
 
                 if (currentCountdown < 0)
                 {
@@ -62,7 +64,7 @@ public class EquipementTest : Skill
                 
             //The Dice Value need to be pair (2.4.6).
             case conditionType.pair:
-                if (diceOwn.valueDice == 2 || diceOwn.valueDice == 4 || diceOwn.valueDice == 6)
+                if (equipementOwner.diceOwn.valueDice == 2 || equipementOwner.diceOwn.valueDice == 4 || equipementOwner.diceOwn.valueDice == 6)
                 {
                     Use();
                 }
@@ -74,8 +76,9 @@ public class EquipementTest : Skill
 
             //The Dice Value need to be pair (1.3.5).
             case conditionType.impair:
-                if (diceOwn.valueDice == 1 || diceOwn.valueDice == 3 || diceOwn.valueDice == 5)
+                if (equipementOwner.diceOwn.valueDice == 1 || equipementOwner.diceOwn.valueDice == 3 || equipementOwner.diceOwn.valueDice == 5)
                 {
+                    Debug.Log(equipementOwner.diceOwn.valueDice);
                     Use();
                 }
                 else
@@ -95,17 +98,22 @@ public class EquipementTest : Skill
 
     public override void Use()
     {
+        equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
+        equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
+
         //Stored Dice Value;
-        int currentDiceValue = diceOwn.valueDice;
+        int currentDiceValue = equipementOwner.diceOwn.valueDice;
 
         //Effect;
 
         //ClearEquipement - Animation;
+
+        Debug.Log("Correct");
     }
 
     public override void DestroyDice()
     {
-        Manager.Instance.playerManager.storedDice.Remove(diceOwn.gameObject);
-        Destroy(diceOwn.gameObject);
+        Manager.Instance.playerManager.storedDice.Remove(equipementOwner.diceOwn.gameObject);
+        Destroy(equipementOwner.diceOwn.gameObject);
     }
 }

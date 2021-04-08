@@ -18,7 +18,7 @@ MonoBehaviour:
   skillName: Test0
   skillDescription: Dealing Test Value.
   diceDescription: 
-  diceOwn: {fileID: 0}
-  conditions: 0
-  valueCondition: 0
+  equipementOwner: {fileID: 0}
+  conditions: 4
+  valueCondition: 3
   currentCountdown: 0
