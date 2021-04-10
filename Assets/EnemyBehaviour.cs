@@ -11,4 +11,14 @@ public class EnemyBehaviour : MonoBehaviour
     {
         health = maxHealth;
     }
+
+    public void TakeDamages(int damages)
+    {
+        health -= damages;
+        if(health <= 0)
+        {
+            health = 0;
+            Debug.Log("dead");
+        }
+    }
 }

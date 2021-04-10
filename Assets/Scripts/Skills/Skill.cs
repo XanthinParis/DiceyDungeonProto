@@ -8,6 +8,15 @@ public abstract class Skill : ScriptableObject
     public bool isReusable;
     public int reusableTime;
     public bool isBig;
+    public int damages;
+    public int valueCondition;
+    public int currentCountdown;
+
+    public bool currentlyOnField = false;
+
+    //Type of Conditions
+    public enum conditionType { minValue, maxValue, countdown, pair, impair, value }
+    public conditionType conditions;
 
     [Header("UI things")]
     public string skillName;
@@ -16,13 +25,6 @@ public abstract class Skill : ScriptableObject
     
     //Variable to Store when a Dice is put in a equipement;
     public EquipementOwner equipementOwner;
-
-    //Type of Conditions
-    public enum conditionType {minValue,maxValue,countdown,pair,impair,value}
-    public conditionType conditions;
-
-    public int valueCondition;
-    public int currentCountdown;
 
     //Test the value of the Dice according conditionType;
     public abstract void TestValue();

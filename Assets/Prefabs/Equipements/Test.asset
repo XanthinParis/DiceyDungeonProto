@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ef0efb249c92d34dab14fafafa97475, type: 3}
-  m_Name: Equipement Test 2
+  m_Name: Test
   m_EditorClassIdentifier: 
   isReusable: 0
   reusableTime: 0
-  isBig: 0
-  skillName: Countdown
-  skillDescription: Dealing Test Value.
-  diceDescription: 
-  equipementOwner: {fileID: 0}
-  conditions: 2
+  isBig: 1
+  damages: 8
   valueCondition: 10
   currentCountdown: 10
+  conditions: 2
+  skillName: Gants de Boxe
+  skillDescription: "D\xE9gats 8."
+  diceDescription: 
+  equipementOwner: {fileID: 0}

@@ -1412,11 +1412,11 @@ MonoBehaviour:
   storedDice: []
   playerSkills:
   - {fileID: 11400000, guid: bc7d70395ab87ae41ae6a8afbdb5583f, type: 2}
-  - {fileID: 11400000, guid: e2e8288dce111994c8d9a1e2ce6b69eb, type: 2}
-  - {fileID: 11400000, guid: 01cee95496518a84b8ad2dbc502a9edc, type: 2}
-  - {fileID: 11400000, guid: a334160220d53a241bb244ddfd2fd3d2, type: 2}
-  - {fileID: 11400000, guid: d2a432cbe2771904bb104b80657221ac, type: 2}
-  - {fileID: 11400000, guid: 0212029fcd71ddb4a84fb553c8821a3e, type: 2}
+  - {fileID: 11400000, guid: 7d3fd727fedd359468d0c7933a118ea7, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &1121895641
 Transform:
   m_ObjectHideFlags: 0

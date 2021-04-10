@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Equipements/Test")]
-public class EquipementTest : Skill
+[CreateAssetMenu(menuName = "Equipements/JeuDeJambes")]
+public class JeuDeJambes : Skill
 {
+    private int timeUsed = 0;
+
+    //Initialiser les valeurs.
     private void Awake()
     {
-
-        if(conditions == conditionType.countdown)
+        if (conditions == conditionType.countdown)
         {
             currentCountdown = valueCondition;
         }
     }
-
     public override void TestValue()
     {
         switch (conditions)
@@ -44,7 +45,7 @@ public class EquipementTest : Skill
                     break;
                 }
                 break;
-            
+
             //While the countdown is not 0, don't start Use(); Each dice reduce the currentCountdown Value
             case conditionType.countdown:
 
@@ -58,7 +59,7 @@ public class EquipementTest : Skill
                 {
                     DestroyDice();
                     currentCountdown = 0;
-                    
+
                     currentCountdown = valueCondition;
                     Use();
                 }
@@ -68,7 +69,7 @@ public class EquipementTest : Skill
                     break;
                 }
                 break;
-                
+
             //The Dice Value need to be pair (2.4.6).
             case conditionType.pair:
                 if (equipementOwner.diceOwn.valueDice == 2 || equipementOwner.diceOwn.valueDice == 4 || equipementOwner.diceOwn.valueDice == 6)
@@ -85,7 +86,7 @@ public class EquipementTest : Skill
             case conditionType.impair:
                 if (equipementOwner.diceOwn.valueDice == 1 || equipementOwner.diceOwn.valueDice == 3 || equipementOwner.diceOwn.valueDice == 5)
                 {
-                   
+
                     Use();
                 }
                 else
@@ -105,18 +106,28 @@ public class EquipementTest : Skill
 
     public override void Use()
     {
+        //Bloquer les joueurs sur la position;
         equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
         equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
         equipementOwner.diceOwn.canMove = false;
 
-        //Stored Dice Value;
-        int currentDiceValue = equipementOwner.diceOwn.valueDice;
+        DestroyDice();
 
-        //Effect;
+        if (isReusable)
+        {
+            timeUsed++;
+            if (timeUsed < reusableTime)
+            {
+                //Laisser la compétence
+            }
+            else
+            {
+                equipementOwner.gameObject.SetActive(false);
+            }
+        }
 
-        //ClearEquipement - Animation;
-
-        Debug.Log("Correct");
+        //ajout un dé à la main du joueur.
+        Manager.Instance.diceManager.addDice(1);
     }
 
     public override void DestroyDice()
@@ -124,4 +135,7 @@ public class EquipementTest : Skill
         Manager.Instance.playerManager.storedDice.Remove(equipementOwner.diceOwn.gameObject);
         Destroy(equipementOwner.diceOwn.gameObject);
     }
+
+
+
 }

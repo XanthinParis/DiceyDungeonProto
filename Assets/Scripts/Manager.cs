@@ -55,25 +55,42 @@ public class Manager : Singleton<Manager>
     {
         int numberOfBig = 0;
 
+        ///Le Gadget est placé dans le tableau de skill du player.
+
         //Instanciate big skill before small one in Order to put then in the proper place.
         for (int i = 0; i < playerManager.playerSkills.Count; i++)
         {
             if (playerManager.playerSkills[i].isBig)
             {
                 GameObject InitSkill = Instantiate(bigSkill, bigSkillPosition[numberOfBig].position, Quaternion.identity);
-                InitSkill.GetComponent<EquipementOwner>().equipementOwn = playerManager.playerSkills[i];
-                InitSkill.GetComponent<EquipementOwner>().UpdateVisuel();
+                EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
+
+                equipOwner.equipementOwn = playerManager.playerSkills[i];
+                equipOwner.UpdateVisuel();
+                equipOwner.equipementOwn.currentlyOnField = true;
                 numberOfBig++;
             }
         }
 
+        //Instancier les petits skills après les grands.
         for (int i = 0; i < playerManager.playerSkills.Count; i++)
         {
             if (playerManager.playerSkills[i].isBig == false)
             {
                 GameObject InitSkill = Instantiate(smallSkill, smallSkillPosition[i+ numberOfBig].position, Quaternion.identity);
-                InitSkill.GetComponent<EquipementOwner>().equipementOwn = playerManager.playerSkills[i];
-                InitSkill.GetComponent<EquipementOwner>().UpdateVisuel();
+                EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
+
+                equipOwner.equipementOwn = playerManager.playerSkills[i];
+                equipOwner.UpdateVisuel();
+                equipOwner.equipementOwn.currentlyOnField = true;
+            }
+        }
+
+        for (int i = 0; i < playerManager.playerSkills.Count; i++)
+        {
+            if (playerManager.playerSkills[i].conditions == Skill.conditionType.countdown)
+            {
+                playerManager.playerSkillsWithCountDown.Add(playerManager.playerSkills[i]);
             }
         }
 

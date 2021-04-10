@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef0efb249c92d34dab14fafafa97475, type: 3}
-  m_Name: Equipement Test 1
+  m_Script: {fileID: 11500000, guid: 52c0503116ef5e0498a412f8e686dbfd, type: 3}
+  m_Name: Jeu De Jambes
   m_EditorClassIdentifier: 
   isReusable: 0
   reusableTime: 0
-  isBig: 1
-  skillName: Pair
-  skillDescription: Dealing Test Value.
-  diceDescription: 
-  equipementOwner: {fileID: 0}
-  conditions: 3
+  isBig: 0
+  damages: 0
   valueCondition: 0
   currentCountdown: 0
+  conditions: 0
+  skillName: 
+  skillDescription: 
+  diceDescription: 
+  equipementOwner: {fileID: 0}
