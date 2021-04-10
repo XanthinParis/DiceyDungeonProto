@@ -10,7 +10,10 @@ public class Manager : Singleton<Manager>
 {
     [Header("Gameplay")]
     public DiceManager diceManager;
-    
+
+    [Header("UI")]
+    public GameCanvasManager canvasManager;
+
     [Header("Character")]
     public PlayerManager playerManager;
     public EnemyBehaviour enemyBehaviour;

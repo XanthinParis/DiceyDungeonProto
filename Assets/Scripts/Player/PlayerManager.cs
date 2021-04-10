@@ -36,6 +36,7 @@ public class PlayerManager : MonoBehaviour
 
         if (currentLimitBreakPV < 0)
         {
+            Manager.Instance.canvasManager.UpdateLimitBreakVisuel();
             limitBreakAvailable = true;
             currentLimitBreakPV = LimitBreakPV;
         }
@@ -47,18 +48,25 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    //S'active quand le joueur appuie sur le bouton;
     public void LimitBreak()
     {
-        limitBreakAvailable = false;
-        for (int i = 0; i < playerSkillsWithCountDown.Count; i++)
+        if (limitBreakAvailable)
         {
-            if(playerSkillsWithCountDown[i].currentlyOnField == true)
+            limitBreakAvailable = false;
+            Manager.Instance.canvasManager.UpdateLimitBreakVisuel();
+
+            for (int i = 0; i < playerSkillsWithCountDown.Count; i++)
             {
-                StartCoroutine(DelayCountdown(3, playerSkillsWithCountDown[i].equipementOwner));
+                if (playerSkillsWithCountDown[i].currentlyOnField == true)
+                {
+                    StartCoroutine(DelayCountdown(3, playerSkillsWithCountDown[i].equipementOwner));
+                }
             }
         }
     }
 
+    //Delay le compteur visuel pour un feedback sympa;
     public IEnumerator DelayCountdown(int value, EquipementOwner equipementOwner)
     {
         for (int i = 0; i < value; i++)
