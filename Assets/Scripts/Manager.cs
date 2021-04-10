@@ -71,6 +71,7 @@ public class Manager : Singleton<Manager>
                 equipOwner.equipementOwn = playerManager.playerSkills[i];
                 equipOwner.UpdateVisuel();
                 equipOwner.equipementOwn.currentlyOnField = true;
+                equipOwner.equipementOwn.initSkillValue();
                 numberOfBig++;
             }
         }
@@ -86,6 +87,7 @@ public class Manager : Singleton<Manager>
                 equipOwner.equipementOwn = playerManager.playerSkills[i];
                 equipOwner.UpdateVisuel();
                 equipOwner.equipementOwn.currentlyOnField = true;
+                equipOwner.equipementOwn.initSkillValue();
             }
         }
 

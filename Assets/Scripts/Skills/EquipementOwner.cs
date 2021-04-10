@@ -28,7 +28,7 @@ public class EquipementOwner : MonoBehaviour
     public void InitSkill()
     {
         equipementOwn.equipementOwner = this;
-        Debug.Log(equipementOwn.equipementOwner);
+        //Debug.Log(equipementOwn.equipementOwner);
 
         if (equipementOwn.conditions == Skill.conditionType.countdown)
         {
@@ -44,13 +44,26 @@ public class EquipementOwner : MonoBehaviour
         description.text = equipementOwn.skillDescription;
         diceDescription.text = equipementOwn.diceDescription;
 
-        if (equipementOwn.conditions == Skill.conditionType.countdown)
+        switch (equipementOwn.conditions)
         {
-            diceValue.text = equipementOwn.currentCountdown.ToString();
-        }
-        else
-        {
-            diceValue.text = equipementOwn.valueCondition.ToString();
+            case Skill.conditionType.minValue:
+                diceValue.text = "Min: " +  equipementOwn.valueCondition.ToString();
+                break;
+            case Skill.conditionType.maxValue:
+                diceValue.text = "Max: " + equipementOwn.valueCondition.ToString();
+                break;
+            case Skill.conditionType.countdown:
+                diceValue.text = equipementOwn.currentCountdown.ToString();
+                break;
+            case Skill.conditionType.pair:
+                break;
+            case Skill.conditionType.impair:
+                break;
+            case Skill.conditionType.value:
+                diceValue.text = " ";
+                break;
+            default:
+                break;
         }
     }
 
@@ -70,7 +83,7 @@ public class EquipementOwner : MonoBehaviour
             if(collision.gameObject == Manager.Instance.playerManager.storedDice[i])
             {
                 diceOwn = collision.gameObject.GetComponent<DiceBehaviour>();
-                Debug.Log("Collide");
+                //Debug.Log("Collide");
                 diceHere = true;
             }
         }
@@ -84,7 +97,7 @@ public class EquipementOwner : MonoBehaviour
             {
                 diceHere = false;
                 diceOwn = null;
-                Debug.Log("ExitCollide");
+                //Debug.Log("ExitCollide");
             }
         }
     }

@@ -509,6 +509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diceManager: {fileID: 1632081145}
+  canvasManager: {fileID: 0}
   playerManager: {fileID: 1121895640}
   enemyBehaviour: {fileID: 1057038027}
   cursorBehaviour: {fileID: 1294098947}
@@ -1409,14 +1410,15 @@ MonoBehaviour:
   health: 0
   maxHealth: 0
   LimitBreakPV: 0
+  currentLimitBreakPV: 0
+  limitBreakAvailable: 0
   storedDice: []
   playerSkills:
-  - {fileID: 11400000, guid: bc7d70395ab87ae41ae6a8afbdb5583f, type: 2}
+  - {fileID: 11400000, guid: 42738f456d1b7ea459df17a811ab034e, type: 2}
+  - {fileID: 11400000, guid: 64c7e5511dac3c64897d261166c04ada, type: 2}
   - {fileID: 11400000, guid: 7d3fd727fedd359468d0c7933a118ea7, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  playerSkillsWithCountDown: []
+  isEsquive: 0
 --- !u!4 &1121895641
 Transform:
   m_ObjectHideFlags: 0
@@ -1587,6 +1589,7 @@ GameObject:
   - component: {fileID: 1268417481}
   - component: {fileID: 1268417480}
   - component: {fileID: 1268417479}
+  - component: {fileID: 1268417482}
   m_Layer: 0
   m_Name: GAMECANVAS
   m_TagString: Untagged
@@ -1678,6 +1681,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1268417482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268417477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d99e84f1dcd714699e946f91da24ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  limitBreakButton: {fileID: 1275828362}
 --- !u!1 &1275828358
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,7 +1777,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275828358}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1796,7 +1812,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1275828360}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1121895640}
+        m_MethodName: LimitBreak
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1294098942
 GameObject:
   m_ObjectHideFlags: 0

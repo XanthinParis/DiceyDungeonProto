@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Equipements/GantsDeBoxe")]
-public class GantsdeBoxe : Skill
+
+[CreateAssetMenu(menuName = "Equipements/Direct")]
+public class Direct : Skill
 {
-    private void Awake()
+
+    public override void initSkillValue()
     {
         if (conditions == conditionType.countdown)
         {
             currentCountdown = valueCondition;
+
+        }
+
+        if (isReusable)
+        {
+            timeUsed = 0;
         }
     }
 
@@ -103,17 +111,25 @@ public class GantsdeBoxe : Skill
 
     public override void Use()
     {
+        //Bloquer les joueurs sur la position;
         equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
         equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
         equipementOwner.diceOwn.canMove = false;
 
-        DestroyDice();
+        equipementOwner.diceOwn.gameObject.SetActive(false);
+        equipementOwner.diceOwn = null;
 
-        Manager.Instance.enemyBehaviour.TakeDamages(damages);
+        if (isReusable)
+        {
+            Manager.Instance.playerManager.directRepetition++;
 
-        //ClearEquipement - Animation;
+            equipementOwner.diceOwn.gameObject.SetActive(false);
+            equipementOwner.diceOwn = null;
 
-        Debug.Log("Correct");
+            Manager.Instance.enemyBehaviour.TakeDamages(damages + Manager.Instance.playerManager.directRepetition);
+
+            currentCountdown = valueCondition;
+        }
     }
 
     public override void DestroyDice()
@@ -121,4 +137,5 @@ public class GantsdeBoxe : Skill
         Manager.Instance.playerManager.storedDice.Remove(equipementOwner.diceOwn.gameObject);
         Destroy(equipementOwner.diceOwn.gameObject);
     }
+
 }

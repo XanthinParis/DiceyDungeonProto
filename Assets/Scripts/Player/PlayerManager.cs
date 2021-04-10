@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     public List<Skill> playerSkillsWithCountDown = new List<Skill>();
 
     public bool isEsquive = false;
+    public int directRepetition = 0;
 
     public void InitPlayer()
     {
@@ -72,6 +73,11 @@ public class PlayerManager : MonoBehaviour
         for (int i = 0; i < value; i++)
         {
             equipementOwner.equipementOwn.currentCountdown--;
+
+            if(equipementOwner.equipementOwn.currentCountdown <= 0)
+            {
+                equipementOwner.equipementOwn.currentCountdown = 0;
+            }    
             equipementOwner.diceValue.text = equipementOwner.equipementOwn.currentCountdown.ToString();
             yield return new WaitForSeconds(0.2f);
         }

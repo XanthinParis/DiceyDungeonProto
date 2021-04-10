@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu(menuName = "Equipements/Test")]
-public class EquipementTest : Skill
+[CreateAssetMenu(menuName = "Equipements/GantsDeBoxe")]
+public class GantsDeBoxe : Skill
 {
-    private void Awake()
+    public override void initSkillValue()
     {
-        if(conditions == conditionType.countdown)
+        if (conditions == conditionType.countdown)
         {
             currentCountdown = valueCondition;
+
+        }
+
+        if (isReusable)
+        {
+            timeUsed = 0;
         }
     }
 
@@ -43,31 +48,38 @@ public class EquipementTest : Skill
                     break;
                 }
                 break;
-            
+
             //While the countdown is not 0, don't start Use(); Each dice reduce the currentCountdown Value
             case conditionType.countdown:
 
-                equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
-                equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
-                equipementOwner.diceOwn.canMove = false;
+                if(equipementOwner.diceOwn != null)
+                {
+                    equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
+                    equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
+                    equipementOwner.diceOwn.canMove = false;
 
+                }
                 Manager.Instance.playerManager.StartCoroutine(Manager.Instance.playerManager.DelayCountdown(equipementOwner.diceOwn.valueDice, equipementOwner));
 
                 if (currentCountdown < 0)
                 {
-                    DestroyDice();
+                    //DestroyDice();
+                    equipementOwner.diceOwn.gameObject.SetActive(false);
+                    equipementOwner.diceOwn = null;
                     currentCountdown = 0;
-                    
+
                     currentCountdown = valueCondition;
                     Use();
                 }
                 else
                 {
-                    DestroyDice();
+                    //DestroyDice();
+                    equipementOwner.diceOwn.gameObject.SetActive(false);
+                    equipementOwner.diceOwn = null;
                     break;
                 }
                 break;
-                
+
             //The Dice Value need to be pair (2.4.6).
             case conditionType.pair:
                 if (equipementOwner.diceOwn.valueDice == 2 || equipementOwner.diceOwn.valueDice == 4 || equipementOwner.diceOwn.valueDice == 6)
@@ -84,7 +96,7 @@ public class EquipementTest : Skill
             case conditionType.impair:
                 if (equipementOwner.diceOwn.valueDice == 1 || equipementOwner.diceOwn.valueDice == 3 || equipementOwner.diceOwn.valueDice == 5)
                 {
-                   
+
                     Use();
                 }
                 else
@@ -108,10 +120,11 @@ public class EquipementTest : Skill
         equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
         equipementOwner.diceOwn.canMove = false;
 
-        //Stored Dice Value;
-        int currentDiceValue = equipementOwner.diceOwn.valueDice;
+        //DestroyDice();
+        equipementOwner.diceOwn.gameObject.SetActive(false);
+        equipementOwner.diceOwn = null;
 
-        //Effect;
+        Manager.Instance.enemyBehaviour.TakeDamages(damages);
 
         //ClearEquipement - Animation;
 

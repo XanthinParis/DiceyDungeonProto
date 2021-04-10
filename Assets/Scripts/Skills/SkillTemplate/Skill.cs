@@ -7,11 +7,14 @@ public abstract class Skill : ScriptableObject
     [Header("Usability")]
     public bool isReusable;
     public int reusableTime;
+    public int timeUsed = 0;
     public bool isBig;
     public int damages;
     public int valueCondition;
     public int currentCountdown;
 
+    public bool isBreak;
+    public bool isShock;
     public bool currentlyOnField = false;
 
     //Type of Conditions
@@ -25,6 +28,8 @@ public abstract class Skill : ScriptableObject
     
     //Variable to Store when a Dice is put in a equipement;
     public EquipementOwner equipementOwner;
+
+    public abstract void initSkillValue();
 
     //Test the value of the Dice according conditionType;
     public abstract void TestValue();

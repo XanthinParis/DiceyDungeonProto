@@ -6,16 +6,20 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Equipements/JeuDeJambes")]
 public class JeuDeJambes : Skill
 {
-    private int timeUsed = 0;
-
-    //Initialiser les valeurs.
-    private void Awake()
+    public override void initSkillValue()
     {
         if (conditions == conditionType.countdown)
         {
             currentCountdown = valueCondition;
+
+        }
+
+        if (isReusable)
+        {
+            timeUsed = 0;
         }
     }
+
     public override void TestValue()
     {
         switch (conditions)
@@ -111,7 +115,7 @@ public class JeuDeJambes : Skill
         equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
         equipementOwner.diceOwn.canMove = false;
 
-        DestroyDice();
+        
 
         if (isReusable)
         {
@@ -119,15 +123,20 @@ public class JeuDeJambes : Skill
             if (timeUsed < reusableTime)
             {
                 //Laisser la compétence
+
+                equipementOwner.diceOwn.gameObject.SetActive(false);
+                equipementOwner.diceOwn = null;
+                //ajout un dé à la main du joueur.
+                Manager.Instance.diceManager.addDice(1);
             }
             else
             {
+                Manager.Instance.diceManager.addDice(1);
                 equipementOwner.gameObject.SetActive(false);
             }
         }
 
-        //ajout un dé à la main du joueur.
-        Manager.Instance.diceManager.addDice(1);
+      
     }
 
     public override void DestroyDice()
@@ -136,6 +145,5 @@ public class JeuDeJambes : Skill
         Destroy(equipementOwner.diceOwn.gameObject);
     }
 
-
-
+   
 }
