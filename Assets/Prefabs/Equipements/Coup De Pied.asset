@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb61ff4aa93f9f34282e35ee39d34ab5, type: 3}
+  m_Name: Coup De Pied
+  m_EditorClassIdentifier: 
+  isReusable: 0
+  reusableTime: 0
+  timeUsed: 0
+  isBig: 0
+  damages: 0
+  valueCondition: 0
+  currentCountdown: 0
+  isBreak: 0
+  isShock: 0
+  currentlyOnField: 0
+  conditions: 0
+  skillName: 
+  skillDescription: 
+  diceDescription: 
+  equipementOwner: {fileID: 0}

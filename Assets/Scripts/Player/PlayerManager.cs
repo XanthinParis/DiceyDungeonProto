@@ -28,6 +28,7 @@ public class PlayerManager : MonoBehaviour
     public void InitPlayer()
     {
         health = maxHealth;
+        directRepetition = 0;
     }
 
     public void TakeDamages(int damages)
