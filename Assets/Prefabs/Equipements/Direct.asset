@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a197de44c1b7d14eaeb5709cb30d37f, type: 3}
   m_Name: Direct
   m_EditorClassIdentifier: 
-  isReusable: 0
+  isReusable: 1
   reusableTime: 0
   timeUsed: 0
   isBig: 0
-  damages: 0
-  valueCondition: 0
+  damages: 4
+  valueCondition: 6
   currentCountdown: 0
+  isBreak: 0
+  isShock: 0
   currentlyOnField: 0
-  conditions: 0
-  skillName: 
-  skillDescription: 
+  conditions: 2
+  skillName: Direct
+  skillDescription: "D\xE9gats 4 (+1/utilisation)"
   diceDescription: 
   equipementOwner: {fileID: 0}
