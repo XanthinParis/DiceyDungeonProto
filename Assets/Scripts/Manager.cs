@@ -30,12 +30,20 @@ public class Manager : Singleton<Manager>
     [SerializeField] private GameObject bigSkill;
 
     [Header("SkillPosition")]
-    [SerializeField] private GameObject smallSkillParentPosition;
-    public List<Transform> smallSkillPosition = new List<Transform>();
-    [SerializeField] private GameObject bigSkillParentPosition;
-    public List <Transform> bigSkillPosition = new List<Transform>();
-    [SerializeField] private GameObject goAwayPlayerParent;
-    public List<Transform> goAwayPlayerPosition = new List<Transform>();
+    [SerializeField] private GameObject smallSkillParentPositionPlayer;
+    public List<Transform> smallSkillPositionPlayer = new List<Transform>();
+    [SerializeField] private GameObject bigSkillParentPositionPlayer;
+    public List <Transform> bigSkillPositionPlayer = new List<Transform>();
+    [SerializeField] private GameObject goAwayPlayerParentPlayer;
+    public List<Transform> goAwayPlayerPositionPlayer = new List<Transform>();
+
+    [Header("SkillPosition")]
+    [SerializeField] private GameObject smallSkillParentPositionEnemy;
+    public List<Transform> smallSkillPositionEnemy = new List<Transform>();
+    [SerializeField] private GameObject bigSkillParentPositionEnemy;
+    public List<Transform> bigSkillPositionEnemy = new List<Transform>();
+    [SerializeField] private GameObject goAwayPlayerParentEnemy;
+    public List<Transform> goAwayPlayerPositionEnemy = new List<Transform>();
 
     private void Awake()
     {
@@ -44,20 +52,39 @@ public class Manager : Singleton<Manager>
 
     private void Start()
     {
-        for (int i = 0; i < smallSkillParentPosition.GetComponent<GetPositions>().waypointsPosition.Count; i++)
+        #region PlayerPositionref
+        for (int i = 0; i < smallSkillParentPositionPlayer.GetComponent<GetPositions>().waypointsPosition.Count; i++)
         {
-            smallSkillPosition.Add(smallSkillParentPosition.GetComponent<GetPositions>().waypointsPosition[i]);
+            smallSkillPositionPlayer.Add(smallSkillParentPositionPlayer.GetComponent<GetPositions>().waypointsPosition[i]);
         }
 
-        for (int i = 0; i < bigSkillParentPosition.GetComponent<GetPositions>().waypointsPosition.Count; i++)
+        for (int i = 0; i < bigSkillParentPositionPlayer.GetComponent<GetPositions>().waypointsPosition.Count; i++)
         {
-            bigSkillPosition.Add(bigSkillParentPosition.GetComponent<GetPositions>().waypointsPosition[i]);
+            bigSkillPositionPlayer.Add(bigSkillParentPositionPlayer.GetComponent<GetPositions>().waypointsPosition[i]);
         }
         
-        for (int i = 0; i < goAwayPlayerParent.GetComponent<GetPositions>().waypointsPosition.Count; i++)
+        for (int i = 0; i < goAwayPlayerParentPlayer.GetComponent<GetPositions>().waypointsPosition.Count; i++)
         {
-            goAwayPlayerPosition.Add(goAwayPlayerParent.GetComponent<GetPositions>().waypointsPosition[i]);
+            goAwayPlayerPositionPlayer.Add(goAwayPlayerParentPlayer.GetComponent<GetPositions>().waypointsPosition[i]);
         }
+        #endregion
+
+        #region EnemyPositionRef
+        for (int i = 0; i < smallSkillParentPositionEnemy.GetComponent<GetPositions>().waypointsPosition.Count; i++)
+        {
+            smallSkillPositionEnemy.Add(smallSkillParentPositionEnemy.GetComponent<GetPositions>().waypointsPosition[i]);
+        }
+
+        for (int i = 0; i < bigSkillParentPositionEnemy.GetComponent<GetPositions>().waypointsPosition.Count; i++)
+        {
+            bigSkillPositionEnemy.Add(bigSkillParentPositionEnemy.GetComponent<GetPositions>().waypointsPosition[i]);
+        }
+
+        for (int i = 0; i < goAwayPlayerParentEnemy.GetComponent<GetPositions>().waypointsPosition.Count; i++)
+        {
+            goAwayPlayerPositionEnemy.Add(goAwayPlayerParentEnemy.GetComponent<GetPositions>().waypointsPosition[i]);
+        }
+        #endregion
 
         InitialiseCombat();
     }
@@ -66,10 +93,11 @@ public class Manager : Singleton<Manager>
     {
         playerManager.InitPlayer();
         enemyBehaviour.InitEnemy();
-        InitSkill();
+        InitPlayerSkill();
+        InitEnemySkill();
     }
 
-    public void InitSkill()
+    public void InitPlayerSkill()
     {
         int numberOfBig = 0;
 
@@ -80,7 +108,7 @@ public class Manager : Singleton<Manager>
         {
             if (playerManager.playerSkills[i].isBig)
             {
-                GameObject InitSkill = Instantiate(bigSkill, bigSkillPosition[numberOfBig].position, Quaternion.identity);
+                GameObject InitSkill = Instantiate(bigSkill, bigSkillPositionPlayer[numberOfBig].position, Quaternion.identity);
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
 
                 equipOwner.equipementOwn = playerManager.playerSkills[i];
@@ -98,7 +126,7 @@ public class Manager : Singleton<Manager>
         {
             if (playerManager.playerSkills[i].isBig == false)
             {
-                GameObject InitSkill = Instantiate(smallSkill, smallSkillPosition[i+ numberOfBig].position, Quaternion.identity);
+                GameObject InitSkill = Instantiate(smallSkill, smallSkillPositionPlayer[i+ numberOfBig].position, Quaternion.identity);
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
                 
                 equipOwner.equipementOwn = playerManager.playerSkills[i];
@@ -122,6 +150,66 @@ public class Manager : Singleton<Manager>
             if (playerManager.playerSkills[i].conditions == Skill.conditionType.countdown)
             {
                 playerManager.playerSkillsWithCountDown.Add(playerManager.playerSkills[i]);
+            }
+        }
+
+        numberOfBig = 0;
+        smallCount = 0;
+    }
+
+    public void InitEnemySkill()
+    {
+        int numberOfBig = 0;
+
+        ///Le Gadget est placé dans le tableau de skill du player.
+
+        //Instanciate big skill before small one in Order to put then in the proper place.
+        for (int i = 0; i < enemyBehaviour.enemySkillList.Count; i++)
+        {
+            if (enemyBehaviour.enemySkillList[i].isBig)
+            {
+                GameObject InitSkill = Instantiate(bigSkill, bigSkillPositionEnemy[numberOfBig].position, Quaternion.identity);
+                EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
+
+                equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
+                equipOwner.UpdateVisuel();
+                equipOwner.equipementOwn.currentlyOnField = true;
+                equipOwner.equipementOwn.initSkillValue();
+                equipOwner.position = i;
+                numberOfBig++;
+            }
+        }
+
+        int smallCount = 0;
+        //Instancier les petits skills après les grands.
+        for (int i = 0; i < enemyBehaviour.enemySkillList.Count; i++)
+        {
+            if (!enemyBehaviour.enemySkillList[i].isBig)
+            {
+                GameObject InitSkill = Instantiate(smallSkill, smallSkillPositionEnemy[i + numberOfBig].position, Quaternion.identity);
+                EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
+
+                equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
+                equipOwner.UpdateVisuel();
+                equipOwner.equipementOwn.currentlyOnField = true;
+                equipOwner.equipementOwn.initSkillValue();
+
+                equipOwner.position = numberOfBig;
+                smallCount++;
+                if (smallCount == 2)
+                {
+                    smallCount = 0;
+                    numberOfBig++;
+                }
+
+            }
+        }
+
+        for (int i = 0; i < enemyBehaviour.enemySkillList.Count; i++)
+        {
+            if (enemyBehaviour.enemySkillList[i].conditions == Skill.conditionType.countdown)
+            {
+                enemyBehaviour.enemySkillWithCountdown.Add(enemyBehaviour.enemySkillList[i]);
             }
         }
 

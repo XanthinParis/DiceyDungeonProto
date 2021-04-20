@@ -8,6 +8,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     public int maxHealth;
 
     public List<Skill> enemySkillList = new List<Skill>();
+    public List<Skill> enemySkillWithCountdown = new List<Skill>();
 
     private void Awake()
     {
