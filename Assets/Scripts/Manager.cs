@@ -53,12 +53,16 @@ public class Manager : Singleton<Manager>
     private void Awake()
     {
         enemyBehaviour = currentEnemy.GetComponent<EnemyBehaviour>();
-
-        
     }
 
     private void Start()
     {
+        StartCoroutine(StartEnum());
+    }
+
+    private IEnumerator StartEnum()
+    {
+        yield return new WaitForSeconds(0.1f);
         #region PlayerPositionref
         for (int i = 0; i < smallSkillParentPositionPlayer.GetComponent<GetPositions>().waypointsPosition.Count; i++)
         {
@@ -232,29 +236,45 @@ public class Manager : Singleton<Manager>
 
     public void EndTurn()
     {
-        if(turn == GameTurn.Player) // Fin du tour du player
+        StartCoroutine(EndTurnEnum());
+    }
+
+    private IEnumerator EndTurnEnum()
+    {
+        if (turn == GameTurn.Player) // Fin du tour du player
         {
+            turn = GameTurn.Enemy;
             //Reset competences
+            playerManager.playerSkillsWithCountDown.Clear();
             for (int i = 0; i < playerManager.playerEquipementOwner.Count; i++)
             {
                 playerManager.playerEquipementOwner[i].AnimationUse();
             }
 
-            //Reset Dices
-            for (int i = 0; i < playerManager.storedDice.Count; i++)
-            {
-                GameObject currentDice = playerManager.storedDice[i];
-
-                playerManager.storedDice.Remove(currentDice);
-                Destroy(currentDice);
-            }
+            
+            diceManager.ResetDicePlayer();
 
             canvasManager.SwitchCamera();
-            Manager.Instance.diceManager.GenerateDiceEnemy();
+            diceManager.GenerateDiceEnemy();
+            canvasManager.upCross.SetActive(false);
+            canvasManager.downCross.SetActive(false);
         }
         else                        // Fin du tour de l'enemy.
         {
+            playerManager.playerSkillsWithCountDown.Clear();
+            for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
+            {
+                enemyBehaviour.enemyEquipementOwner[i].AnimationUse();
+            }
 
+            diceManager.ResetDiceEnemy();
+            canvasManager.SwitchCamera();
+            diceManager.GenerateDicePlayer();
+            InitPlayerSkill();
+            turn = GameTurn.Player;
+            yield return new WaitForSeconds(1f);
+            InitEnemySkill();
+            canvasManager.upCross.SetActive(true);
         }
     }
 }

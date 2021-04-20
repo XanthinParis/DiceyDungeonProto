@@ -1023,18 +1023,19 @@ MonoBehaviour:
     type: 3}
   bigSkill: {fileID: 7019042793173267749, guid: 60a3e4be9fbb0e84d9b44f5b464e8e3a,
     type: 3}
+  turn: 0
   smallSkillParentPositionPlayer: {fileID: 1801197223}
   smallSkillPositionPlayer: []
   bigSkillParentPositionPlayer: {fileID: 1735889347}
   bigSkillPositionPlayer: []
-  goAwayPlayerParentPlayer: {fileID: 1515068554}
-  goAwayPlayerPositionPlayer: []
+  goAwayParentPlayer: {fileID: 1515068554}
+  goAwayPositionPlayer: []
   smallSkillParentPositionEnemy: {fileID: 821837199}
   smallSkillPositionEnemy: []
   bigSkillParentPositionEnemy: {fileID: 391912879}
   bigSkillPositionEnemy: []
-  goAwayPlayerParentEnemy: {fileID: 52241546}
-  goAwayPlayerPositionEnemy: []
+  goAwayParentEnemy: {fileID: 52241546}
+  goAwayPositionEnemy: []
 --- !u!4 &668372213
 Transform:
   m_ObjectHideFlags: 0
@@ -2125,7 +2126,9 @@ MonoBehaviour:
   initialDiceCount: 3
   numberOfDice: 0
   storedDice: []
-  enemySkillList: []
+  enemySkillList:
+  - {fileID: 11400000, guid: cfdef0d8f47b176428a4cb14381a0810, type: 2}
+  enemyEquipementOwner: []
   enemySkillWithCountdown: []
 --- !u!4 &1057038028
 Transform:
@@ -2212,6 +2215,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42738f456d1b7ea459df17a811ab034e, type: 2}
   - {fileID: 11400000, guid: 64c7e5511dac3c64897d261166c04ada, type: 2}
   - {fileID: 11400000, guid: 7d3fd727fedd359468d0c7933a118ea7, type: 2}
+  playerEquipementOwner: []
   playerSkillsWithCountDown: []
   isEsquive: 0
   directRepetition: 0

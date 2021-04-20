@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ce1d4756bfef34ba552797edf662e9, type: 3}
+  m_Name: Uppercut Enemy
+  m_EditorClassIdentifier: 
+  isReusable: 0
+  reusableTime: 0
+  timeUsed: 0
+  isBig: 1
+  damages: 20
+  valueCondition: 24
+  currentCountdown: 24
+  isBreak: 0
+  isShock: 0
+  currentlyOnField: 0
+  conditions: 2
+  side: 1
+  skillName: UpperCut (E)
+  skillDescription: 
+  diceDescription: 
+  equipementOwner: {fileID: 0}

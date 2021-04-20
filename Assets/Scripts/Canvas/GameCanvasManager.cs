@@ -12,8 +12,8 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerHealthText;
 
     [SerializeField] private Transform[] cameraPos; //0Player //1Enemy;
-    [SerializeField] private GameObject upCross;
-    [SerializeField] private GameObject downCross;
+    public GameObject upCross;
+    public GameObject downCross;
 
     private bool playerView = true;
 
@@ -22,6 +22,15 @@ public class GameCanvasManager : MonoBehaviour
     {
         downCross.SetActive(false);
         UpdateLimitBreakVisuel();
+    }
+
+    private void Update()
+    {
+        if (Manager.Instance.turn == Manager.GameTurn.Enemy)
+        {
+            upCross.SetActive(false);
+            downCross.SetActive(false);
+        }
     }
 
     // Update is called once per frame

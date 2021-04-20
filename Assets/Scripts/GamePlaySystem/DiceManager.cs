@@ -43,7 +43,7 @@ public class DiceManager : MonoBehaviour
         }
     }
 
-    public void GenerateDicePlayer()
+    public void ResetDicePlayer()
     {
         //Reset tous les dices.
         for (int i = 0; i < Manager.Instance.playerManager.storedDice.Count; i++)
@@ -53,13 +53,27 @@ public class DiceManager : MonoBehaviour
 
         //Clear du Tableau.
         Manager.Instance.playerManager.storedDice.Clear();
+    }
 
+    public void ResetDiceEnemy()
+    {
+        //Reset tous les dices.
+        for (int i = 0; i < Manager.Instance.enemyBehaviour.storedDice.Count; i++)
+        {
+            Destroy(Manager.Instance.enemyBehaviour.storedDice[i]);
+        }
+
+        //Clear du Tableau.
+        Manager.Instance.enemyBehaviour.storedDice.Clear();
+    }
+
+    public void GenerateDicePlayer()
+    {
         //Instanciation des dés.
         for (int i = 0; i < Manager.Instance.playerManager.initialDiceCount; i++)
         {
             //1 - Générer un nombre pour simuler de l'aléatoire.
             int spawnValue = Random.Range(0, 6);
-
             //2 - En fonction de du nombre choisi, j'instancie le dé à la bonne position.
             GameObject spawnedDice = Instantiate(dices[spawnValue], diceInitialPositionPlayer[i].transform.position, Quaternion.identity);
             Manager.Instance.playerManager.storedDice.Add(spawnedDice);
