@@ -24,6 +24,8 @@ public class PlayerManager : Singleton<PlayerManager>
     public bool isEsquive = false;
     public int directRepetition = 0;
 
+    public int numberOfBurn = 0;
+
     private void Awake()
     {
         CreateSingleton(true);
@@ -33,6 +35,11 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         health = maxHealth;
         directRepetition = 0;
+    }
+
+    public void InitFireAlt(int number)
+    {
+        numberOfBurn += number;
     }
 
     public void TakeDamages(int damages)

@@ -98,6 +98,7 @@ public abstract class Skill : ScriptableObject
                 break;
 
             case conditionType.value:
+                
                 Use();
                 break;
 

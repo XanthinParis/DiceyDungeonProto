@@ -263,10 +263,11 @@ public class Manager : Singleton<Manager>
             diceManager.GenerateDiceEnemy();
             canvasManager.upCross.SetActive(false);
             canvasManager.downCross.SetActive(false);
+            enemyBehaviour.EnemyBattle();
         }
         else                        // Fin du tour de l'enemy.
         {
-            playerManager.playerSkillsWithCountDown.Clear();
+            enemyBehaviour.enemySkillWithCountdown.Clear();
             for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
             {
                 enemyBehaviour.enemyEquipementOwner[i].AnimationUse();

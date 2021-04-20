@@ -9,22 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ce1d4756bfef34ba552797edf662e9, type: 3}
-  m_Name: Gants De Boxe
+  m_Script: {fileID: 11500000, guid: 3f094466f94e54848bc7210a5bf3e49f, type: 3}
+  m_Name: FireBreath
   m_EditorClassIdentifier: 
   isReusable: 0
   reusableTime: 0
   timeUsed: 0
-  isBig: 1
-  damages: 8
-  valueCondition: 10
-  currentCountdown: 10
+  isBig: 0
+  damages: 4
+  valueCondition: 5
+  currentCountdown: 5
   isBreak: 0
   isShock: 0
-  currentlyOnField: 1
+  currentlyOnField: 0
   conditions: 2
-  side: 0
-  skillName: Gants de Boxe
-  skillDescription: "8 d\xE9gats."
+  side: 1
+  skillName: FireBreath
+  skillDescription: 'Deals 4 + 1 Burn '
   diceDescription: 
   equipementOwner: {fileID: 0}

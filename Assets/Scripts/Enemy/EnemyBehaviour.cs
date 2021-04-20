@@ -25,6 +25,65 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         health = maxHealth;
     }
 
+    public void EnemyBattle()
+    {
+        int valueDice0 = storedDice[0].GetComponent<DiceBehaviour>().dice.value;
+        int valueDice1 = storedDice[1].GetComponent<DiceBehaviour>().dice.value;
+
+        int maxValue = 0;
+        if (valueDice0 > valueDice1)
+        {
+            maxValue = valueDice0;
+        }
+        else
+        {
+            maxValue = valueDice1;
+        }
+
+        if (maxValue >=5)
+        {
+            Debug.Log("Methode1");
+            //StartCoroutine(FocusFirstSkill());
+        }
+        else
+        {
+            Debug.Log("Methode2");
+            //StartCoroutine(FocusSecondSkill());
+        }
+    }
+
+    private IEnumerator FocusFirstSkill()
+    {
+        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position,1f,Easings.Ease.SmootherStep,true);
+        yield return new WaitForSeconds(1f);
+        enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+        enemyEquipementOwner[0].equipementOwn.TestValue();
+        yield return new WaitForSeconds(0.2f);
+        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+        yield return new WaitForSeconds(1f);
+        enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
+        enemyEquipementOwner[1].equipementOwn.TestValue();
+        yield return new WaitForSeconds(0.2f);
+        Manager.Instance.EndTurn();
+    }
+
+    private IEnumerator FocusSecondSkill()
+    {
+        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+        yield return new WaitForSeconds(1f);
+        enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
+        enemyEquipementOwner[1].equipementOwn.TestValue();
+        yield return new WaitForSeconds(0.2f);
+        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+        yield return new WaitForSeconds(1f);
+        enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+        enemyEquipementOwner[0].equipementOwn.TestValue();
+        yield return new WaitForSeconds(0.2f);
+        Manager.Instance.EndTurn();
+    }
+
+
+
     public void TakeDamages(int damages)
     {
         health -= damages;

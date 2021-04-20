@@ -1012,6 +1012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockAction: 0
+  firstTurn: 1
   diceManager: {fileID: 1632081145}
   canvasManager: {fileID: 1268417482}
   playerManager: {fileID: 1121895640}
@@ -2127,7 +2128,7 @@ MonoBehaviour:
   numberOfDice: 0
   storedDice: []
   enemySkillList:
-  - {fileID: 11400000, guid: cfdef0d8f47b176428a4cb14381a0810, type: 2}
+  - {fileID: 11400000, guid: 13298edbba2bbc24ebc962e5c5dfee8b, type: 2}
   enemyEquipementOwner: []
   enemySkillWithCountdown: []
 --- !u!4 &1057038028
@@ -2219,6 +2220,7 @@ MonoBehaviour:
   playerSkillsWithCountDown: []
   isEsquive: 0
   directRepetition: 0
+  numberOfBurn: 0
 --- !u!4 &1121895641
 Transform:
   m_ObjectHideFlags: 0
