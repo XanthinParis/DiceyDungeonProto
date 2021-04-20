@@ -13,6 +13,7 @@ public abstract class Skill : ScriptableObject
     public int valueCondition;
     public int currentCountdown;
 
+    [Header("Alterations")]
     public bool isBreak;
     public bool isShock;
     public bool currentlyOnField = false;
@@ -34,12 +35,102 @@ public abstract class Skill : ScriptableObject
     //Test the value of the Dice according conditionType;
     public abstract void TestValue();
 
+    public void RealTestValue()
+    {
+        switch (conditions)
+        {
+            //The Dice Value need to be lower or equal to the value ask;
+            case conditionType.maxValue:
+                if (equipementOwner.diceOwn.valueDice <= valueCondition)
+                {
+                    Use();
+                }
+                else
+                {
+                    Debug.Log("Wrong Dice Value");
+                    break;
+                }
+                break;
+
+            //The Dice Value need to be higher or equal to the value ask;
+            case conditionType.minValue:
+                if (equipementOwner.diceOwn.valueDice >= valueCondition)
+                {
+                    Use();
+                }
+                else
+                {
+                    Debug.Log("Wrong Dice Value");
+                    break;
+                }
+                break;
+
+            //While the countdown is not 0, don't start Use(); Each dice reduce the currentCountdown Value
+            case conditionType.countdown:
+
+                equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
+                equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
+                equipementOwner.diceOwn.canMove = false;
+
+                Manager.Instance.playerManager.StartCoroutine(Manager.Instance.playerManager.DelayCountdown(equipementOwner.diceOwn.valueDice, equipementOwner));
+
+                if (currentCountdown < 0)
+                {
+                    DestroyDice();
+                    currentCountdown = 0;
+
+                    currentCountdown = valueCondition;
+                    Use();
+                }
+                else
+                {
+                    DestroyDice();
+                    break;
+                }
+                break;
+
+            //The Dice Value need to be pair (2.4.6).
+            case conditionType.pair:
+                if (equipementOwner.diceOwn.valueDice == 2 || equipementOwner.diceOwn.valueDice == 4 || equipementOwner.diceOwn.valueDice == 6)
+                {
+                    Use();
+                }
+                else
+                {
+                    Debug.Log("Wrong Dice Value");
+                }
+                break;
+
+            //The Dice Value need to be pair (1.3.5).
+            case conditionType.impair:
+                if (equipementOwner.diceOwn.valueDice == 1 || equipementOwner.diceOwn.valueDice == 3 || equipementOwner.diceOwn.valueDice == 5)
+                {
+
+                    Use();
+                }
+                else
+                {
+                    Debug.Log("Wrong Dice Value");
+                }
+                break;
+
+            case conditionType.value:
+                Use();
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
     //Effect of the Skill;
     public abstract void Use();
 
-    public abstract void DestroyDice();
-
-    
-    
+    public void DestroyDice()
+    {
+        Manager.Instance.playerManager.storedDice.Remove(equipementOwner.diceOwn.gameObject);
+        Destroy(equipementOwner.diceOwn.gameObject);
+    }
 
 }

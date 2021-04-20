@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : Singleton<PlayerManager>
 {
     public int initialDiceCount;
     public int numberOfDice;
@@ -24,6 +23,11 @@ public class PlayerManager : MonoBehaviour
 
     public bool isEsquive = false;
     public int directRepetition = 0;
+
+    private void Awake()
+    {
+        CreateSingleton(true);
+    }
 
     public void InitPlayer()
     {
@@ -47,7 +51,7 @@ public class PlayerManager : MonoBehaviour
         {
             health = 0;
         }
-
+        Manager.Instance.canvasManager.UpdateHealth();
     }
 
     //S'active quand le joueur appuie sur le bouton;
@@ -74,13 +78,17 @@ public class PlayerManager : MonoBehaviour
         for (int i = 0; i < value; i++)
         {
             equipementOwner.equipementOwn.currentCountdown--;
+            equipementOwner.diceValue.text = equipementOwner.equipementOwn.currentCountdown.ToString();
+            yield return new WaitForSeconds(0.1f);
 
-            if(equipementOwner.equipementOwn.currentCountdown <= 0)
+            if (equipementOwner.equipementOwn.currentCountdown <= 0)
             {
                 equipementOwner.equipementOwn.currentCountdown = 0;
-            }    
-            equipementOwner.diceValue.text = equipementOwner.equipementOwn.currentCountdown.ToString();
-            yield return new WaitForSeconds(0.2f);
+                equipementOwner.equipementOwn.Use();
+                StopCoroutine(DelayCountdown(value,equipementOwner));
+                break;
+            }
+            
         }
     }
 }

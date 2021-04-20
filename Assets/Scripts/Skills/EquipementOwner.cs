@@ -5,6 +5,8 @@ using TMPro;
 
 public class EquipementOwner : MonoBehaviour
 {
+    public int position; //Entre 0 et 4;
+
     public Skill equipementOwn;
 
     public DiceBehaviour diceOwn;
@@ -15,12 +17,15 @@ public class EquipementOwner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI diceDescription;
 
+    private Tweener t;
+
     public Transform dicePosition;
 
     public bool diceHere;
 
     private void Start()
     {
+        t = GetComponent<Tweener>();
         
         InitSkill();
     }
@@ -73,6 +78,21 @@ public class EquipementOwner : MonoBehaviour
         {
             equipementOwn.TestValue();
         }
+    }
+
+    public void AnimationUse()
+    {
+        StartCoroutine(AnimationUseEnum());
+    }
+
+    public IEnumerator AnimationUseEnum()
+    {
+        Vector3 TweenPosition = new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z);
+        t.TweenPositionTo(TweenPosition,0.2f,Easings.Ease.SmootherStep,true);
+        yield return new WaitForSeconds(0.2f);
+        t.TweenPositionTo(Manager.Instance.goAwayPlayerPosition[position].transform.position, 0.5f, Easings.Ease.SmootherStep, true);
+        yield return new WaitForSeconds(0.5f);
+        gameObject.SetActive(false);
     }
 
     #region OnTrigger

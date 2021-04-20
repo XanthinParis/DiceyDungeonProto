@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public class EnemyBehaviour : Singleton<EnemyBehaviour>
 {
     public int health;
     public int maxHealth;
 
     public List<Skill> enemySkillList = new List<Skill>();
+
+    private void Awake()
+    {
+        CreateSingleton(true);
+    }
 
     public void InitEnemy()
     {
@@ -22,6 +27,7 @@ public class EnemyBehaviour : MonoBehaviour
             health = 0;
             Debug.Log("dead");
         }
+        Manager.Instance.canvasManager.UpdateHealth();
     }
 
     public void InitBreak(int breakTime)
