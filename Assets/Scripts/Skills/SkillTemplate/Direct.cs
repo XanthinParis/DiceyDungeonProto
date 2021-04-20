@@ -42,6 +42,7 @@ public class Direct : Skill
 
             equipementOwner.diceOwn.gameObject.SetActive(false);
             equipementOwner.diceOwn = null;
+            equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
 
             Manager.Instance.enemyBehaviour.TakeDamages(damages + Manager.Instance.playerManager.directRepetition);
 
@@ -49,4 +50,5 @@ public class Direct : Skill
         }
     }
 
+   
 }

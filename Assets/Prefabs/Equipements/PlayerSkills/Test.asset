@@ -9,19 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52c0503116ef5e0498a412f8e686dbfd, type: 3}
-  m_Name: Jeu De Jambes
+  m_Script: {fileID: 11500000, guid: 0ef0efb249c92d34dab14fafafa97475, type: 3}
+  m_Name: Test
   m_EditorClassIdentifier: 
-  isReusable: 1
-  reusableTime: 2
-  timeUsed: 2
-  isBig: 0
-  damages: 0
-  valueCondition: 0
-  currentCountdown: 0
-  currentlyOnField: 1
-  conditions: 5
-  skillName: Jeu de Jambes
-  skillDescription: "Relance un d\xE9."
+  isReusable: 0
+  reusableTime: 0
+  timeUsed: 0
+  isBig: 1
+  damages: 8
+  valueCondition: 10
+  currentCountdown: 10
+  isBreak: 0
+  isShock: 0
+  currentlyOnField: 0
+  conditions: 2
+  side: 0
+  skillName: Gants de Boxe
+  skillDescription: "D\xE9gats 8."
   diceDescription: 
   equipementOwner: {fileID: 0}

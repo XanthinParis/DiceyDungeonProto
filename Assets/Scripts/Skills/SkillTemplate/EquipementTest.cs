@@ -40,5 +40,4 @@ public class EquipementTest : Skill
 
         Debug.Log("Correct");
     }
-
 }

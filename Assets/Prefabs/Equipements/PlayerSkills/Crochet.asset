@@ -9,21 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a197de44c1b7d14eaeb5709cb30d37f, type: 3}
-  m_Name: Direct
+  m_Script: {fileID: 11500000, guid: 8eaee2f4db1fb334e94db5bb3f9773ad, type: 3}
+  m_Name: Crochet
   m_EditorClassIdentifier: 
-  isReusable: 1
+  isReusable: 0
   reusableTime: 0
   timeUsed: 0
   isBig: 0
-  damages: 4
-  valueCondition: 6
+  damages: 0
+  valueCondition: 0
   currentCountdown: 0
   isBreak: 0
   isShock: 0
   currentlyOnField: 0
-  conditions: 2
-  skillName: Direct
-  skillDescription: "D\xE9gats 4 (+1/utilisation)"
+  conditions: 0
+  side: 0
+  skillName: 
+  skillDescription: 
   diceDescription: 
   equipementOwner: {fileID: 0}

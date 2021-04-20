@@ -22,6 +22,9 @@ public abstract class Skill : ScriptableObject
     public enum conditionType { minValue, maxValue, countdown, pair, impair, value }
     public conditionType conditions;
 
+    public enum team {Player, Enemy}
+    public team side;
+
     [Header("UI things")]
     public string skillName;
     public string skillDescription;
@@ -73,18 +76,18 @@ public abstract class Skill : ScriptableObject
                 equipementOwner.diceOwn.canMove = false;
 
                 Manager.Instance.playerManager.StartCoroutine(Manager.Instance.playerManager.DelayCountdown(equipementOwner.diceOwn.valueDice, equipementOwner));
+                DestroyDice();
 
-                if (currentCountdown < 0)
+                if (currentCountdown <= 0)
                 {
-                    DestroyDice();
                     currentCountdown = 0;
-
                     currentCountdown = valueCondition;
+
                     Use();
                 }
                 else
                 {
-                    DestroyDice();
+                    
                     break;
                 }
                 break;
@@ -105,7 +108,6 @@ public abstract class Skill : ScriptableObject
             case conditionType.impair:
                 if (equipementOwner.diceOwn.valueDice == 1 || equipementOwner.diceOwn.valueDice == 3 || equipementOwner.diceOwn.valueDice == 5)
                 {
-
                     Use();
                 }
                 else
@@ -127,6 +129,7 @@ public abstract class Skill : ScriptableObject
     //Effect of the Skill;
     public abstract void Use();
 
+   
     public void DestroyDice()
     {
         Manager.Instance.playerManager.storedDice.Remove(equipementOwner.diceOwn.gameObject);

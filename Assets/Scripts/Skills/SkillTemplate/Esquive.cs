@@ -30,9 +30,12 @@ public class Esquive : Skill
         equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
         equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
         equipementOwner.diceOwn.canMove = false;
+        equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
 
         equipementOwner.diceOwn.gameObject.SetActive(false);
         equipementOwner.diceOwn = null;
+
         Manager.Instance.playerManager.isEsquive = true;
     }
+
 }

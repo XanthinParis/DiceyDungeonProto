@@ -33,6 +33,7 @@ public class CoupDePied : Skill
 
         equipementOwner.diceOwn.gameObject.SetActive(false);
         equipementOwner.diceOwn = null;
+        equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
 
         Manager.Instance.enemyBehaviour.TakeDamages(damages);
         Manager.Instance.enemyBehaviour.InitShock(1);

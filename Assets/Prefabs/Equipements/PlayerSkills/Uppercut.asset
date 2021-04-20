@@ -9,17 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ef0efb249c92d34dab14fafafa97475, type: 3}
-  m_Name: Test
+  m_Script: {fileID: 11500000, guid: 79ce1d4756bfef34ba552797edf662e9, type: 3}
+  m_Name: Uppercut
   m_EditorClassIdentifier: 
   isReusable: 0
   reusableTime: 0
+  timeUsed: 0
   isBig: 1
-  damages: 8
-  valueCondition: 10
-  currentCountdown: 10
+  damages: 20
+  valueCondition: 24
+  currentCountdown: 24
+  isBreak: 0
+  isShock: 0
+  currentlyOnField: 1
   conditions: 2
-  skillName: Gants de Boxe
-  skillDescription: "D\xE9gats 8."
+  side: 0
+  skillName: Uppercut
+  skillDescription: "20 d\xE9gats."
   diceDescription: 
   equipementOwner: {fileID: 0}

@@ -31,8 +31,7 @@ public class JeuDeJambes : Skill
         equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
         equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
         equipementOwner.diceOwn.canMove = false;
-        equipementOwner.diceOwn.gameObject.SetActive(false);
-        equipementOwner.diceOwn = null;
+        
 
         if (isReusable)
         {
@@ -40,7 +39,6 @@ public class JeuDeJambes : Skill
             if (timeUsed < reusableTime)
             {
                 //Laisser la compétence
-
                 equipementOwner.diceOwn.gameObject.SetActive(false);
                 equipementOwner.diceOwn = null;
                 //ajout un dé à la main du joueur.
@@ -52,7 +50,9 @@ public class JeuDeJambes : Skill
                 equipementOwner.diceOwn = null;
                 Manager.Instance.diceManager.addDice(1);
                 equipementOwner.AnimationUse();
+                equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
             }
         }
     }
+
 }

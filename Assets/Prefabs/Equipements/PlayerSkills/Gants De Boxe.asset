@@ -9,21 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eaee2f4db1fb334e94db5bb3f9773ad, type: 3}
-  m_Name: Crochet
+  m_Script: {fileID: 11500000, guid: 79ce1d4756bfef34ba552797edf662e9, type: 3}
+  m_Name: Gants De Boxe
   m_EditorClassIdentifier: 
   isReusable: 0
   reusableTime: 0
   timeUsed: 0
-  isBig: 0
-  damages: 0
-  valueCondition: 0
+  isBig: 1
+  damages: 8
+  valueCondition: 10
   currentCountdown: 0
   isBreak: 0
   isShock: 0
-  currentlyOnField: 0
-  conditions: 0
-  skillName: 
-  skillDescription: 
+  currentlyOnField: 1
+  conditions: 2
+  side: 0
+  skillName: Gants de Boxe
+  skillDescription: "8 d\xE9gats."
   diceDescription: 
   equipementOwner: {fileID: 0}

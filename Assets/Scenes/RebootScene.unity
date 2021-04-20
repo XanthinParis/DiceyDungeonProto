@@ -2029,8 +2029,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limitBreakButton: {fileID: 1275828362}
-  enemyHealthText: {fileID: 963308623}
-  playerHealthText: {fileID: 1629005148}
+  enemyHealthText: {fileID: 1629005148}
+  playerHealthText: {fileID: 963308623}
   cameraPos:
   - {fileID: 982436466}
   - {fileID: 2144643041}

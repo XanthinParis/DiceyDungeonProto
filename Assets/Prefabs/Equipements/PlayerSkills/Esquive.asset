@@ -9,18 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ce1d4756bfef34ba552797edf662e9, type: 3}
-  m_Name: Gants De Boxe
+  m_Script: {fileID: 11500000, guid: 90f2b268b29214e4fa688eb18f25bc3d, type: 3}
+  m_Name: Esquive
   m_EditorClassIdentifier: 
   isReusable: 0
   reusableTime: 0
-  isBig: 1
-  damages: 8
-  valueCondition: 10
+  timeUsed: 0
+  isBig: 0
+  damages: 0
+  valueCondition: 14
   currentCountdown: 0
+  isBreak: 0
+  isShock: 0
   currentlyOnField: 0
   conditions: 2
-  skillName: Gants de Boxe
-  skillDescription: "8 d\xE9gats."
+  side: 0
+  skillName: Esquive
+  skillDescription: Esquive 1
   diceDescription: 
   equipementOwner: {fileID: 0}

@@ -9,18 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79ce1d4756bfef34ba552797edf662e9, type: 3}
-  m_Name: Uppercut
+  m_Script: {fileID: 11500000, guid: bb61ff4aa93f9f34282e35ee39d34ab5, type: 3}
+  m_Name: Coup De Pied
   m_EditorClassIdentifier: 
   isReusable: 0
   reusableTime: 0
-  isBig: 1
-  damages: 20
-  valueCondition: 24
+  timeUsed: 0
+  isBig: 0
+  damages: 0
+  valueCondition: 0
   currentCountdown: 0
+  isBreak: 0
+  isShock: 0
   currentlyOnField: 0
-  conditions: 2
-  skillName: Uppercut
-  skillDescription: "20 d\xE9gats."
+  conditions: 0
+  side: 0
+  skillName: 
+  skillDescription: 
   diceDescription: 
   equipementOwner: {fileID: 0}

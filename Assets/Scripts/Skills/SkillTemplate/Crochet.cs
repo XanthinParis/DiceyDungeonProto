@@ -30,6 +30,7 @@ public class Crochet : Skill
         equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
         equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
         equipementOwner.diceOwn.canMove = false;
+        equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
 
         equipementOwner.diceOwn.gameObject.SetActive(false);
         equipementOwner.diceOwn = null;
@@ -38,4 +39,5 @@ public class Crochet : Skill
         Manager.Instance.enemyBehaviour.InitBreak(1);
 
     }
+    
 }
