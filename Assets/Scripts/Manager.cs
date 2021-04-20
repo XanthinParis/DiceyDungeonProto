@@ -29,25 +29,32 @@ public class Manager : Singleton<Manager>
     [SerializeField] private GameObject smallSkill;
     [SerializeField] private GameObject bigSkill;
 
+    public enum GameTurn { Player,Enemy};
+    public GameTurn turn;
+
+    #region SkillPosition
     [Header("SkillPosition")]
     [SerializeField] private GameObject smallSkillParentPositionPlayer;
     public List<Transform> smallSkillPositionPlayer = new List<Transform>();
     [SerializeField] private GameObject bigSkillParentPositionPlayer;
     public List <Transform> bigSkillPositionPlayer = new List<Transform>();
-    [SerializeField] private GameObject goAwayPlayerParentPlayer;
-    public List<Transform> goAwayPlayerPositionPlayer = new List<Transform>();
+    [SerializeField] private GameObject goAwayParentPlayer;
+    public List<Transform> goAwayPositionPlayer = new List<Transform>();
 
     [Header("SkillPosition")]
     [SerializeField] private GameObject smallSkillParentPositionEnemy;
     public List<Transform> smallSkillPositionEnemy = new List<Transform>();
     [SerializeField] private GameObject bigSkillParentPositionEnemy;
     public List<Transform> bigSkillPositionEnemy = new List<Transform>();
-    [SerializeField] private GameObject goAwayPlayerParentEnemy;
-    public List<Transform> goAwayPlayerPositionEnemy = new List<Transform>();
+    [SerializeField] private GameObject goAwayParentEnemy;
+    public List<Transform> goAwayPositionEnemy = new List<Transform>();
+    #endregion
 
     private void Awake()
     {
-        enemyBehaviour = currentEnemy.GetComponent<EnemyBehaviour>(); 
+        enemyBehaviour = currentEnemy.GetComponent<EnemyBehaviour>();
+
+        
     }
 
     private void Start()
@@ -62,10 +69,10 @@ public class Manager : Singleton<Manager>
         {
             bigSkillPositionPlayer.Add(bigSkillParentPositionPlayer.GetComponent<GetPositions>().waypointsPosition[i]);
         }
-        
-        for (int i = 0; i < goAwayPlayerParentPlayer.GetComponent<GetPositions>().waypointsPosition.Count; i++)
+
+        for (int i = 0; i < goAwayParentPlayer.GetComponent<GetPositions>().waypointsPosition.Count; i++)
         {
-            goAwayPlayerPositionPlayer.Add(goAwayPlayerParentPlayer.GetComponent<GetPositions>().waypointsPosition[i]);
+            goAwayPositionPlayer.Add(goAwayParentPlayer.GetComponent<GetPositions>().waypointsPosition[i]);
         }
         #endregion
 
@@ -80,9 +87,9 @@ public class Manager : Singleton<Manager>
             bigSkillPositionEnemy.Add(bigSkillParentPositionEnemy.GetComponent<GetPositions>().waypointsPosition[i]);
         }
 
-        for (int i = 0; i < goAwayPlayerParentEnemy.GetComponent<GetPositions>().waypointsPosition.Count; i++)
+        for (int i = 0; i < goAwayParentEnemy.GetComponent<GetPositions>().waypointsPosition.Count; i++)
         {
-            goAwayPlayerPositionEnemy.Add(goAwayPlayerParentEnemy.GetComponent<GetPositions>().waypointsPosition[i]);
+            goAwayPositionEnemy.Add(goAwayParentEnemy.GetComponent<GetPositions>().waypointsPosition[i]);
         }
         #endregion
 
@@ -95,6 +102,7 @@ public class Manager : Singleton<Manager>
         enemyBehaviour.InitEnemy();
         InitPlayerSkill();
         InitEnemySkill();
+        diceManager.GenerateDicePlayer();
     }
 
     public void InitPlayerSkill()
@@ -109,13 +117,17 @@ public class Manager : Singleton<Manager>
             if (playerManager.playerSkills[i].isBig)
             {
                 GameObject InitSkill = Instantiate(bigSkill, bigSkillPositionPlayer[numberOfBig].position, Quaternion.identity);
+                
+
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
+                playerManager.playerEquipementOwner.Add(equipOwner);
 
                 equipOwner.equipementOwn = playerManager.playerSkills[i];
                 equipOwner.UpdateVisuel();
                 equipOwner.equipementOwn.currentlyOnField = true;
                 equipOwner.equipementOwn.initSkillValue();
                 equipOwner.position = i;
+                
                 numberOfBig++;
             }
         }
@@ -128,7 +140,8 @@ public class Manager : Singleton<Manager>
             {
                 GameObject InitSkill = Instantiate(smallSkill, smallSkillPositionPlayer[i+ numberOfBig].position, Quaternion.identity);
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
-                
+                playerManager.playerEquipementOwner.Add(equipOwner);
+
                 equipOwner.equipementOwn = playerManager.playerSkills[i];
                 equipOwner.UpdateVisuel();
                 equipOwner.equipementOwn.currentlyOnField = true;
@@ -170,7 +183,7 @@ public class Manager : Singleton<Manager>
             {
                 GameObject InitSkill = Instantiate(bigSkill, bigSkillPositionEnemy[numberOfBig].position, Quaternion.identity);
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
-
+                enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
                 equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
                 equipOwner.UpdateVisuel();
                 equipOwner.equipementOwn.currentlyOnField = true;
@@ -188,7 +201,7 @@ public class Manager : Singleton<Manager>
             {
                 GameObject InitSkill = Instantiate(smallSkill, smallSkillPositionEnemy[i + numberOfBig].position, Quaternion.identity);
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
-
+                enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
                 equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
                 equipOwner.UpdateVisuel();
                 equipOwner.equipementOwn.currentlyOnField = true;
@@ -215,5 +228,33 @@ public class Manager : Singleton<Manager>
 
         numberOfBig = 0;
         smallCount = 0;
+    }
+
+    public void EndTurn()
+    {
+        if(turn == GameTurn.Player) // Fin du tour du player
+        {
+            //Reset competences
+            for (int i = 0; i < playerManager.playerEquipementOwner.Count; i++)
+            {
+                playerManager.playerEquipementOwner[i].AnimationUse();
+            }
+
+            //Reset Dices
+            for (int i = 0; i < playerManager.storedDice.Count; i++)
+            {
+                GameObject currentDice = playerManager.storedDice[i];
+
+                playerManager.storedDice.Remove(currentDice);
+                Destroy(currentDice);
+            }
+
+            canvasManager.SwitchCamera();
+            Manager.Instance.diceManager.GenerateDiceEnemy();
+        }
+        else                        // Fin du tour de l'enemy.
+        {
+
+        }
     }
 }

@@ -18,7 +18,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public List<GameObject> storedDice = new List<GameObject>();
 
     public List<Skill> playerSkills = new List<Skill>();
-
+    public List<EquipementOwner> playerEquipementOwner = new List<EquipementOwner>();
     public List<Skill> playerSkillsWithCountDown = new List<Skill>();
 
     public bool isEsquive = false;

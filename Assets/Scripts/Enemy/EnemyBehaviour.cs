@@ -7,7 +7,12 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     public int health;
     public int maxHealth;
 
+    public int initialDiceCount;
+    public int numberOfDice;
+    public List<GameObject> storedDice = new List<GameObject>();
+
     public List<Skill> enemySkillList = new List<Skill>();
+    public List<EquipementOwner> enemyEquipementOwner = new List<EquipementOwner>();
     public List<Skill> enemySkillWithCountdown = new List<Skill>();
 
     private void Awake()

@@ -87,12 +87,25 @@ public class EquipementOwner : MonoBehaviour
 
     public IEnumerator AnimationUseEnum()
     {
-        Vector3 TweenPosition = new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z);
-        t.TweenPositionTo(TweenPosition,0.2f,Easings.Ease.SmootherStep,true);
-        yield return new WaitForSeconds(0.2f);
-        t.TweenPositionTo(Manager.Instance.goAwayPlayerPositionPlayer[position].transform.position, 0.5f, Easings.Ease.SmootherStep, true);
-        yield return new WaitForSeconds(0.5f);
-        gameObject.SetActive(false);
+        if(equipementOwn.side == Skill.team.Player)
+        {
+            Vector3 TweenPosition = new Vector3(transform.position.x, transform.position.y + 0.75f, transform.position.z);
+            t.TweenPositionTo(TweenPosition, 0.2f, Easings.Ease.SmootherStep, true);
+            yield return new WaitForSeconds(0.2f);
+            t.TweenPositionTo(Manager.Instance.goAwayPositionPlayer[position].transform.position, 0.5f, Easings.Ease.SmootherStep, true);
+            yield return new WaitForSeconds(0.5f);
+            Destroy(gameObject);
+        }
+        else
+        {
+            Vector3 TweenPosition = new Vector3(transform.position.x, transform.position.y - 0.75f, transform.position.z);
+            t.TweenPositionTo(TweenPosition, 0.2f, Easings.Ease.SmootherStep, true);
+            yield return new WaitForSeconds(0.2f);
+            t.TweenPositionTo(Manager.Instance.goAwayPositionEnemy[position].transform.position, 0.5f, Easings.Ease.SmootherStep, true);
+            yield return new WaitForSeconds(0.5f);
+            Destroy(gameObject);
+        }
+
     }
 
     #region OnTrigger

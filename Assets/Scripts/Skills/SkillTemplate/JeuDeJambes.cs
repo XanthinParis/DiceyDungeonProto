@@ -42,13 +42,13 @@ public class JeuDeJambes : Skill
                 equipementOwner.diceOwn.gameObject.SetActive(false);
                 equipementOwner.diceOwn = null;
                 //ajout un dé à la main du joueur.
-                Manager.Instance.diceManager.addDice(1);
+                Manager.Instance.diceManager.AddDicePlayer(1);
             }
             else
             {
                 equipementOwner.diceOwn.gameObject.SetActive(false);
                 equipementOwner.diceOwn = null;
-                Manager.Instance.diceManager.addDice(1);
+                Manager.Instance.diceManager.AddDicePlayer(1);
                 equipementOwner.AnimationUse();
                 equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
             }
