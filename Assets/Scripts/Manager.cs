@@ -132,11 +132,8 @@ public class Manager : Singleton<Manager>
                 equipOwner.UpdateVisuel();
                 equipOwner.equipementOwn.currentlyOnField = true;
 
-                if (Manager.Instance.firstTurn)
-                {
-                    equipOwner.equipementOwn.initSkillValue();
-                }    
-                
+                equipOwner.equipementOwn.initSkillValue();
+
                 equipOwner.position = i;
                 
                 numberOfBig++;

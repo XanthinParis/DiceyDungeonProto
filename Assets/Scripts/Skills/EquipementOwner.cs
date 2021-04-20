@@ -34,12 +34,6 @@ public class EquipementOwner : MonoBehaviour
     {
         equipementOwn.equipementOwner = this;
         //Debug.Log(equipementOwn.equipementOwner);
-
-        if (equipementOwn.conditions == Skill.conditionType.countdown)
-        {
-            equipementOwn.currentCountdown = equipementOwn.valueCondition;
-            diceValue.text = equipementOwn.currentCountdown.ToString();
-        }
     }
 
     //Se lance quand l'équipement est instantier.
