@@ -43,23 +43,23 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         if (maxValue >=5)
         {
             Debug.Log("Methode1");
-            //StartCoroutine(FocusFirstSkill());
+            StartCoroutine(FocusFirstSkill());
         }
         else
         {
             Debug.Log("Methode2");
-            //StartCoroutine(FocusSecondSkill());
+            StartCoroutine(FocusSecondSkill());
         }
     }
 
     private IEnumerator FocusFirstSkill()
     {
-        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position,1f,Easings.Ease.SmootherStep,true);
+        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position,1f,Easings.Ease.SmoothStep,true);
         yield return new WaitForSeconds(1f);
         enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
         enemyEquipementOwner[0].equipementOwn.TestValue();
         yield return new WaitForSeconds(0.2f);
-        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
         yield return new WaitForSeconds(1f);
         enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
         enemyEquipementOwner[1].equipementOwn.TestValue();
