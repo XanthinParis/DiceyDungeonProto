@@ -28,13 +28,7 @@ public class Direct : Skill
 
     public override void Use()
     {
-        //Bloquer les joueurs sur la position;
-        equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
-        equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
-        equipementOwner.diceOwn.canMove = false;
-
-        equipementOwner.diceOwn.gameObject.SetActive(false);
-        equipementOwner.diceOwn = null;
+        BlockDice();
 
         if (isReusable)
         {

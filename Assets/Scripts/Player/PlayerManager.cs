@@ -75,6 +75,14 @@ public class PlayerManager : Singleton<PlayerManager>
     //Delay le compteur visuel pour un feedback sympa;
     public IEnumerator DelayCountdown(int value, EquipementOwner equipementOwner)
     {
+        equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
+        equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
+        equipementOwner.diceOwn.canMove = false;
+
+        Manager.Instance.playerManager.storedDice.Remove(equipementOwner.diceOwn.gameObject);
+        equipementOwner.diceOwn.gameObject.SetActive(false);
+        equipementOwner.diceOwn = null;
+
         for (int i = 0; i < value; i++)
         {
             equipementOwner.equipementOwn.currentCountdown--;
@@ -90,6 +98,8 @@ public class PlayerManager : Singleton<PlayerManager>
             }
             
         }
+
+       
     }
 }
 

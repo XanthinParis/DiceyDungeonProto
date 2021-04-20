@@ -33,6 +33,7 @@ public class EquipementOwner : MonoBehaviour
     public void InitSkill()
     {
         equipementOwn.equipementOwner = this;
+        
         //Debug.Log(equipementOwn.equipementOwner);
     }
 
@@ -52,7 +53,7 @@ public class EquipementOwner : MonoBehaviour
                 diceValue.text = "Max: " + equipementOwn.valueCondition.ToString();
                 break;
             case Skill.conditionType.countdown:
-                diceValue.text = equipementOwn.currentCountdown.ToString();
+                diceValue.text = equipementOwn.valueCondition.ToString();
                 break;
             case Skill.conditionType.pair:
                 break;

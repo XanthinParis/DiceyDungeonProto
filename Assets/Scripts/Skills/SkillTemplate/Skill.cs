@@ -70,26 +70,7 @@ public abstract class Skill : ScriptableObject
 
             //While the countdown is not 0, don't start Use(); Each dice reduce the currentCountdown Value
             case conditionType.countdown:
-
-                equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
-                equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
-                equipementOwner.diceOwn.canMove = false;
-
                 Manager.Instance.playerManager.StartCoroutine(Manager.Instance.playerManager.DelayCountdown(equipementOwner.diceOwn.valueDice, equipementOwner));
-                DestroyDice();
-
-                if (currentCountdown <= 0)
-                {
-                    currentCountdown = 0;
-                    currentCountdown = valueCondition;
-
-                    Use();
-                }
-                else
-                {
-                    
-                    break;
-                }
                 break;
 
             //The Dice Value need to be pair (2.4.6).
@@ -129,6 +110,16 @@ public abstract class Skill : ScriptableObject
     //Effect of the Skill;
     public abstract void Use();
 
+    public void BlockDice()
+    {  //Bloquer les joueurs sur la position;
+        equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
+        equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
+        equipementOwner.diceOwn.canMove = false;
+
+        equipementOwner.diceOwn.gameObject.SetActive(false);
+        equipementOwner.diceOwn = null;
+
+    }
    
     public void DestroyDice()
     {

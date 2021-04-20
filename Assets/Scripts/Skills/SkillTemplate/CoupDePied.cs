@@ -26,14 +26,8 @@ public class CoupDePied : Skill
 
     public override void Use()
     {
-        //Bloquer les joueurs sur la position;
-        equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
-        equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
-        equipementOwner.diceOwn.canMove = false;
 
-        equipementOwner.diceOwn.gameObject.SetActive(false);
-        equipementOwner.diceOwn = null;
-        equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
+        BlockDice();
 
         Manager.Instance.enemyBehaviour.TakeDamages(damages);
         Manager.Instance.enemyBehaviour.InitShock(1);

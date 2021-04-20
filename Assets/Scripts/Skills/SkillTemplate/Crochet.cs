@@ -26,14 +26,7 @@ public class Crochet : Skill
 
     public override void Use()
     {
-        //Bloquer les joueurs sur la position;
-        equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
-        equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
-        equipementOwner.diceOwn.canMove = false;
-        equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
-
-        equipementOwner.diceOwn.gameObject.SetActive(false);
-        equipementOwner.diceOwn = null;
+        BlockDice();
 
         Manager.Instance.enemyBehaviour.TakeDamages(damages);
         Manager.Instance.enemyBehaviour.InitBreak(1);
