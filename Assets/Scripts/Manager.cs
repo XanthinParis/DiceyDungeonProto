@@ -10,6 +10,8 @@ public class Manager : Singleton<Manager>
 {
     public bool blockAction = false;
 
+    public bool firstTurn = true;
+
     [Header("Gameplay")]
     public DiceManager diceManager;
 
@@ -129,7 +131,12 @@ public class Manager : Singleton<Manager>
                 equipOwner.equipementOwn = playerManager.playerSkills[i];
                 equipOwner.UpdateVisuel();
                 equipOwner.equipementOwn.currentlyOnField = true;
-                equipOwner.equipementOwn.initSkillValue();
+
+                if (Manager.Instance.firstTurn)
+                {
+                    equipOwner.equipementOwn.initSkillValue();
+                }    
+                
                 equipOwner.position = i;
                 
                 numberOfBig++;
@@ -170,6 +177,7 @@ public class Manager : Singleton<Manager>
             }
         }
 
+        Manager.Instance.firstTurn = false;
         numberOfBig = 0;
         smallCount = 0;
     }
