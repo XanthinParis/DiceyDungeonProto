@@ -60,15 +60,13 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     private IEnumerator FocusFirstSkill()
     {
         yield return new WaitForSeconds(1f);
-        Vector2 dicePosition0 = new Vector2(enemyEquipementOwner[0].dicePosition.transform.position.x, enemyEquipementOwner[0].dicePosition.transform.position.y);
-        storedDice[0].GetComponent<Tweener>().TweenPositionTo(dicePosition0, 1f,Easings.Ease.SmoothStep,true);
-        yield return new WaitForSeconds(1f);
+        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f,Easings.Ease.SmoothStep,true);
+        yield return new WaitForSeconds(1.2f);
         enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
         enemyEquipementOwner[0].equipementOwn.TestValue();
         yield return new WaitForSeconds(0.2f);
-        Vector2 dicePosition1 = new Vector2(enemyEquipementOwner[1].dicePosition.transform.position.x, enemyEquipementOwner[1].dicePosition.transform.position.y);
-        storedDice[1].GetComponent<Tweener>().TweenPositionTo(dicePosition1, 1f, Easings.Ease.SmoothStep, true);
-        yield return new WaitForSeconds(1f);
+        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
+        yield return new WaitForSeconds(1.2f);
         enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
         enemyEquipementOwner[1].equipementOwn.TestValue();
         yield return new WaitForSeconds(0.2f);
@@ -78,15 +76,15 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     private IEnumerator FocusSecondSkill()
     {
         yield return new WaitForSeconds(1f);
-        Vector2 dicePosition1 = new Vector2(enemyEquipementOwner[1].dicePosition.transform.position.x, enemyEquipementOwner[1].dicePosition.transform.position.y);
-        storedDice[1].GetComponent<Tweener>().TweenPositionTo(dicePosition1, 1f, Easings.Ease.SmootherStep, true);
-        yield return new WaitForSeconds(1f);
+ 
+        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+        yield return new WaitForSeconds(1.2f);
         enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
         enemyEquipementOwner[1].equipementOwn.TestValue();
         yield return new WaitForSeconds(0.2f);
-        Vector2 dicePosition0 = new Vector2(enemyEquipementOwner[0].dicePosition.transform.position.x, enemyEquipementOwner[0].dicePosition.transform.position.y);
-        storedDice[0].GetComponent<Tweener>().TweenPositionTo(dicePosition0, 1f, Easings.Ease.SmootherStep, true);
-        yield return new WaitForSeconds(1f);
+
+        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+        yield return new WaitForSeconds(1.2f);
         enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
         enemyEquipementOwner[0].equipementOwn.TestValue();
         yield return new WaitForSeconds(0.2f);

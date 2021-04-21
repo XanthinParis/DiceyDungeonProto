@@ -101,6 +101,9 @@ public class DiceManager : MonoBehaviour
 
             //2 - En fonction de du nombre choisi, j'instancie le dé à la bonne position.
             GameObject spawnedDice = Instantiate(dices[spawnValue], diceInitialPositionEnemy[i].transform.position, Quaternion.identity);
+            spawnedDice.transform.SetParent(diceInitialPositionEnemy[i].transform);
+            spawnedDice.transform.localPosition = new Vector3(0, 0,1);
+            spawnedDice.transform.SetParent(null);
             spawnedDice.GetComponent<BoxCollider2D>().enabled = false;
             Manager.Instance.enemyBehaviour.storedDice.Add(spawnedDice);
         }

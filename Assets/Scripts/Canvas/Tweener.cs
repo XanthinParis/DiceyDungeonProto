@@ -39,9 +39,9 @@ public class Tweener : MonoBehaviour
         StartCoroutine(scaleRoutine);
     }
 
-    IEnumerator TweeningPositionTo(Vector2 targetPos, float duration, EaseDelegate ease, bool local)
+    IEnumerator TweeningPositionTo(Vector3 targetPos, float duration, EaseDelegate ease, bool local)
     {
-        Vector2 startPos = local?transform.localPosition:transform.position;
+        Vector3 startPos = local?transform.localPosition:transform.position;
         float counter = 0;
         while (counter < duration)
         {
@@ -51,11 +51,11 @@ public class Tweener : MonoBehaviour
             //puis on lerp entre les deux position, en fonction de si c'est en local ou pas
             if (local)
             {
-                transform.localPosition = Vector2.Lerp(startPos, targetPos, l);
+                transform.localPosition = Vector3.Lerp(startPos, targetPos, l);
             }
             else
             {
-                transform.position = Vector2.Lerp(startPos, targetPos, l);
+                transform.position = Vector3.Lerp(startPos, targetPos, l);
             }
             yield return null; //pour que la coroutine fasse cette opération à chaque frame, plutôt que tout d'un coup
         }
