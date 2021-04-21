@@ -72,10 +72,18 @@ public class DiceManager : MonoBehaviour
         //Instanciation des dés.
         for (int i = 0; i < Manager.Instance.playerManager.initialDiceCount; i++)
         {
+            
+
             //1 - Générer un nombre pour simuler de l'aléatoire.
             int spawnValue = Random.Range(0, 6);
             //2 - En fonction de du nombre choisi, j'instancie le dé à la bonne position.
             GameObject spawnedDice = Instantiate(dices[spawnValue], diceInitialPositionPlayer[i].transform.position, Quaternion.identity);
+            if (Manager.Instance.playerManager.numberOfBurn > 0)
+            {
+                Manager.Instance.playerManager.numberOfBurn--;
+                spawnedDice.GetComponent<DiceBehaviour>().isBurn = true;
+                spawnedDice.GetComponent<SpriteRenderer>().color = Color.red;
+            }
             Manager.Instance.playerManager.storedDice.Add(spawnedDice);
         }
 

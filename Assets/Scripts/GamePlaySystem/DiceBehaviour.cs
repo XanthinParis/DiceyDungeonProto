@@ -12,6 +12,8 @@ public class DiceBehaviour : MonoBehaviour
 
     [SerializeField] public bool canMove = true;
 
+    public bool isBurn = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,13 @@ public class DiceBehaviour : MonoBehaviour
     {
         if(cursorHere && Input.GetMouseButtonDown(0) && Manager.Instance.cursorBehaviour.currentSelected == gameObject && canMove)
         {
+            if (isBurn)
+            {
+                isBurn = false;
+                gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                Manager.Instance.playerManager.TakeDamages(2);
+            }
+
             gameObject.transform.parent = Manager.Instance.cursor.transform;
         }
         if (cursorHere && Input.GetMouseButtonUp(0))
