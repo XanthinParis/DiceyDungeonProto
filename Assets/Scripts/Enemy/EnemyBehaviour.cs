@@ -40,70 +40,168 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             maxValue = valueDice1;
         }
 
-        if(valueDice0 == enemyEquipementOwner[1].equipementOwn.currentCountdown || valueDice1 == enemyEquipementOwner[1].equipementOwn.currentCountdown)
-        {
-
-        }
-
-        if (maxValue >=5)
+        if (maxValue >=5 || (storedDice[0].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown || storedDice[1].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown))
         {
             Debug.Log("Methode1");
-            StartCoroutine(FocusFirstSkill());
+            StartCoroutine(FocusFirstSkill(maxValue));
         }
         else
         {
             Debug.Log("Methode2");
-            StartCoroutine(FocusSecondSkill());
+            StartCoroutine(FocusSecondSkill(maxValue));
         }
     }
 
-    private IEnumerator FocusFirstSkill()
+    private IEnumerator FocusFirstSkill(int maxValue)
     {
         yield return new WaitForSeconds(1f);
-        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f,Easings.Ease.SmoothStep,true);
-        yield return new WaitForSeconds(1.2f);
-        enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
-        enemyEquipementOwner[0].equipementOwn.TestValue();
-        yield return new WaitForSeconds(0.2f);
-        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
-        yield return new WaitForSeconds(1.2f);
-        enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
-        enemyEquipementOwner[1].equipementOwn.TestValue();
-        yield return new WaitForSeconds(0.2f);
-        Manager.Instance.EndTurn();
-    }
 
-    private IEnumerator FocusSecondSkill()
-    {
-        yield return new WaitForSeconds(1f);
- 
-        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
-        yield return new WaitForSeconds(1.2f);
-        enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
-        enemyEquipementOwner[1].equipementOwn.TestValue();
-        yield return new WaitForSeconds(0.2f);
-
-        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
-        yield return new WaitForSeconds(1.2f);
-        enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
-        enemyEquipementOwner[0].equipementOwn.TestValue();
-        yield return new WaitForSeconds(0.2f);
-        Manager.Instance.EndTurn();
-    }
-
-    private IEnumerator FocusThirdSkill(int value0, int value1)
-    {
-        if(value0 == enemyEquipementOwner[1].equipementOwn.currentCountdown)
+        if (storedDice[0].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown || storedDice[1].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown)
         {
-            //Le dé 0 va dans la cpt1
-            //Le dé 1 va dans la cpt0
+            if(storedDice[0].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown)
+            {
+                //Dé 0 Cpt1
+                storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
+                yield return new WaitForSeconds(1.2f);
+                enemyEquipementOwner[1].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+                enemyEquipementOwner[1].equipementOwn.TestValue();
+
+                yield return new WaitForSeconds(0.5f);
+
+                storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
+                yield return new WaitForSeconds(1.2f);
+                enemyEquipementOwner[0].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
+                enemyEquipementOwner[0].equipementOwn.TestValue();
+                yield return new WaitForSeconds(1f);
+                Manager.Instance.EndTurn();
+                yield break;
+            }
+            else
+            {
+                
+
+                storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
+                yield return new WaitForSeconds(1.2f);
+                enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
+                enemyEquipementOwner[1].equipementOwn.TestValue();
+
+                yield return new WaitForSeconds(0.5f);
+
+                storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
+                yield return new WaitForSeconds(1.2f);
+                enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+                enemyEquipementOwner[0].equipementOwn.TestValue();
+                yield return new WaitForSeconds(1f);
+                Manager.Instance.EndTurn();
+                yield break;
+
+            }
+
         }
         else
         {
-            //Le dé 1 va dans la cpt0
-            //Le dé 0 va dans la cpt1
+            if (maxValue == storedDice[0].GetComponent<DiceBehaviour>().valueDice)
+            {
+                storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
+                yield return new WaitForSeconds(1.2f);
+                enemyEquipementOwner[1].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+                enemyEquipementOwner[1].equipementOwn.TestValue();
+
+                yield return new WaitForSeconds(0.5f);
+
+                storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
+                yield return new WaitForSeconds(1.2f);
+                enemyEquipementOwner[0].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
+                enemyEquipementOwner[0].equipementOwn.TestValue();
+
+                yield return new WaitForSeconds(1f);
+                Manager.Instance.EndTurn();
+
+                yield break;
+            }
+            else
+            {
+                storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
+                yield return new WaitForSeconds(1.2f);
+                enemyEquipementOwner[1].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+                enemyEquipementOwner[1].equipementOwn.TestValue();
+
+                yield return new WaitForSeconds(0.5f);
+
+                storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
+                yield return new WaitForSeconds(1.2f);
+                enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+                enemyEquipementOwner[0].equipementOwn.TestValue();
+                yield return new WaitForSeconds(1f);
+
+                Manager.Instance.EndTurn();
+                yield break;
+            }
         }
-        yield return null;
+    }
+
+    private IEnumerator FocusSecondSkill(int value)
+    {
+        yield return new WaitForSeconds(1f);
+ 
+        if(value == storedDice[0].GetComponent<DiceBehaviour>().valueDice)
+        {
+            storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+            yield return new WaitForSeconds(1.2f);
+            enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+            enemyEquipementOwner[0].equipementOwn.TestValue();
+
+            yield return new WaitForSeconds(0.5f);
+
+            storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+            yield return new WaitForSeconds(1.2f);
+            enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
+            enemyEquipementOwner[1].equipementOwn.TestValue();
+            yield return new WaitForSeconds(1f);
+            Manager.Instance.EndTurn();
+            yield break;
+        }
+        else
+        {
+            storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+            yield return new WaitForSeconds(1.2f);
+            enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
+            enemyEquipementOwner[1].equipementOwn.TestValue();
+
+            yield return new WaitForSeconds(0.5f);
+
+            storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+            yield return new WaitForSeconds(1.2f);
+            enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+            enemyEquipementOwner[0].equipementOwn.TestValue();
+            yield return new WaitForSeconds(1f);
+            Manager.Instance.EndTurn();
+            yield break;
+        }
+    }
+
+    public IEnumerator DelayCountdownEnemy(int value, EquipementOwner equipementOwner)
+    {
+        equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
+        equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
+        equipementOwner.diceOwn.canMove = false;
+
+        equipementOwner.diceOwn.gameObject.SetActive(false);
+
+        for (int i = 0; i < value; i++)
+        {
+            equipementOwner.equipementOwn.currentCountdown--;
+            equipementOwner.diceValue.text = equipementOwner.equipementOwn.currentCountdown.ToString();
+            yield return new WaitForSeconds(0.1f);
+
+            if (equipementOwner.equipementOwn.currentCountdown <= 0)
+            {
+                equipementOwner.equipementOwn.currentCountdown = 0;
+                equipementOwner.equipementOwn.Use();
+                StopCoroutine(DelayCountdownEnemy(value, equipementOwner));
+                break;
+            }
+        }
     }
 
     public void TakeDamages(int damages)

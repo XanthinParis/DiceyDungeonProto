@@ -26,7 +26,6 @@ public class FireBreath : Skill
 
     public override void Use()
     {
-        equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
         Manager.Instance.playerManager.TakeDamages(damages);
         BlockDice();
         Manager.Instance.playerManager.InitFireAlt(1);

@@ -26,7 +26,6 @@ public class FireBall : Skill
 
     public override void Use()
     {
-        equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
         Manager.Instance.playerManager.TakeDamages(equipementOwner.diceOwn.valueDice);
         BlockDice();
         Manager.Instance.playerManager.InitFireAlt(1);

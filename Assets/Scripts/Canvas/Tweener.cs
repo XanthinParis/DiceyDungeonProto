@@ -9,7 +9,7 @@ public class Tweener : MonoBehaviour
     IEnumerator positionRoutine, rotationRoutine, scaleRoutine;
     
     
-    public void TweenPositionTo(Vector2 targetPos, float duration, EaseDelegate ease, bool local)
+    public void TweenPositionTo(Vector3 targetPos, float duration, EaseDelegate ease, bool local)
     {
         if (positionRoutine != null)
         {

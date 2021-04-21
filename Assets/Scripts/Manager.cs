@@ -250,13 +250,25 @@ public class Manager : Singleton<Manager>
         {
             turn = GameTurn.Enemy;
             //Reset competences
-            playerManager.playerSkillsWithCountDown.Clear();
+            
             for (int i = 0; i < playerManager.playerEquipementOwner.Count; i++)
             {
                 playerManager.playerEquipementOwner[i].AnimationUse();
+                
             }
 
-            
+            yield return new WaitForSeconds(0.5f);
+
+            for (int i = 0; i < playerManager.playerEquipementOwner.Count; i++)
+            {
+                Debug.Log("DestroyPlayer");
+                Destroy(playerManager.playerEquipementOwner[i].gameObject);
+            }
+
+            playerManager.playerEquipementOwner.Clear();
+
+            playerManager.playerSkillsWithCountDown.Clear();
+
             diceManager.ResetDicePlayer();
 
             canvasManager.SwitchCamera();
@@ -267,11 +279,24 @@ public class Manager : Singleton<Manager>
         }
         else                        // Fin du tour de l'enemy.
         {
-            enemyBehaviour.enemySkillWithCountdown.Clear();
             for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
             {
                 enemyBehaviour.enemyEquipementOwner[i].AnimationUse();
             }
+
+            yield return new WaitForSeconds(1f);
+
+            for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
+            {
+                Debug.Log("Destroy");
+                Destroy(enemyBehaviour.enemyEquipementOwner[i].gameObject);
+            }
+            yield return new WaitForSeconds(0.1f);
+            enemyBehaviour.enemyEquipementOwner.Clear();
+            enemyBehaviour.storedDice.Clear();
+            enemyBehaviour.enemySkillWithCountdown.Clear();
+
+           
 
             diceManager.ResetDiceEnemy();
             canvasManager.SwitchCamera();

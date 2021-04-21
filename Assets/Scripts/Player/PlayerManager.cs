@@ -86,9 +86,7 @@ public class PlayerManager : Singleton<PlayerManager>
         equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
         equipementOwner.diceOwn.canMove = false;
 
-        Manager.Instance.playerManager.storedDice.Remove(equipementOwner.diceOwn.gameObject);
         equipementOwner.diceOwn.gameObject.SetActive(false);
-        equipementOwner.diceOwn = null;
 
         for (int i = 0; i < value; i++)
         {

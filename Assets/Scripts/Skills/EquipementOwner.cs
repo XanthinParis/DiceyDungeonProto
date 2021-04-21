@@ -88,9 +88,6 @@ public class EquipementOwner : MonoBehaviour
             t.TweenPositionTo(TweenPosition, 0.2f, Easings.Ease.SmootherStep, true);
             yield return new WaitForSeconds(0.2f);
             t.TweenPositionTo(Manager.Instance.goAwayPositionPlayer[position].transform.position, 0.5f, Easings.Ease.SmootherStep, true);
-            PlayerManager.Instance.playerEquipementOwner.Remove(gameObject.GetComponent<EquipementOwner>());
-            yield return new WaitForSeconds(0.5f);
-            Destroy(gameObject);
         }
         else
         {
@@ -98,9 +95,6 @@ public class EquipementOwner : MonoBehaviour
             t.TweenPositionTo(TweenPosition, 0.2f, Easings.Ease.SmootherStep, true);
             yield return new WaitForSeconds(0.2f);
             t.TweenPositionTo(Manager.Instance.goAwayPositionEnemy[position].transform.position, 0.5f, Easings.Ease.SmootherStep, true);
-            EnemyBehaviour.Instance.enemyEquipementOwner.Remove(gameObject.GetComponent<EquipementOwner>());
-            yield return new WaitForSeconds(0.5f);
-            Destroy(gameObject);
         }
 
     }
