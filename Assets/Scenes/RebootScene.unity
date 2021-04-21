@@ -2122,9 +2122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6399034b0090d454bb49f9d46e581458, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 40
-  maxHealth: 40
-  initialDiceCount: 3
+  health: 14
+  maxHealth: 14
+  initialDiceCount: 2
   numberOfDice: 0
   storedDice: []
   enemySkillList:
@@ -2207,8 +2207,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialDiceCount: 3
   numberOfDice: 0
-  health: 40
-  maxHealth: 40
+  health: 24
+  maxHealth: 24
   LimitBreakPV: 8
   currentLimitBreakPV: 8
   limitBreakAvailable: 0
@@ -2222,6 +2222,7 @@ MonoBehaviour:
   isEsquive: 0
   directRepetition: 0
   numberOfBurn: 0
+  comesFromLimitBreak: 0
 --- !u!4 &1121895641
 Transform:
   m_ObjectHideFlags: 0

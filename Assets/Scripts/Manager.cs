@@ -124,7 +124,6 @@ public class Manager : Singleton<Manager>
             {
                 GameObject InitSkill = Instantiate(bigSkill, bigSkillPositionPlayer[numberOfBig].position, Quaternion.identity);
                 
-
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
                 playerManager.playerEquipementOwner.Add(equipOwner);
 

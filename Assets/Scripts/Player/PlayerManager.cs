@@ -26,6 +26,8 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public int numberOfBurn = 0;
 
+    public bool comesFromLimitBreak = false;
+
     private void Awake()
     {
         CreateSingleton(true);
@@ -49,9 +51,9 @@ public class PlayerManager : Singleton<PlayerManager>
 
         if (currentLimitBreakPV < 0)
         {
-            Manager.Instance.canvasManager.UpdateLimitBreakVisuel();
             limitBreakAvailable = true;
             currentLimitBreakPV = LimitBreakPV;
+            Manager.Instance.canvasManager.UpdateLimitBreakVisuel();
         }
 
         if (health <= 0)
@@ -73,6 +75,7 @@ public class PlayerManager : Singleton<PlayerManager>
             {
                 if (playerSkillsWithCountDown[i].currentlyOnField == true)
                 {
+                    comesFromLimitBreak = true;
                     StartCoroutine(DelayCountdown(3, playerSkillsWithCountDown[i].equipementOwner));
                 }
             }
@@ -82,11 +85,16 @@ public class PlayerManager : Singleton<PlayerManager>
     //Delay le compteur visuel pour un feedback sympa;
     public IEnumerator DelayCountdown(int value, EquipementOwner equipementOwner)
     {
-        equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
-        equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
-        equipementOwner.diceOwn.canMove = false;
+        if (!comesFromLimitBreak)
+        {
+            equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
+            equipementOwner.diceOwn.transform.localPosition = Vector3.zero;
+            equipementOwner.diceOwn.canMove = false;
 
-        equipementOwner.diceOwn.gameObject.SetActive(false);
+            equipementOwner.diceOwn.gameObject.SetActive(false);
+        }
+
+        
 
         for (int i = 0; i < value; i++)
         {
@@ -97,14 +105,15 @@ public class PlayerManager : Singleton<PlayerManager>
             if (equipementOwner.equipementOwn.currentCountdown <= 0)
             {
                 equipementOwner.equipementOwn.currentCountdown = 0;
+                comesFromLimitBreak = false;
                 equipementOwner.equipementOwn.Use();
                 StopCoroutine(DelayCountdown(value,equipementOwner));
-                break;
+                
             }
             
         }
 
-       
+        
     }
 }
 

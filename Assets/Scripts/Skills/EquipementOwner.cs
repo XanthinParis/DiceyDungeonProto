@@ -53,7 +53,14 @@ public class EquipementOwner : MonoBehaviour
                 diceValue.text = "Max: " + equipementOwn.valueCondition.ToString();
                 break;
             case Skill.conditionType.countdown:
-                diceValue.text = equipementOwn.valueCondition.ToString();
+                if (Manager.Instance.firstTurn)
+                {
+                    diceValue.text = equipementOwn.valueCondition.ToString();
+                }
+                else
+                {
+                    diceValue.text = equipementOwn.currentCountdown.ToString();
+                }
                 break;
             case Skill.conditionType.pair:
                 break;

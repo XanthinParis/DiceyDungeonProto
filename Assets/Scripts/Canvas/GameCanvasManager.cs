@@ -22,6 +22,7 @@ public class GameCanvasManager : MonoBehaviour
     {
         downCross.SetActive(false);
         UpdateLimitBreakVisuel();
+        UpdateHealth();
     }
 
     private void Update()
@@ -38,12 +39,13 @@ public class GameCanvasManager : MonoBehaviour
     {
         if (Manager.Instance.playerManager.limitBreakAvailable == true)
         {
+            Debug.Log("button");
             limitBreakButton.enabled = true;
             //Ajouter un coté shiny au Bouton;
         }
         else
         {
-            limitBreakButton.enabled = false; ;
+            limitBreakButton.enabled = false; 
         }
     }
 
