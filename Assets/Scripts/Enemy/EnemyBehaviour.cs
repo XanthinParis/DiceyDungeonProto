@@ -40,6 +40,11 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             maxValue = valueDice1;
         }
 
+        if(valueDice0 == enemyEquipementOwner[1].equipementOwn.currentCountdown || valueDice1 == enemyEquipementOwner[1].equipementOwn.currentCountdown)
+        {
+
+        }
+
         if (maxValue >=5)
         {
             Debug.Log("Methode1");
@@ -54,12 +59,15 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
     private IEnumerator FocusFirstSkill()
     {
-        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position,1f,Easings.Ease.SmoothStep,true);
+        yield return new WaitForSeconds(1f);
+        Vector2 dicePosition0 = new Vector2(enemyEquipementOwner[0].dicePosition.transform.position.x, enemyEquipementOwner[0].dicePosition.transform.position.y);
+        storedDice[0].GetComponent<Tweener>().TweenPositionTo(dicePosition0, 1f,Easings.Ease.SmoothStep,true);
         yield return new WaitForSeconds(1f);
         enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
         enemyEquipementOwner[0].equipementOwn.TestValue();
         yield return new WaitForSeconds(0.2f);
-        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
+        Vector2 dicePosition1 = new Vector2(enemyEquipementOwner[1].dicePosition.transform.position.x, enemyEquipementOwner[1].dicePosition.transform.position.y);
+        storedDice[1].GetComponent<Tweener>().TweenPositionTo(dicePosition1, 1f, Easings.Ease.SmoothStep, true);
         yield return new WaitForSeconds(1f);
         enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
         enemyEquipementOwner[1].equipementOwn.TestValue();
@@ -69,12 +77,15 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
     private IEnumerator FocusSecondSkill()
     {
-        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+        yield return new WaitForSeconds(1f);
+        Vector2 dicePosition1 = new Vector2(enemyEquipementOwner[1].dicePosition.transform.position.x, enemyEquipementOwner[1].dicePosition.transform.position.y);
+        storedDice[1].GetComponent<Tweener>().TweenPositionTo(dicePosition1, 1f, Easings.Ease.SmootherStep, true);
         yield return new WaitForSeconds(1f);
         enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
         enemyEquipementOwner[1].equipementOwn.TestValue();
         yield return new WaitForSeconds(0.2f);
-        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
+        Vector2 dicePosition0 = new Vector2(enemyEquipementOwner[0].dicePosition.transform.position.x, enemyEquipementOwner[0].dicePosition.transform.position.y);
+        storedDice[0].GetComponent<Tweener>().TweenPositionTo(dicePosition0, 1f, Easings.Ease.SmootherStep, true);
         yield return new WaitForSeconds(1f);
         enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
         enemyEquipementOwner[0].equipementOwn.TestValue();
@@ -82,7 +93,20 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         Manager.Instance.EndTurn();
     }
 
-
+    private IEnumerator FocusThirdSkill(int value0, int value1)
+    {
+        if(value0 == enemyEquipementOwner[1].equipementOwn.currentCountdown)
+        {
+            //Le dé 0 va dans la cpt1
+            //Le dé 1 va dans la cpt0
+        }
+        else
+        {
+            //Le dé 1 va dans la cpt0
+            //Le dé 0 va dans la cpt1
+        }
+        yield return null;
+    }
 
     public void TakeDamages(int damages)
     {
