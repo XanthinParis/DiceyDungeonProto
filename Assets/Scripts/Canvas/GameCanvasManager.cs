@@ -7,6 +7,9 @@ using TMPro;
 public class GameCanvasManager : MonoBehaviour
 {
     [SerializeField] private Button limitBreakButton;
+    [SerializeField] private Color limitbreakColorDisable;
+    [SerializeField] private Color limitbreakColorAble;
+
 
     [SerializeField] private TextMeshProUGUI enemyHealthText;
     [SerializeField] private TextMeshProUGUI playerHealthText;
@@ -39,12 +42,12 @@ public class GameCanvasManager : MonoBehaviour
     {
         if (Manager.Instance.playerManager.limitBreakAvailable == true)
         {
-            Debug.Log("button");
             limitBreakButton.enabled = true;
-            //Ajouter un coté shiny au Bouton;
+            Manager.Instance.canvasManager.limitBreakButton.GetComponent<Image>().color = Manager.Instance.canvasManager.limitbreakColorAble;
         }
         else
         {
+            Manager.Instance.canvasManager.limitBreakButton.GetComponent<Image>().color = Manager.Instance.canvasManager.limitbreakColorDisable;
             limitBreakButton.enabled = false; 
         }
     }

@@ -49,7 +49,7 @@ public class PlayerManager : Singleton<PlayerManager>
         health -= damages;
         currentLimitBreakPV -= damages;
 
-        if (currentLimitBreakPV < 0)
+        if (currentLimitBreakPV <= 0)
         {
             limitBreakAvailable = true;
             currentLimitBreakPV = LimitBreakPV;
@@ -111,6 +111,11 @@ public class PlayerManager : Singleton<PlayerManager>
                 
             }
             
+        }
+
+        if (comesFromLimitBreak)
+        {
+            comesFromLimitBreak = false;
         }
 
         

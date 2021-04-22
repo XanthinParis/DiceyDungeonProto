@@ -52,11 +52,8 @@ public class DiceBehaviour : MonoBehaviour
         if(collision.gameObject == Manager.Instance.cursor && Manager.Instance.cursorBehaviour.currentSelected ==null)
         {
             cursorHere = true;
-            //Debug.Log("cursorIn");
             
         } 
-
-        //Checker si ca rentre dans la collision d'une compétence.
     }
 
     private void OnTriggerExit2D(Collider2D collisions)
@@ -64,7 +61,6 @@ public class DiceBehaviour : MonoBehaviour
         if (collisions.gameObject == Manager.Instance.cursor)
         {
             cursorHere = false;
-            //Debug.Log("cursorOut");
             Manager.Instance.cursorBehaviour.currentSelected = null;
         }
     }
