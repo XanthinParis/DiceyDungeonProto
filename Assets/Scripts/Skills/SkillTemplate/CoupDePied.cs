@@ -26,11 +26,10 @@ public class CoupDePied : Skill
 
     public override void Use()
     {
-
         BlockDice();
 
         Manager.Instance.enemyBehaviour.TakeDamages(damages);
-        Manager.Instance.enemyBehaviour.InitShock(1);
+        Manager.Instance.enemyBehaviour.numberOfShock++;
 
         if (timeUsed == reusableTime)
         {

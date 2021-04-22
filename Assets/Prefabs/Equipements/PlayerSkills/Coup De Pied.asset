@@ -16,15 +16,15 @@ MonoBehaviour:
   reusableTime: 0
   timeUsed: 0
   isBig: 0
-  damages: 0
+  damages: 2
   valueCondition: 0
   currentCountdown: 0
   isBreak: 0
-  isShock: 0
-  currentlyOnField: 0
-  conditions: 0
+  isShock: 1
+  currentlyOnField: 1
+  conditions: 4
   side: 0
-  skillName: 
-  skillDescription: 
-  diceDescription: 
+  skillName: Coup de Pied
+  skillDescription: "Infliger 2 d\xE9gats + Choc"
+  diceDescription: impair
   equipementOwner: {fileID: 0}

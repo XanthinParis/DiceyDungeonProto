@@ -182,6 +182,8 @@ public class Manager : Singleton<Manager>
     {
         int numberOfBig = 0;
 
+        enemyBehaviour.InitShock();
+
         ///Le Gadget est placé dans le tableau de skill du player.
 
         //Instanciate big skill before small one in Order to put then in the proper place.
@@ -194,6 +196,9 @@ public class Manager : Singleton<Manager>
                 enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
                 equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
                 equipOwner.UpdateVisuel();
+
+               
+
                 equipOwner.equipementOwn.currentlyOnField = true;
                 equipOwner.equipementOwn.initSkillValue();
                 equipOwner.position = i;
@@ -212,6 +217,13 @@ public class Manager : Singleton<Manager>
                 enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
                 equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
                 equipOwner.UpdateVisuel();
+
+                if (equipOwner.isChoc)
+                {
+                    equipOwner.chocItem.SetActive(true);
+                    equipOwner.GetComponent<BoxCollider2D>().enabled = false;
+                }
+                
                 equipOwner.equipementOwn.currentlyOnField = true;
                 equipOwner.equipementOwn.initSkillValue();
 
@@ -223,6 +235,18 @@ public class Manager : Singleton<Manager>
                     numberOfBig++;
                 }
 
+            }
+        }
+
+        
+
+        for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
+        {
+            if (enemyBehaviour.enemyEquipementOwner[i].equipementOwn.isShock)
+            {
+                enemyBehaviour.enemyEquipementOwner[i].isChoc = true;
+                enemyBehaviour.enemyEquipementOwner[i].chocItem.SetActive(true);
+                enemyBehaviour.enemyEquipementOwner[i].GetComponent<BoxCollider2D>().enabled = false;
             }
         }
 
@@ -249,7 +273,19 @@ public class Manager : Singleton<Manager>
         {
             turn = GameTurn.Enemy;
             //Reset competences
-            
+
+            EnemyBehaviour.Instance.InitShock();
+
+            for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
+            {
+                if (enemyBehaviour.enemyEquipementOwner[i].equipementOwn.isShock)
+                {
+                    enemyBehaviour.enemyEquipementOwner[i].isChoc = true;
+                    enemyBehaviour.enemyEquipementOwner[i].chocItem.SetActive(true);
+                    enemyBehaviour.enemyEquipementOwner[i].GetComponent<BoxCollider2D>().enabled = false;
+                }
+            }
+
             for (int i = 0; i < playerManager.playerEquipementOwner.Count; i++)
             {
                 playerManager.playerEquipementOwner[i].AnimationUse();

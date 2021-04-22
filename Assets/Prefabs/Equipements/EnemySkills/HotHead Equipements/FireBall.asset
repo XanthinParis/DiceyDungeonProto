@@ -20,8 +20,8 @@ MonoBehaviour:
   valueCondition: 0
   currentCountdown: 0
   isBreak: 0
-  isShock: 0
-  currentlyOnField: 0
+  isShock: 1
+  currentlyOnField: 1
   conditions: 5
   side: 1
   skillName: Fireball

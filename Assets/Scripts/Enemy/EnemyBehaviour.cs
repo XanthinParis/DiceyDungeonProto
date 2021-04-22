@@ -15,6 +15,9 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     public List<EquipementOwner> enemyEquipementOwner = new List<EquipementOwner>();
     public List<Skill> enemySkillWithCountdown = new List<Skill>();
 
+    //altération
+    public int numberOfShock = 0;
+
     private void Awake()
     {
         CreateSingleton(true);
@@ -60,38 +63,19 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         {
             if(storedDice[0].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown)
             {
-                //Dé 0 Cpt1
-                storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
-                yield return new WaitForSeconds(1.2f);
-                enemyEquipementOwner[1].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
-                enemyEquipementOwner[1].equipementOwn.TestValue();
-
+                StartCoroutine(Dice0Equipement1());
                 yield return new WaitForSeconds(0.5f);
-
-                storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
-                yield return new WaitForSeconds(1.2f);
-                enemyEquipementOwner[0].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
-                enemyEquipementOwner[0].equipementOwn.TestValue();
-                yield return new WaitForSeconds(0.75f);
+                StartCoroutine(Dice1Equipement0());
+                yield return new WaitForSeconds(1.5f);
                 Manager.Instance.EndTurn();
                 yield break;
             }
             else
             {
-                
-
-                storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
-                yield return new WaitForSeconds(1.2f);
-                enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
-                enemyEquipementOwner[1].equipementOwn.TestValue();
-
+                StartCoroutine(Dice1Equipement1());
                 yield return new WaitForSeconds(0.5f);
-
-                storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
-                yield return new WaitForSeconds(1.2f);
-                enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
-                enemyEquipementOwner[0].equipementOwn.TestValue();
-                yield return new WaitForSeconds(0.75f);
+                StartCoroutine(Dice0Equipement0());
+                yield return new WaitForSeconds(1.5f);
                 Manager.Instance.EndTurn();
                 yield break;
 
@@ -102,38 +86,19 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         {
             if (maxValue == storedDice[0].GetComponent<DiceBehaviour>().valueDice)
             {
-                storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
-                yield return new WaitForSeconds(1.2f);
-                enemyEquipementOwner[1].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
-                enemyEquipementOwner[1].equipementOwn.TestValue();
-
+                StartCoroutine(Dice0Equipement1());
                 yield return new WaitForSeconds(0.5f);
-
-                storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
-                yield return new WaitForSeconds(1.2f);
-                enemyEquipementOwner[0].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
-                enemyEquipementOwner[0].equipementOwn.TestValue();
-
-                yield return new WaitForSeconds(0.75f);
+                StartCoroutine(Dice1Equipement0());
+                yield return new WaitForSeconds(1.5f);
                 Manager.Instance.EndTurn();
-
                 yield break;
             }
             else
             {
-                storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
-                yield return new WaitForSeconds(1.2f);
-                enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
-                enemyEquipementOwner[1].equipementOwn.TestValue();
-
+                StartCoroutine(Dice1Equipement1());
                 yield return new WaitForSeconds(0.5f);
-
-                storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmoothStep, true);
-                yield return new WaitForSeconds(1.2f);
-                enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
-                enemyEquipementOwner[0].equipementOwn.TestValue();
-                yield return new WaitForSeconds(0.75f);
-
+                StartCoroutine(Dice0Equipement0());
+                yield return new WaitForSeconds(1.5f);
                 Manager.Instance.EndTurn();
                 yield break;
             }
@@ -146,35 +111,19 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
  
         if(value == storedDice[0].GetComponent<DiceBehaviour>().valueDice)
         {
-            storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
-            yield return new WaitForSeconds(1.2f);
-            enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
-            enemyEquipementOwner[0].equipementOwn.TestValue();
-
+            StartCoroutine(Dice0Equipement0());
             yield return new WaitForSeconds(0.5f);
-
-            storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
-            yield return new WaitForSeconds(1.2f);
-            enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
-            enemyEquipementOwner[1].equipementOwn.TestValue();
-            yield return new WaitForSeconds(0.75f);
+            StartCoroutine(Dice1Equipement1());
+            yield return new WaitForSeconds(1.5f);
             Manager.Instance.EndTurn();
             yield break;
         }
         else
         {
-            storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
-            yield return new WaitForSeconds(1.2f);
-            enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
-            enemyEquipementOwner[1].equipementOwn.TestValue();
-
+            StartCoroutine(Dice1Equipement1());
             yield return new WaitForSeconds(0.5f);
-
-            storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 1f, Easings.Ease.SmootherStep, true);
-            yield return new WaitForSeconds(1.2f);
-            enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
-            enemyEquipementOwner[0].equipementOwn.TestValue();
-            yield return new WaitForSeconds(0.75f);
+            StartCoroutine(Dice0Equipement0());
+            yield return new WaitForSeconds(1.5f);
             Manager.Instance.EndTurn();
             yield break;
         }
@@ -204,6 +153,51 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         }
     }
 
+    public IEnumerator Dice0Equipement0()
+    {
+        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 0.75f, Easings.Ease.SmoothStep, true);
+        yield return new WaitForSeconds(0.75f);
+        enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+        RemoveChocInit(0);
+    }
+
+    public IEnumerator Dice1Equipement1()
+    {
+        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 0.75f, Easings.Ease.SmoothStep, true);
+        yield return new WaitForSeconds(0.75f);
+        enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
+        RemoveChocInit(1);
+    }
+
+    public IEnumerator Dice0Equipement1()
+    {
+        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 0.75f, Easings.Ease.SmoothStep, true);
+        yield return new WaitForSeconds(0.75f);
+        enemyEquipementOwner[1].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
+        RemoveChocInit(1);
+
+    }
+
+    public IEnumerator Dice1Equipement0()
+    {
+        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 0.75f, Easings.Ease.SmoothStep, true);
+        yield return new WaitForSeconds(0.75f);
+        enemyEquipementOwner[0].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
+        RemoveChocInit(0);
+    }
+
+    public void RemoveChocInit(int index)
+    {
+        if (enemyEquipementOwner[index].isChoc)
+        {
+            enemyEquipementOwner[index].chocBehaviour.StartCoroutine(enemyEquipementOwner[index].chocBehaviour.RemoveChoc());
+        }
+        else
+        {
+            enemyEquipementOwner[index].equipementOwn.TestValue();
+        }
+    }
+
     public void TakeDamages(int damages)
     {
         health -= damages;
@@ -225,13 +219,16 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         }
     }
 
-    public void InitShock(int shockTime)
+    public void InitShock()
     {
-        for (int i = 0; i < shockTime; i++)
+        Debug.Log(numberOfShock);
+        for (int i = 0; i < numberOfShock; i++)
         {
+            Debug.Log(i + "InitShock");
             int indexChoose = Random.Range(0, enemySkillList.Count - 1);
 
             enemySkillList[indexChoose].isShock = true;
         }
+        numberOfShock = 0; 
     }
 }

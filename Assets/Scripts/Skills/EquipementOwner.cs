@@ -17,11 +17,16 @@ public class EquipementOwner : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI diceDescription;
 
+    public GameObject chocItem;
+
     private Tweener t;
 
     public Transform dicePosition;
 
     public bool diceHere;
+
+    public ChocBehaviour chocBehaviour;
+    public bool isChoc = false;
 
     private void Start()
     {
@@ -63,8 +68,10 @@ public class EquipementOwner : MonoBehaviour
                 }
                 break;
             case Skill.conditionType.pair:
+                diceValue.text = " ";
                 break;
             case Skill.conditionType.impair:
+                diceValue.text = " ";
                 break;
             case Skill.conditionType.value:
                 diceValue.text = " ";

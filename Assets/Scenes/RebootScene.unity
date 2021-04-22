@@ -2217,6 +2217,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 42738f456d1b7ea459df17a811ab034e, type: 2}
   - {fileID: 11400000, guid: 64c7e5511dac3c64897d261166c04ada, type: 2}
   - {fileID: 11400000, guid: 7d3fd727fedd359468d0c7933a118ea7, type: 2}
+  - {fileID: 11400000, guid: 4dd9bbc04149f044b916dcdeb44fc7a2, type: 2}
   playerEquipementOwner: []
   playerSkillsWithCountDown: []
   isEsquive: 0
