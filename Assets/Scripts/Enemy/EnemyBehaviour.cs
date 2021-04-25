@@ -18,6 +18,8 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     //altération
     public int numberOfShock = 0;
 
+    public bool enemyShock = false;
+
     private void Awake()
     {
         CreateSingleton(true);
@@ -34,6 +36,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         int valueDice1 = storedDice[1].GetComponent<DiceBehaviour>().dice.value;
 
         int maxValue = 0;
+
         if (valueDice0 > valueDice1)
         {
             maxValue = valueDice0;
@@ -43,89 +46,213 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             maxValue = valueDice1;
         }
 
-        if (maxValue >=5 || (storedDice[0].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown || storedDice[1].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown))
+        for (int i = 0; i < enemySkillList.Count; i++)
         {
-            Debug.Log("Methode1");
-            StartCoroutine(FocusFirstSkill(maxValue));
+            if (enemySkillList[i].isShock)
+            {
+                enemyShock = true;
+            }
+        }
+
+        //Si l'ennemy a une compétence en Choc, il faut voir ce qui est le plus rentable pour lui de faire.  
+        if (enemyShock)
+        {
+            if (enemySkillList[1].isShock)   // Si c'est la compétence 1 qui est choc, il faut que check si un des valeurs des deux dés est suffisantes pour que ca soit worth.
+            {
+                Comp1Shoked();
+            }
+            else //Dans le cas ou la compétence 0 est sous Choc
+            {
+                Comp0Shoked();
+            }
         }
         else
         {
-            Debug.Log("Methode2");
-            StartCoroutine(FocusSecondSkill(maxValue));
+            NoShock();
         }
     }
 
-    private IEnumerator FocusFirstSkill(int maxValue)
+    public void Comp1Shoked()
     {
-        yield return new WaitForSeconds(1f);
+        bool thereIsA6 = false;
+        GameObject stored6 = null;
+        GameObject otherDice0 = null;
+        GameObject otherDice1 = null;
+        int maxValue = 0;
 
-        if (storedDice[0].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown || storedDice[1].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown)
+        int valueDice0 = storedDice[0].GetComponent<DiceBehaviour>().dice.value;
+        int valueDice1 = storedDice[1].GetComponent<DiceBehaviour>().dice.value;
+
+        if (valueDice0 > valueDice1)
         {
-            if(storedDice[0].GetComponent<DiceBehaviour>().dice.value == enemyEquipementOwner[1].equipementOwn.currentCountdown)
-            {
-                StartCoroutine(Dice0Equipement1());
-                yield return new WaitForSeconds(0.5f);
-                StartCoroutine(Dice1Equipement0());
-                yield return new WaitForSeconds(1.5f);
-                Manager.Instance.EndTurn();
-                yield break;
-            }
-            else
-            {
-                StartCoroutine(Dice1Equipement1());
-                yield return new WaitForSeconds(0.5f);
-                StartCoroutine(Dice0Equipement0());
-                yield return new WaitForSeconds(1.5f);
-                Manager.Instance.EndTurn();
-                yield break;
-
-            }
-
+            maxValue = valueDice0;
         }
         else
         {
+            maxValue = valueDice1;
+        }
+
+
+        //Check si ya un 6
+        for (int i = 0; i < storedDice.Count; i++)
+        {
+            if (storedDice[i].GetComponent<DiceBehaviour>().valueDice == 6)
+            {
+                if (stored6 != null)
+                {
+                    stored6 = storedDice[i];
+                }
+                else
+                {
+                    otherDice0 = storedDice[i];
+                }
+
+                thereIsA6 = true;
+            }
+            else
+            {
+                if (otherDice0 != null)
+                {
+                    otherDice0 = storedDice[i];
+                }
+                else
+                {
+                    otherDice1 = storedDice[i];
+                }
+            }
+        }
+
+        if (thereIsA6)
+        {
+            StartCoroutine(DiceToEquipement(stored6, 0, 1));
+            StartCoroutine(DiceToEquipement(otherDice0, 1, 2));
+            return;
+        }
+        else
+        {
+
             if (maxValue == storedDice[0].GetComponent<DiceBehaviour>().valueDice)
             {
-                StartCoroutine(Dice0Equipement1());
-                yield return new WaitForSeconds(0.5f);
-                StartCoroutine(Dice1Equipement0());
-                yield return new WaitForSeconds(1.5f);
-                Manager.Instance.EndTurn();
-                yield break;
+                StartCoroutine(DiceToEquipement(storedDice[1], 1, 1));
+                StartCoroutine(DiceToEquipement(storedDice[0], 1, 2));
             }
             else
             {
-                StartCoroutine(Dice1Equipement1());
-                yield return new WaitForSeconds(0.5f);
-                StartCoroutine(Dice0Equipement0());
-                yield return new WaitForSeconds(1.5f);
-                Manager.Instance.EndTurn();
-                yield break;
+                StartCoroutine(DiceToEquipement(storedDice[0], 1, 1));
+                StartCoroutine(DiceToEquipement(storedDice[1], 1, 2));
             }
         }
     }
 
-    private IEnumerator FocusSecondSkill(int value)
+    public void Comp0Shoked()
     {
-        yield return new WaitForSeconds(1f);
- 
-        if(value == storedDice[0].GetComponent<DiceBehaviour>().valueDice)
+        int maxValue = 0;
+
+        int valueDice0 = storedDice[0].GetComponent<DiceBehaviour>().dice.value;
+        int valueDice1 = storedDice[1].GetComponent<DiceBehaviour>().dice.value;
+
+        if (valueDice0 > valueDice1)
         {
-            StartCoroutine(Dice0Equipement0());
-            yield return new WaitForSeconds(0.5f);
-            StartCoroutine(Dice1Equipement1());
-            yield return new WaitForSeconds(1.5f);
-            Manager.Instance.EndTurn();
-            yield break;
+            maxValue = valueDice0;
+           
         }
         else
         {
-            StartCoroutine(Dice1Equipement1());
-            yield return new WaitForSeconds(0.5f);
-            StartCoroutine(Dice0Equipement0());
-            yield return new WaitForSeconds(1.5f);
-            Manager.Instance.EndTurn();
-            yield break;
+            maxValue = valueDice1;
+        }
+
+        if(maxValue == 6)
+        {
+            //Cpt0 plus worth
+            if(valueDice0 == maxValue)
+            {
+                StartCoroutine(DiceToEquipement(storedDice[0], 0, 1));
+                StartCoroutine(DiceToEquipement(storedDice[1], 1, 2));
+            }
+            else
+            {
+                StartCoroutine(DiceToEquipement(storedDice[1], 0, 1));
+                StartCoroutine(DiceToEquipement(storedDice[0], 1, 2));
+            }
+        }
+        else //Cpt 1 plus worth
+        {
+            if(valueDice0 == maxValue)
+            {
+                StartCoroutine(DiceToEquipement(storedDice[1], 1, 1));
+                StartCoroutine(DiceToEquipement(storedDice[0], 1, 2));
+            }
+            else
+            {
+                StartCoroutine(DiceToEquipement(storedDice[0], 1, 1));
+                StartCoroutine(DiceToEquipement(storedDice[1], 1, 2));
+            }
+        }
+        
+    }
+
+    public void NoShock()
+    {
+        #region Test
+        int maxValue = 0;
+
+        int valueDice0 = storedDice[0].GetComponent<DiceBehaviour>().dice.value;
+        int valueDice1 = storedDice[1].GetComponent<DiceBehaviour>().dice.value;
+
+        if (valueDice0 > valueDice1)
+        {
+            maxValue = valueDice0;
+        }
+        else
+        {
+            maxValue = valueDice1;
+        }
+        #endregion
+
+        if (valueDice0 == enemySkillList[1].currentCountdown)
+        {
+            StartCoroutine(DiceToEquipement(storedDice[0], 1, 1));
+            StartCoroutine(DiceToEquipement(storedDice[1], 0, 2));
+        }
+        else if (valueDice1 == enemySkillList[1].currentCountdown)
+        {
+            StartCoroutine(DiceToEquipement(storedDice[1], 1, 1));
+            StartCoroutine(DiceToEquipement(storedDice[0], 0, 2));
+        }
+        else
+        {
+            if (valueDice0 == maxValue)
+            {
+                StartCoroutine(DiceToEquipement(storedDice[0], 0, 1));
+                StartCoroutine(DiceToEquipement(storedDice[1], 1, 2));
+            }
+            else
+            {
+                StartCoroutine(DiceToEquipement(storedDice[1], 0, 1));
+                StartCoroutine(DiceToEquipement(storedDice[0], 1, 2));
+            }
+        }
+    }
+   
+    //waiting time = 0 si c'est la première action.
+    public IEnumerator DiceToEquipement(GameObject selectedDice, int skillIndex, float waitingTime)
+    {
+        yield return new WaitForSeconds(waitingTime);
+        selectedDice.GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[skillIndex].dicePosition.transform.position, 0.75f, Easings.Ease.SmoothStep, true);
+        yield return new WaitForSeconds(0.75f);
+        enemyEquipementOwner[0].diceOwn = selectedDice.GetComponent<DiceBehaviour>();
+        RemoveChocInit(0);
+    }
+
+    public void RemoveChocInit(int index)
+    {
+        if (enemyEquipementOwner[index].isChoc)
+        {
+            enemyEquipementOwner[index].chocBehaviour.StartCoroutine(enemyEquipementOwner[index].chocBehaviour.RemoveChoc());
+        }
+        else
+        {
+            enemyEquipementOwner[index].equipementOwn.TestValue();
         }
     }
 
@@ -150,51 +277,6 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
                 StopCoroutine(DelayCountdownEnemy(value, equipementOwner));
                 break;
             }
-        }
-    }
-
-    public IEnumerator Dice0Equipement0()
-    {
-        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 0.75f, Easings.Ease.SmoothStep, true);
-        yield return new WaitForSeconds(0.75f);
-        enemyEquipementOwner[0].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
-        RemoveChocInit(0);
-    }
-
-    public IEnumerator Dice1Equipement1()
-    {
-        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 0.75f, Easings.Ease.SmoothStep, true);
-        yield return new WaitForSeconds(0.75f);
-        enemyEquipementOwner[1].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
-        RemoveChocInit(1);
-    }
-
-    public IEnumerator Dice0Equipement1()
-    {
-        storedDice[0].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[1].dicePosition.transform.position, 0.75f, Easings.Ease.SmoothStep, true);
-        yield return new WaitForSeconds(0.75f);
-        enemyEquipementOwner[1].diceOwn = storedDice[0].GetComponent<DiceBehaviour>();
-        RemoveChocInit(1);
-
-    }
-
-    public IEnumerator Dice1Equipement0()
-    {
-        storedDice[1].GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[0].dicePosition.transform.position, 0.75f, Easings.Ease.SmoothStep, true);
-        yield return new WaitForSeconds(0.75f);
-        enemyEquipementOwner[0].diceOwn = storedDice[1].GetComponent<DiceBehaviour>();
-        RemoveChocInit(0);
-    }
-
-    public void RemoveChocInit(int index)
-    {
-        if (enemyEquipementOwner[index].isChoc)
-        {
-            enemyEquipementOwner[index].chocBehaviour.StartCoroutine(enemyEquipementOwner[index].chocBehaviour.RemoveChoc());
-        }
-        else
-        {
-            enemyEquipementOwner[index].equipementOwn.TestValue();
         }
     }
 
@@ -225,7 +307,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         for (int i = 0; i < numberOfShock; i++)
         {
             Debug.Log(i + "InitShock");
-            int indexChoose = Random.Range(0, enemySkillList.Count - 1);
+            int indexChoose = Random.Range(0, enemySkillList.Count);
 
             enemySkillList[indexChoose].isShock = true;
         }

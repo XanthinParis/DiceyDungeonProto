@@ -238,8 +238,6 @@ public class Manager : Singleton<Manager>
             }
         }
 
-        
-
         for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
         {
             if (enemyBehaviour.enemyEquipementOwner[i].equipementOwn.isShock)
@@ -289,7 +287,6 @@ public class Manager : Singleton<Manager>
             for (int i = 0; i < playerManager.playerEquipementOwner.Count; i++)
             {
                 playerManager.playerEquipementOwner[i].AnimationUse();
-                
             }
 
             yield return new WaitForSeconds(0.5f);
@@ -311,6 +308,10 @@ public class Manager : Singleton<Manager>
             canvasManager.upCross.SetActive(false);
             canvasManager.downCross.SetActive(false);
             enemyBehaviour.EnemyBattle();
+
+            yield return new WaitForSeconds(3f);
+            EndTurn();
+           
         }
         else                        // Fin du tour de l'enemy.
         {
@@ -326,12 +327,12 @@ public class Manager : Singleton<Manager>
                 Debug.Log("Destroy");
                 Destroy(enemyBehaviour.enemyEquipementOwner[i].gameObject);
             }
+
+
             yield return new WaitForSeconds(0.1f);
             enemyBehaviour.enemyEquipementOwner.Clear();
             enemyBehaviour.storedDice.Clear();
             enemyBehaviour.enemySkillWithCountdown.Clear();
-
-           
 
             diceManager.ResetDiceEnemy();
             canvasManager.SwitchCamera();
