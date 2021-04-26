@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class EnemyBehaviourAlt : MonoBehaviour
 {
@@ -15,8 +16,10 @@ public class EnemyBehaviourAlt : MonoBehaviour
         enemy = Manager.Instance.enemyBehaviour;
     }
 
+   
+
     public void EnemyBattleAlt()
-   {
+    {
         
 
         switch (monsterName)
@@ -67,9 +70,65 @@ public class EnemyBehaviourAlt : MonoBehaviour
             case monster.Aoife:
                 #region Aoife
 
-                //IA;
+                //Trier les Values des dés.
 
+                if (enemy.enemyShock)
+                {
+                    int compChoc = 0;
+
+                    for (int i = 0; i < enemy.enemyActualEquipement.Count; i++)
+                    {
+                        if (enemy.enemyActualEquipement[i].GetComponent<EquipementOwner>().equipementOwn.isShock)
+                        {
+                            compChoc = i;
+                        }
+                    }
+
+                    enemy.RemoveShockAlt(compChoc);
+                }
+                else
+                {
+                    ContinueAnalyse(true);
+                }
                 #endregion
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void ContinueAnalyse(bool skip)
+    {
+        if (!skip)
+        {
+            enemy.storedDice.Remove(enemy.storedDice[0]);
+        }
+
+        //Trier à nouveau 
+        Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        int breakint = 3;
+        for (int i = 0; i < enemy.enemyActualEquipement.Count; i++)
+        {
+            if (enemy.enemyActualEquipement[i].equipementOwn.isBreak)
+            {
+                breakint = i;
+            }
+        }
+
+        switch (breakint)
+        {
+            case 0:
+                enemy.BreakSkill0();
+                break;
+            case 1:
+                enemy.BreakSkill0();
+                break;
+            case 2:
+                enemy.BreakSkill0();
+                break;
+            case 3:
+                enemy.NoBreak();
                 break;
             default:
                 break;

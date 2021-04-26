@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class DiceManager : MonoBehaviour
 {
@@ -110,13 +111,14 @@ public class DiceManager : MonoBehaviour
             //2 - En fonction de du nombre choisi, j'instancie le dé à la bonne position.
             GameObject spawnedDice = Instantiate(dices[spawnValue], diceInitialPositionEnemy[i].transform.position, Quaternion.identity);
             spawnedDice.transform.SetParent(diceInitialPositionEnemy[i].transform);
-            spawnedDice.transform.localPosition = new Vector3(0, 0,1);
+            spawnedDice.transform.localPosition = new Vector3(0,0,1);
             spawnedDice.transform.SetParent(null);
             spawnedDice.GetComponent<BoxCollider2D>().enabled = false;
-            Manager.Instance.enemyBehaviour.storedDice.Add(spawnedDice);
+
+            Manager.Instance.enemyBehaviour.storedDice.Add(spawnedDice.GetComponent<DiceBehaviour>());
         }
 
-        Manager.Instance.enemyBehaviour.numberOfDice = Manager.Instance.enemyBehaviour.storedDice.Count;
+        Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
     }
 
     public void AddDiceEnemy(int moreDice)
@@ -125,10 +127,11 @@ public class DiceManager : MonoBehaviour
         {
             int spawnValue = Random.Range(0, 6);
             GameObject spawnedDice = Instantiate(dices[spawnValue], diceInitialPositionEnemy[Manager.Instance.enemyBehaviour.storedDice.Count].transform.position, Quaternion.identity);
-            Manager.Instance.enemyBehaviour.storedDice.Add(spawnedDice);
+            Manager.Instance.enemyBehaviour.storedDice.Add(spawnedDice.GetComponent<DiceBehaviour>());
         }
 
         Manager.Instance.enemyBehaviour.numberOfDice = Manager.Instance.enemyBehaviour.storedDice.Count;
+
     }
 
     public void AddDicePlayer(int moreDice)

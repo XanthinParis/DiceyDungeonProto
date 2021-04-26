@@ -22,6 +22,8 @@ public class Manager : Singleton<Manager>
     public PlayerManager playerManager;
     public GameObject currentEnemy;
     public EnemyBehaviour enemyBehaviour;
+
+   
     
     [Header("Cursor")]    
     public CursorBehaviour cursorBehaviour;
