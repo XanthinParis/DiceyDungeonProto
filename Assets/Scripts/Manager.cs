@@ -34,6 +34,7 @@ public class Manager : Singleton<Manager>
     public enum GameTurn { Player,Enemy};
     public GameTurn turn;
 
+
     #region SkillPosition
     [Header("SkillPosition")]
     [SerializeField] private GameObject smallSkillParentPositionPlayer;
@@ -173,7 +174,7 @@ public class Manager : Singleton<Manager>
             }
         }
 
-        Manager.Instance.firstTurn = false;
+        
         numberOfBig = 0;
         smallCount = 0;
     }
@@ -258,6 +259,7 @@ public class Manager : Singleton<Manager>
 
         numberOfBig = 0;
         smallCount = 0;
+        Manager.Instance.firstTurn = false;
     }
 
     public void EndTurn()
@@ -309,18 +311,19 @@ public class Manager : Singleton<Manager>
             canvasManager.downCross.SetActive(false);
             enemyBehaviour.EnemyBattle();
 
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(4f);
             EndTurn();
            
         }
         else                        // Fin du tour de l'enemy.
         {
+            
             for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
             {
                 enemyBehaviour.enemyEquipementOwner[i].AnimationUse();
             }
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.75f);
 
             for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
             {

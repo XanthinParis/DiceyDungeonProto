@@ -9,22 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f094466f94e54848bc7210a5bf3e49f, type: 3}
-  m_Name: FireBreath
+  m_Script: {fileID: 11500000, guid: 21e397658b7d3f541b2a1467c4010dd6, type: 3}
+  m_Name: Broadsword
   m_EditorClassIdentifier: 
   isReusable: 0
   reusableTime: 0
   timeUsed: 0
-  isBig: 0
-  damages: 4
-  valueCondition: 5
-  currentCountdown: 5
+  isBig: 1
+  damages: 0
+  valueCondition: 0
+  currentCountdown: 0
   isBreak: 0
   isShock: 0
-  currentlyOnField: 1
-  conditions: 2
+  currentlyOnField: 0
+  conditions: 5
   side: 1
-  skillName: FireBreath
-  skillDescription: 'Deals 4 + 1 Burn '
-  diceDescription: 
+  skillName: BroadSword
+  skillDescription: "Inflige X + 2 d\xE9gats."
+  diceDescription: "X = valeur d\xE9."
   equipementOwner: {fileID: 0}

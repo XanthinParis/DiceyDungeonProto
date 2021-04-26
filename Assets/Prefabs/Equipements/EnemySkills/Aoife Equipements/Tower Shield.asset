@@ -9,22 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f094466f94e54848bc7210a5bf3e49f, type: 3}
-  m_Name: FireBreath
+  m_Script: {fileID: 11500000, guid: c2f7cdbba026bb64d9f71c25c81363a8, type: 3}
+  m_Name: Tower Shield
   m_EditorClassIdentifier: 
-  isReusable: 0
-  reusableTime: 0
+  isReusable: 1
+  reusableTime: 2
   timeUsed: 0
-  isBig: 0
-  damages: 4
+  isBig: 1
+  damages: 0
   valueCondition: 5
-  currentCountdown: 5
+  currentCountdown: 0
   isBreak: 0
   isShock: 0
-  currentlyOnField: 1
-  conditions: 2
+  currentlyOnField: 0
+  conditions: 1
   side: 1
-  skillName: FireBreath
-  skillDescription: 'Deals 4 + 1 Burn '
-  diceDescription: 
+  skillName: TowerShield
+  skillDescription: Gagne X armure.
+  diceDescription: "R\xE9utilisable 2x."
   equipementOwner: {fileID: 0}

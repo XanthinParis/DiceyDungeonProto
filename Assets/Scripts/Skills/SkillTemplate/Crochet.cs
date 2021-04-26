@@ -7,16 +7,7 @@ public class Crochet : Skill
 {
     public override void initSkillValue()
     {
-        if (conditions == conditionType.countdown)
-        {
-            currentCountdown = valueCondition;
-
-        }
-
-        if (isReusable)
-        {
-            timeUsed = 0;
-        }
+        realInitSkillValue();
     }
 
     public override void TestValue()

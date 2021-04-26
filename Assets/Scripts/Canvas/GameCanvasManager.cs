@@ -14,6 +14,8 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI enemyHealthText;
     [SerializeField] private TextMeshProUGUI playerHealthText;
 
+    [SerializeField] private TextMeshProUGUI result;
+
     [SerializeField] private Transform[] cameraPos; //0Player //1Enemy;
     public GameObject upCross;
     public GameObject downCross;
@@ -26,6 +28,7 @@ public class GameCanvasManager : MonoBehaviour
         downCross.SetActive(false);
         UpdateLimitBreakVisuel();
         UpdateHealth();
+        result.enabled = false;
     }
 
     private void Update()
@@ -56,6 +59,20 @@ public class GameCanvasManager : MonoBehaviour
     {
         playerHealthText.text = PlayerManager.Instance.health.ToString() + " / " + PlayerManager.Instance.maxHealth;
         enemyHealthText.text = EnemyBehaviour.Instance.health.ToString() + " / " + EnemyBehaviour.Instance.maxHealth;
+
+        if(PlayerManager.Instance.health <= 0)
+        {
+            result.enabled = true;
+            result.text = "Défaite.";
+            Manager.Instance.blockAction = true;
+        }
+
+        if (Manager.Instance.currentEnemy.GetComponent<EnemyBehaviour>().health <= 0)
+        {
+            result.enabled = true;
+            result.text = "Victoire.";
+            Manager.Instance.blockAction = true;
+        }
     }
 
     public void SwitchCamera()

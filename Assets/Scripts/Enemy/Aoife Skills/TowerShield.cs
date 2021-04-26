@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[CreateAssetMenu(menuName = "Equipements/JeuDeJambes")]
-public class JeuDeJambes : Skill
+[CreateAssetMenu(menuName = "Equipements/TowerShield")]
+public class TowerShield : Skill
 {
     public override void initSkillValue()
     {
@@ -26,19 +25,16 @@ public class JeuDeJambes : Skill
             timeUsed++;
             if (timeUsed < reusableTime)
             {
-                //Laisser la compétence
-               
                 //ajout un dé à la main du joueur.
-                Manager.Instance.diceManager.AddDicePlayer(1);
+                Manager.Instance.enemyBehaviour.armor += equipementOwner.diceOwn.valueDice;
                 equipementOwner.diceOwn = null;
             }
             else
             {
-              
-                Manager.Instance.diceManager.AddDicePlayer(1);
+                equipementOwner.diceOwn = null;
+                Manager.Instance.enemyBehaviour.armor += equipementOwner.diceOwn.valueDice;
                 equipementOwner.AnimationUse();
             }
         }
     }
-
 }

@@ -11,14 +11,20 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     public int numberOfDice;
     public List<GameObject> storedDice = new List<GameObject>();
 
+    public List<Skill> enemyActualEquipement = new List<Skill>();
     public List<Skill> enemySkillList = new List<Skill>();
+    public List<Skill> enemybreakSkillList = new List<Skill>();
     public List<EquipementOwner> enemyEquipementOwner = new List<EquipementOwner>();
     public List<Skill> enemySkillWithCountdown = new List<Skill>();
 
     //altération
     public int numberOfShock = 0;
+    public int numberOfBreak = 0;
+
+    public int armor;
 
     public bool enemyShock = false;
+    public bool enemyBreak = false;
 
     private void Awake()
     {
@@ -27,49 +33,14 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
     public void InitEnemy()
     {
+        numberOfShock = 0;
+        armor = 0;
         health = maxHealth;
     }
 
     public void EnemyBattle()
     {
-        int valueDice0 = storedDice[0].GetComponent<DiceBehaviour>().dice.value;
-        int valueDice1 = storedDice[1].GetComponent<DiceBehaviour>().dice.value;
-
-        int maxValue = 0;
-
-        if (valueDice0 > valueDice1)
-        {
-            maxValue = valueDice0;
-        }
-        else
-        {
-            maxValue = valueDice1;
-        }
-
-        for (int i = 0; i < enemySkillList.Count; i++)
-        {
-            if (enemySkillList[i].isShock)
-            {
-                enemyShock = true;
-            }
-        }
-
-        //Si l'ennemy a une compétence en Choc, il faut voir ce qui est le plus rentable pour lui de faire.  
-        if (enemyShock)
-        {
-            if (enemySkillList[1].isShock)   // Si c'est la compétence 1 qui est choc, il faut que check si un des valeurs des deux dés est suffisantes pour que ca soit worth.
-            {
-                Comp1Shoked();
-            }
-            else //Dans le cas ou la compétence 0 est sous Choc
-            {
-                Comp0Shoked();
-            }
-        }
-        else
-        {
-            NoShock();
-        }
+        gameObject.GetComponent<EnemyBehaviourAlt>().EnemyBattleAlt();
     }
 
     public void Comp1Shoked()
@@ -209,27 +180,61 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         }
         #endregion
 
-        if (valueDice0 == enemySkillList[1].currentCountdown)
+        if (valueDice0 >= enemySkillList[1].currentCountdown)
         {
             StartCoroutine(DiceToEquipement(storedDice[0], 1, 1));
             StartCoroutine(DiceToEquipement(storedDice[1], 0, 2));
+            Debug.Log("1");
+            return;
         }
-        else if (valueDice1 == enemySkillList[1].currentCountdown)
+        else if (valueDice1 >= enemySkillList[1].currentCountdown)
         {
             StartCoroutine(DiceToEquipement(storedDice[1], 1, 1));
             StartCoroutine(DiceToEquipement(storedDice[0], 0, 2));
+            Debug.Log("2");
+            return;
         }
         else
         {
-            if (valueDice0 == maxValue)
+            if(maxValue == 6)
             {
-                StartCoroutine(DiceToEquipement(storedDice[0], 0, 1));
+                if (maxValue == valueDice0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0], 0, 1));
+                    StartCoroutine(DiceToEquipement(storedDice[1], 1, 2));
+                    return;
+                }
+                else
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[1], 0, 1));
+                    StartCoroutine(DiceToEquipement(storedDice[0], 1, 2));
+                    return;
+                }
+            }
+
+            if(valueDice0 + valueDice1 >= enemySkillList[1].currentCountdown)
+            {
+                StartCoroutine(DiceToEquipement(storedDice[0], 1, 1));
                 StartCoroutine(DiceToEquipement(storedDice[1], 1, 2));
+                Debug.Log("3");
+                return;
             }
             else
             {
-                StartCoroutine(DiceToEquipement(storedDice[1], 0, 1));
-                StartCoroutine(DiceToEquipement(storedDice[0], 1, 2));
+                if (valueDice0 == maxValue)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0], 0, 1));
+                    StartCoroutine(DiceToEquipement(storedDice[1], 1, 2));
+                    Debug.Log("4");
+                    return;
+                }
+                else
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[1], 0, 1));
+                    StartCoroutine(DiceToEquipement(storedDice[0], 1, 2));
+                    Debug.Log("5");
+                    return;
+                }
             }
         }
     }
@@ -240,8 +245,8 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         yield return new WaitForSeconds(waitingTime);
         selectedDice.GetComponent<Tweener>().TweenPositionTo(enemyEquipementOwner[skillIndex].dicePosition.transform.position, 0.75f, Easings.Ease.SmoothStep, true);
         yield return new WaitForSeconds(0.75f);
-        enemyEquipementOwner[0].diceOwn = selectedDice.GetComponent<DiceBehaviour>();
-        RemoveChocInit(0);
+        enemyEquipementOwner[skillIndex].diceOwn = selectedDice.GetComponent<DiceBehaviour>();
+        RemoveChocInit(skillIndex);
     }
 
     public void RemoveChocInit(int index)
@@ -282,13 +287,27 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
     public void TakeDamages(int damages)
     {
-        health -= damages;
-        if(health <= 0)
+        for (int i = 0; i < damages; i++)
         {
-            health = 0;
-            Debug.Log("dead");
+            if(armor > 0)
+            {
+                armor--;
+            }
+            else
+            {
+                health --;
+            }
+
+            
+            if (health <= 0)
+            {
+                health = 0;
+                Debug.Log("dead");
+            }
+            Manager.Instance.canvasManager.UpdateHealth();
         }
-        Manager.Instance.canvasManager.UpdateHealth();
+
+       
     }
 
     public void InitBreak(int breakTime)
@@ -303,7 +322,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
     public void InitShock()
     {
-        Debug.Log(numberOfShock);
+        //Debug.Log(numberOfShock);
         for (int i = 0; i < numberOfShock; i++)
         {
             Debug.Log(i + "InitShock");

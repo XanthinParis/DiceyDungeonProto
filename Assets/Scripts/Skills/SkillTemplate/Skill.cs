@@ -35,6 +35,23 @@ public abstract class Skill : ScriptableObject
 
     public abstract void initSkillValue();
 
+    public void realInitSkillValue()
+    {
+        isBreak = false;
+        isShock = false;
+
+        if (conditions == conditionType.countdown && Manager.Instance.firstTurn)
+        {
+            currentCountdown = valueCondition;
+
+        }
+
+        if (isReusable)
+        {
+            timeUsed = 0;
+        }
+    }
+
     //Test the value of the Dice according conditionType;
     public abstract void TestValue();
 

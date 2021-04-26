@@ -7,18 +7,7 @@ public class GantsDeBoxe : Skill
 {
     public override void initSkillValue()
     {
-        if (Manager.Instance.firstTurn)
-        {
-            if (conditions == conditionType.countdown)
-            {
-                currentCountdown = valueCondition;
-            }
-        }
-
-        if (isReusable)
-        {
-            timeUsed = 0;
-        }
+        realInitSkillValue();
     }
 
     public override void TestValue()

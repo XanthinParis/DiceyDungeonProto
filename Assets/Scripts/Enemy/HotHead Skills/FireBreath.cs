@@ -2,21 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Equipements/FireBall")]
-public class FireBall : Skill
+[CreateAssetMenu(menuName = "Equipements/FireBreath")]
+public class FireBreath : Skill
 {
     public override void initSkillValue()
     {
-        if (conditions == conditionType.countdown)
-        {
-            currentCountdown = valueCondition;
-
-        }
-
-        if (isReusable)
-        {
-            timeUsed = 0;
-        }
+        realInitSkillValue();
     }
 
     public override void TestValue()
@@ -26,7 +17,8 @@ public class FireBall : Skill
 
     public override void Use()
     {
-        Manager.Instance.playerManager.TakeDamages(equipementOwner.diceOwn.valueDice);
+        currentCountdown = valueCondition;
+        Manager.Instance.playerManager.TakeDamages(damages);
         BlockDice();
         Manager.Instance.playerManager.InitFireAlt(1);
         equipementOwner.AnimationUse();

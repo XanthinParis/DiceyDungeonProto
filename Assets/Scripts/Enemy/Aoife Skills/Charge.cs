@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Equipements/CoupDePied")]
-public class CoupDePied : Skill
+[CreateAssetMenu(menuName = "Equipements/Charge")]
+public class Charge : Skill
 {
     public override void initSkillValue()
     {
@@ -17,15 +17,9 @@ public class CoupDePied : Skill
 
     public override void Use()
     {
+        currentCountdown = valueCondition;
+        Manager.Instance.playerManager.TakeDamages(Manager.Instance.enemyBehaviour.armor);
         BlockDice();
-
-        Manager.Instance.enemyBehaviour.TakeDamages(damages);
-        Manager.Instance.enemyBehaviour.numberOfShock++;
-
-        if (timeUsed == reusableTime)
-        {
-            equipementOwner.AnimationUse();
-        }
+        equipementOwner.AnimationUse();
     }
-
 }
