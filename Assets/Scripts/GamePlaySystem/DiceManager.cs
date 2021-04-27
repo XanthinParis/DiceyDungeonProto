@@ -48,12 +48,18 @@ public class DiceManager : MonoBehaviour
         //Reset tous les dices.
         for (int i = 0; i < Manager.Instance.enemyBehaviour.storedDice.Count; i++)
         {
-            Destroy(Manager.Instance.enemyBehaviour.storedDice[i]);
+            if (Manager.Instance.enemyBehaviour.storedDice[i] != null)
+            {
+                Destroy(Manager.Instance.enemyBehaviour.storedDice[i].gameObject);
+            }
         }
 
         //Clear du Tableau.
         Manager.Instance.enemyBehaviour.storedDice.Clear();
         Manager.Instance.enemyBehaviour.storedDiceSecurity.Clear();
+        EnemyBehaviour.Instance.numberOfDice = 0;
+
+        GenerateDiceEnemy();
     }
 
     public void GenerateDicePlayer()
@@ -92,12 +98,14 @@ public class DiceManager : MonoBehaviour
             spawnedDice.transform.localPosition = new Vector3(0,0,1);
             spawnedDice.transform.SetParent(null);
             spawnedDice.GetComponent<BoxCollider2D>().enabled = false;
-
+            EnemyBehaviour.Instance.numberOfDice++;
             Manager.Instance.enemyBehaviour.storedDice.Add(spawnedDice.GetComponent<DiceBehaviour>());
         }
-
+        
         Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
         Manager.Instance.enemyBehaviour.storedDiceSecurity = Manager.Instance.enemyBehaviour.storedDice;
+
+       Manager.Instance.InitEnemySkill();
     }
 
     public void AddDiceEnemy(int moreDice)

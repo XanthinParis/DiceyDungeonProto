@@ -316,43 +316,33 @@ public class Manager : Singleton<Manager>
             }
 
             diceManager.ResetDiceEnemy();
-            diceManager.GenerateDiceEnemy();
-
-            yield return new WaitForSeconds(0.1f);
-
-            InitEnemySkill();
-
-            yield return new WaitForSeconds(0.1f);
+            
+            
+            yield return new WaitForSeconds(0.5f);
 
            
-            enemyBehaviour.EnemyBattle();
-
-            yield return new WaitForSeconds(0.5f);
 
             for (int i = 0; i < playerManager.playerEquipementOwner.Count; i++)
             {
                 //Debug.Log("DestroyPlayer");
                 Destroy(playerManager.playerEquipementOwner[i].gameObject);
             }
-
             playerManager.playerEquipementOwner.Clear();
-
             playerManager.playerSkillsWithCountDown.Clear();
-
             diceManager.ResetDicePlayer();
-
             canvasManager.SwitchCamera();
-            
             canvasManager.upCross.SetActive(false);
             canvasManager.downCross.SetActive(false);
+
             enemyBehaviour.EnemyBattle();
 
             yield return new WaitForSeconds(10f);
             enemyBehaviour.enemyActualEquipement.Clear();
-            //enemyBehaviour.storedDiceSecurity.Clear();
-            //enemyBehaviour.storedDice.Clear();
+            enemyBehaviour.storedDiceSecurity.Clear();
+            enemyBehaviour.storedDice.Clear();
             EndTurn();
-           
+            
+
         }
         else                        // Fin du tour de l'enemy.
         {
