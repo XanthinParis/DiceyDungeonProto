@@ -185,7 +185,22 @@ public class Manager : Singleton<Manager>
     {
         int numberOfBig = 0;
 
+        //Reset tout
+        for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
+        {
+            if(enemyBehaviour.enemyEquipementOwner != null)
+            {
+                Debug.Log("Destroy");
+                Destroy(enemyBehaviour.enemyEquipementOwner[i].gameObject);
+            }
+        }
+
+        enemyBehaviour.enemyEquipementOwner.Clear();
+        enemyBehaviour.enemyActualEquipement.Clear();
+
+
         enemyBehaviour.InitShock();
+        enemyBehaviour.InitBreak();
 
         ///Le Gadget est placé dans le tableau de skill du player.
 
@@ -194,18 +209,35 @@ public class Manager : Singleton<Manager>
         {
             if (enemyBehaviour.enemySkillList[i].isBig)
             {
-                GameObject InitSkill = Instantiate(bigSkill, bigSkillPositionEnemy[numberOfBig].position, Quaternion.identity);
-                EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
-                enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
-                equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
-                equipOwner.UpdateVisuel();
+                if(i == EnemyBehaviour.Instance.intBreak)
+                {
+                    GameObject InitSkill = Instantiate(bigSkill, bigSkillPositionEnemy[numberOfBig].position, Quaternion.identity);
+                    EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
+                    enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
+                    equipOwner.equipementOwn = enemyBehaviour.enemybreakSkillList[i];
+                    equipOwner.UpdateVisuel();
 
-               
+                    equipOwner.equipementOwn.currentlyOnField = true;
+                    equipOwner.equipementOwn.initSkillValue();
+                    equipOwner.position = i;
+                    numberOfBig++;
 
-                equipOwner.equipementOwn.currentlyOnField = true;
-                equipOwner.equipementOwn.initSkillValue();
-                equipOwner.position = i;
-                numberOfBig++;
+                }
+                else
+                {
+                    GameObject InitSkill = Instantiate(bigSkill, bigSkillPositionEnemy[numberOfBig].position, Quaternion.identity);
+                    EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
+                    enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
+                    equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
+                    equipOwner.UpdateVisuel();
+
+
+
+                    equipOwner.equipementOwn.currentlyOnField = true;
+                    equipOwner.equipementOwn.initSkillValue();
+                    equipOwner.position = i;
+                    numberOfBig++;
+                }
             }
         }
 
@@ -259,9 +291,12 @@ public class Manager : Singleton<Manager>
             }
         }
 
+        enemyBehaviour.enemyActualEquipement = enemyBehaviour.enemyEquipementOwner;
+
         numberOfBig = 0;
         smallCount = 0;
         Manager.Instance.firstTurn = false;
+        
     }
 
     public void EndTurn()
@@ -274,24 +309,23 @@ public class Manager : Singleton<Manager>
         if (turn == GameTurn.Player) // Fin du tour du player
         {
             turn = GameTurn.Enemy;
-            //Reset competences
-
-            EnemyBehaviour.Instance.InitShock();
-
-            for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
-            {
-                if (enemyBehaviour.enemyEquipementOwner[i].equipementOwn.isShock)
-                {
-                    enemyBehaviour.enemyEquipementOwner[i].isChoc = true;
-                    enemyBehaviour.enemyEquipementOwner[i].chocItem.SetActive(true);
-                    enemyBehaviour.enemyEquipementOwner[i].GetComponent<BoxCollider2D>().enabled = false;
-                }
-            }
 
             for (int i = 0; i < playerManager.playerEquipementOwner.Count; i++)
             {
                 playerManager.playerEquipementOwner[i].AnimationUse();
             }
+
+            diceManager.ResetDiceEnemy();
+            diceManager.GenerateDiceEnemy();
+
+            yield return new WaitForSeconds(0.1f);
+
+            InitEnemySkill();
+
+            yield return new WaitForSeconds(0.1f);
+
+           
+            enemyBehaviour.EnemyBattle();
 
             yield return new WaitForSeconds(0.5f);
 
@@ -308,21 +342,31 @@ public class Manager : Singleton<Manager>
             diceManager.ResetDicePlayer();
 
             canvasManager.SwitchCamera();
-            diceManager.GenerateDiceEnemy();
+            
             canvasManager.upCross.SetActive(false);
             canvasManager.downCross.SetActive(false);
             enemyBehaviour.EnemyBattle();
 
             yield return new WaitForSeconds(10f);
             enemyBehaviour.enemyActualEquipement.Clear();
-            enemyBehaviour.storedDiceSecurity.Clear();
-            enemyBehaviour.storedDice.Clear();
+            //enemyBehaviour.storedDiceSecurity.Clear();
+            //enemyBehaviour.storedDice.Clear();
             EndTurn();
            
         }
         else                        // Fin du tour de l'enemy.
         {
-            
+            //Equilibrer les valeurs entre les versions breaks et les version normales.
+            if (enemyBehaviour.enemyActualEquipement[2].equipementOwn = enemyBehaviour.enemySkillList[2])
+            {
+                enemyBehaviour.enemybreakSkillList[2].equipementOwner.GetComponent<EquipementOwner>().equipementOwn.currentCountdown = enemyBehaviour.enemySkillList[2].equipementOwner.GetComponent<EquipementOwner>().equipementOwn.currentCountdown;
+            }
+            else if(enemyBehaviour.enemyActualEquipement[2].equipementOwn = enemyBehaviour.enemybreakSkillList[2])
+            {
+                enemyBehaviour.enemySkillList[2].equipementOwner.GetComponent<EquipementOwner>().equipementOwn.currentCountdown = enemyBehaviour.enemybreakSkillList[2].equipementOwner.GetComponent<EquipementOwner>().equipementOwn.currentCountdown;
+            }
+
+
             for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
             {
                 enemyBehaviour.enemyEquipementOwner[i].AnimationUse();
@@ -341,6 +385,7 @@ public class Manager : Singleton<Manager>
             enemyBehaviour.enemyEquipementOwner.Clear();
             enemyBehaviour.storedDice.Clear();
             enemyBehaviour.enemySkillWithCountdown.Clear();
+            enemyBehaviour.enemyActualEquipement.Clear();
 
             diceManager.ResetDiceEnemy();
             canvasManager.SwitchCamera();

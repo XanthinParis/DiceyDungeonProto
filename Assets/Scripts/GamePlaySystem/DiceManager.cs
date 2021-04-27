@@ -31,19 +31,6 @@ public class DiceManager : MonoBehaviour
 
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            AddDicePlayer(1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            AddDiceEnemy(1);
-        }
-    }
-
     public void ResetDicePlayer()
     {
         //Reset tous les dices.
@@ -66,6 +53,7 @@ public class DiceManager : MonoBehaviour
 
         //Clear du Tableau.
         Manager.Instance.enemyBehaviour.storedDice.Clear();
+        Manager.Instance.enemyBehaviour.storedDiceSecurity.Clear();
     }
 
     public void GenerateDicePlayer()
@@ -73,8 +61,6 @@ public class DiceManager : MonoBehaviour
         //Instanciation des dés.
         for (int i = 0; i < Manager.Instance.playerManager.initialDiceCount; i++)
         {
-            
-
             //1 - Générer un nombre pour simuler de l'aléatoire.
             int spawnValue = Random.Range(0, 6);
             //2 - En fonction de du nombre choisi, j'instancie le dé à la bonne position.
@@ -93,15 +79,6 @@ public class DiceManager : MonoBehaviour
 
     public void GenerateDiceEnemy()
     {
-        //Reset tous les dices.
-        for (int i = 0; i < Manager.Instance.enemyBehaviour.storedDiceSecurity.Count; i++)
-        {
-            Destroy(Manager.Instance.enemyBehaviour.storedDiceSecurity[i]);
-        }
-
-        //Clear du Tableau.
-        Manager.Instance.enemyBehaviour.storedDiceSecurity.Clear();
-        Manager.Instance.enemyBehaviour.storedDice.Clear();
 
         //Instanciation des dés.
         for (int i = 0; i < Manager.Instance.enemyBehaviour.initialDiceCount; i++)

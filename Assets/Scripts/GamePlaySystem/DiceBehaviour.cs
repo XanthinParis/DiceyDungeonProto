@@ -65,9 +65,4 @@ public class DiceBehaviour : MonoBehaviour
         }
     }
 
-    private void TestDiceState()
-    {
-        //if is burn etc etc...
-    }
-
 }

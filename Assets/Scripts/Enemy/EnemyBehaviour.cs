@@ -14,9 +14,9 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     public List<DiceBehaviour> storedDiceSecurity = new List<DiceBehaviour>();
 
     public List<EquipementOwner> enemyActualEquipement = new List<EquipementOwner>();
+    public List<EquipementOwner> enemyEquipementOwner = new List<EquipementOwner>();
     public List<Skill> enemySkillList = new List<Skill>();
     public List<Skill> enemybreakSkillList = new List<Skill>();
-    public List<EquipementOwner> enemyEquipementOwner = new List<EquipementOwner>();
     public List<Skill> enemySkillWithCountdown = new List<Skill>();
 
     public EnemyBehaviourAlt enemyAlt;
@@ -24,6 +24,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     //altération
     public int numberOfShock = 0;
     public int numberOfBreak = 0;
+    public int intBreak = 0;
 
     public int armor;
 
@@ -419,13 +420,15 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
        
     }
 
-    public void InitBreak(int breakTime)
+    public void InitBreak()
     {
-        for (int i = 0; i < breakTime; i++)
+        for (int i = 0; i < numberOfBreak; i++)
         {
             int indexChoose = Random.Range(0, enemySkillList.Count-1);
 
-            enemySkillList[indexChoose].isBreak = true;
+            intBreak = indexChoose;
+            enemyBreak = true;
+            numberOfBreak = 0;
         }
     }
 

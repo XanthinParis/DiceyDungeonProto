@@ -20,7 +20,7 @@ public class Crochet : Skill
         BlockDice();
 
         Manager.Instance.enemyBehaviour.TakeDamages(damages);
-        Manager.Instance.enemyBehaviour.InitBreak(1);
+        Manager.Instance.enemyBehaviour.numberOfBreak++;
 
     }
     
