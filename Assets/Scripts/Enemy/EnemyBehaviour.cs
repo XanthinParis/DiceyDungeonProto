@@ -11,6 +11,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     public int initialDiceCount;
     public int numberOfDice;
     public List<DiceBehaviour> storedDice = new List<DiceBehaviour>();
+    public List<DiceBehaviour> storedDiceSecurity = new List<DiceBehaviour>();
 
     public List<EquipementOwner> enemyActualEquipement = new List<EquipementOwner>();
     public List<Skill> enemySkillList = new List<Skill>();
@@ -169,21 +170,176 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
     public void BreakSkill0()
     {
+        //Le meilleur dice va dans la compétence 0;
+        StartCoroutine(DiceToEquipement(storedDice[storedDice.Count-1].gameObject, 0, 2)); //Il reste 3 Dés;
 
+        //ReTrier 
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        //Les deux suivants si ils sont pas égales à 6 ils vont dans la comp 1;
+
+        bool ChosseOne = false;
+        for (int i = storedDice.Count-1; i >= 0; i--)
+        {
+            if (storedDice[i].valueDice != 6 && !ChosseOne)
+            {
+                ChosseOne = true;
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 3));   //Il reste 2 Dés;
+
+            }
+
+        }
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        ChosseOne = false;
+
+        for (int i = storedDice.Count - 1; i >= 0; i--)
+        {
+            if (storedDice[i].valueDice != 6 && !ChosseOne)
+            {
+                ChosseOne = true;
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 4)); //Il reste 1 Dés;
+            }
+        }
+
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        ChosseOne = false;
+
+        StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 3));  
+        
     }
 
     public void BreakSkill1()
     {
+        //Le meilleur dice va dans la compétence 0;
+        StartCoroutine(DiceToEquipement(storedDice[storedDice.Count - 1].gameObject, 0, 2)); //Il reste 3 Dés;
 
+        //ReTrier 
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        bool ChosseOne = false;
+        for (int i = storedDice.Count - 1; i >= 0; i--)
+        {
+            if (storedDice[i].valueDice != 6 && !ChosseOne)
+            {
+                ChosseOne = true;
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 3));   //Il reste 2 Dés;
+
+            }
+
+        }
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        //Il reste deux dés à mettre dans la compétence.
+
+        if (storedDice[1].valueDice >= enemyActualEquipement[2].equipementOwn.currentCountdown)
+        {
+            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 4));   //Il reste 2 Dés;
+        }
+        else if (storedDice[0].valueDice >= enemyActualEquipement[2].equipementOwn.currentCountdown)
+        {
+            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 4));
+        }
+        else
+        {
+            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 4));
+            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 5));
+        }
     }
 
     public void BreakSkill2()
     {
+        //Le meilleur dice va dans la compétence 0;
+        StartCoroutine(DiceToEquipement(storedDice[storedDice.Count - 1].gameObject, 0, 2)); //Il reste 3 Dés;
+
+        //ReTrier 
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        //Les deux suivants si ils sont pas égales à 6 ils vont dans la comp 1;
+
+        bool ChosseOne = false;
+        for (int i = storedDice.Count - 1; i >= 0; i--)
+        {
+            if (storedDice[i].valueDice != 6 && !ChosseOne)
+            {
+                ChosseOne = true;
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 3));   //Il reste 2 Dés;
+
+            }
+
+        }
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        ChosseOne = false;
+
+        for (int i = storedDice.Count - 1; i >= 0; i--)
+        {
+            if (storedDice[i].valueDice != 6 && !ChosseOne)
+            {
+                ChosseOne = true;
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 4)); //Il reste 1 Dés;
+            }
+        }
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        ChosseOne = false;
+
+        StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 3));   //Il reste 2 Dés;
+        //Le reste dans la Compétence 2;
 
     }
 
     public void NoBreak()
     {
+        Debug.Log("NoBreak");
+        //Le meilleur dice va dans la compétence 0;
+        StartCoroutine(DiceToEquipement(storedDice[storedDice.Count - 1].gameObject, 0, 2)); 
+        storedDice.Remove(storedDice[storedDice.Count - 1]);
+
+        //ReTrier 
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        //Les deux suivants si ils sont pas égales à 6 ils vont dans la comp 1;
+
+        bool ChosseOne = false;
+        for (int i = storedDice.Count - 1; i >= 0; i--)
+        {
+            Debug.Log(i);
+            if (storedDice[i].valueDice != 6 && !ChosseOne)
+            {
+                ChosseOne = true;
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 3));   
+                storedDice.Remove(storedDice[i]);
+
+            }
+        }
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        ChosseOne = false;
+
+        for (int i = storedDice.Count - 1; i >= 0; i--)
+        {
+            if (storedDice[i].valueDice != 6 && !ChosseOne)
+            {
+                ChosseOne = true;
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 4)); 
+                storedDice.Remove(storedDice[i]);
+            }
+        }
+
+        storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+        ChosseOne = false;
+
+        StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 5));
+        storedDice.Remove(storedDice[0]);
+
+        if(storedDice.Count == 1 && enemyActualEquipement[2].equipementOwn.currentCountdown >0)
+        {
+            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 6));
+            storedDice.Remove(storedDice[0]);
+        }
 
     }
 
@@ -197,6 +353,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         yield return new WaitForSeconds(0.75f);
         enemyEquipementOwner[skillIndex].diceOwn = selectedDice.GetComponent<DiceBehaviour>();
         RemoveChocInit(skillIndex);
+        
     }
 
     public void RemoveChocInit(int index)

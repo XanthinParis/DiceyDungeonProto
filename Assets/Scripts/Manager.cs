@@ -297,7 +297,7 @@ public class Manager : Singleton<Manager>
 
             for (int i = 0; i < playerManager.playerEquipementOwner.Count; i++)
             {
-                Debug.Log("DestroyPlayer");
+                //Debug.Log("DestroyPlayer");
                 Destroy(playerManager.playerEquipementOwner[i].gameObject);
             }
 
@@ -313,7 +313,10 @@ public class Manager : Singleton<Manager>
             canvasManager.downCross.SetActive(false);
             enemyBehaviour.EnemyBattle();
 
-            yield return new WaitForSeconds(4f);
+            yield return new WaitForSeconds(10f);
+            enemyBehaviour.enemyActualEquipement.Clear();
+            enemyBehaviour.storedDiceSecurity.Clear();
+            enemyBehaviour.storedDice.Clear();
             EndTurn();
            
         }

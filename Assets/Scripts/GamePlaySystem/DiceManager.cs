@@ -94,12 +94,13 @@ public class DiceManager : MonoBehaviour
     public void GenerateDiceEnemy()
     {
         //Reset tous les dices.
-        for (int i = 0; i < Manager.Instance.enemyBehaviour.storedDice.Count; i++)
+        for (int i = 0; i < Manager.Instance.enemyBehaviour.storedDiceSecurity.Count; i++)
         {
-            Destroy(Manager.Instance.enemyBehaviour.storedDice[i]);
+            Destroy(Manager.Instance.enemyBehaviour.storedDiceSecurity[i]);
         }
 
         //Clear du Tableau.
+        Manager.Instance.enemyBehaviour.storedDiceSecurity.Clear();
         Manager.Instance.enemyBehaviour.storedDice.Clear();
 
         //Instanciation des dés.
@@ -119,6 +120,7 @@ public class DiceManager : MonoBehaviour
         }
 
         Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+        Manager.Instance.enemyBehaviour.storedDiceSecurity = Manager.Instance.enemyBehaviour.storedDice;
     }
 
     public void AddDiceEnemy(int moreDice)

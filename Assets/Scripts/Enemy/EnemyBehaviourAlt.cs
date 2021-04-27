@@ -17,10 +17,13 @@ public class EnemyBehaviourAlt : MonoBehaviour
     }
 
    
-
+    
     public void EnemyBattleAlt()
     {
-        
+        for (int i = 0; i < enemy.enemySkillList.Count; i++)
+        {
+            enemy.enemyActualEquipement.Add(enemy.enemySkillList[i].equipementOwner);
+        }
 
         switch (monsterName)
         {

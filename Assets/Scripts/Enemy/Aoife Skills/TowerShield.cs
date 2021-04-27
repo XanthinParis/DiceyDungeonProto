@@ -31,8 +31,8 @@ public class TowerShield : Skill
             }
             else
             {
-                equipementOwner.diceOwn = null;
                 Manager.Instance.enemyBehaviour.armor += equipementOwner.diceOwn.valueDice;
+                equipementOwner.diceOwn = null;
                 equipementOwner.AnimationUse();
             }
         }

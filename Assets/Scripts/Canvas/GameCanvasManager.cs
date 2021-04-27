@@ -84,7 +84,7 @@ public class GameCanvasManager : MonoBehaviour
     {
         if(!Manager.Instance.blockAction)
         {
-            Debug.Log("Move");
+            //Debug.Log("Move");
             Manager.Instance.blockAction = true;
             if (playerView)
             {
