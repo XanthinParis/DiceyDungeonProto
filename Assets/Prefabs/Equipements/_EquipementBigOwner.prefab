@@ -1368,5 +1368,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68160f973e47c9f4389aedaa6696f12d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipementOwner: {fileID: 0}
+  equipementOwner: {fileID: 7019042793173267746}
   diceOwn: {fileID: 0}

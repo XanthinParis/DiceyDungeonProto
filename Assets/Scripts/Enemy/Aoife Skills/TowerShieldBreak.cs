@@ -17,11 +17,11 @@ public class TowerShieldBreak : Skill
 
     public override void Use()
     {
-        BlockDice();
+      
         equipementOwner.diceOwn = null;
         Manager.Instance.enemyBehaviour.armor += equipementOwner.diceOwn.valueDice;
+        BlockDice();
         Manager.Instance.canvasManager.UpdateHealth();
         equipementOwner.AnimationUse();
-
     }
 }

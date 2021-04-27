@@ -20,13 +20,15 @@ public class ChocBehaviour : MonoBehaviour
 
     public IEnumerator RemoveChoc()
     {
-        Debug.Log("RemoveChoc");
         BlockDice();
+        Debug.Log("RemoveChoc");
         equipementOwner.isChoc = false;
+        Manager.Instance.enemyBehaviour.enemyShock = false;
         equipementOwner.equipementOwn.isShock = false;
         equipementOwner.chocItem.SetActive(false);
         yield return new WaitForSeconds(0.1f);
         equipementOwner.GetComponent<BoxCollider2D>().enabled = true;
+        equipementOwner.diceOwn = null;
     }
 
     public void BlockDice()

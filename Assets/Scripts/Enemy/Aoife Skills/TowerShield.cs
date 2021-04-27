@@ -18,8 +18,7 @@ public class TowerShield : Skill
     public override void Use()
     {
         //Bloquer les joueurs sur la position;
-        BlockDice();
-
+       
         if (isReusable)
         {
             timeUsed++;
@@ -28,15 +27,17 @@ public class TowerShield : Skill
                 //ajout un dé à la main du joueur.
                 Manager.Instance.enemyBehaviour.armor += equipementOwner.diceOwn.valueDice;
                 Manager.Instance.canvasManager.UpdateHealth();
-                equipementOwner.diceOwn = null;
+                
             }
             else
             {
                 Manager.Instance.enemyBehaviour.armor += equipementOwner.diceOwn.valueDice;
                 Manager.Instance.canvasManager.UpdateHealth();
-                equipementOwner.diceOwn = null;
+                
                 equipementOwner.AnimationUse();
             }
         }
+
+        BlockDice();
     }
 }

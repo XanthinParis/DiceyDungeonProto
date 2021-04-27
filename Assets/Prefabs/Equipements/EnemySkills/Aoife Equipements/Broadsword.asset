@@ -21,7 +21,7 @@ MonoBehaviour:
   currentCountdown: 0
   isBreak: 0
   isShock: 0
-  currentlyOnField: 0
+  currentlyOnField: 1
   conditions: 5
   side: 1
   skillName: BroadSword

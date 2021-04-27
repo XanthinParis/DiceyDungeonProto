@@ -146,16 +146,19 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             case 0:
                 StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 0, 1));
                 enemyAlt.ContinueAnalyse(false);
-            break;
+                Debug.Log("RemoveChoc0");
+                break;
 
             case 1:
                 StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 1));
                 enemyAlt.ContinueAnalyse(false);
+                Debug.Log("RemoveChoc1");
                 break;
 
             case 2:
                 StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 1));
                 enemyAlt.ContinueAnalyse(false);
+                Debug.Log("RemoveChoc2");
                 break;
 
             default:
@@ -305,7 +308,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         bool ChosseOne = false;
         for (int i = storedDice.Count - 1; i >= 0; i--)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
             if (storedDice[i].valueDice != 6 && !ChosseOne)
             {
                 ChosseOne = true;
@@ -353,7 +356,6 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         yield return new WaitForSeconds(0.75f);
         enemyEquipementOwner[skillIndex].diceOwn = selectedDice.GetComponent<DiceBehaviour>();
         RemoveChocInit(skillIndex);
-        
     }
 
     public void RemoveChocInit(int index)
@@ -432,10 +434,10 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         //Debug.Log(numberOfShock);
         for (int i = 0; i < numberOfShock; i++)
         {
-            Debug.Log(i + "InitShock");
             int indexChoose = Random.Range(0, enemySkillList.Count);
-
+            Debug.Log(indexChoose);
             enemySkillList[indexChoose].isShock = true;
+            enemyShock = true;
         }
         numberOfShock = 0; 
     }

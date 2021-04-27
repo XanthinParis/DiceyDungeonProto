@@ -81,12 +81,12 @@ public class EnemyBehaviourAlt : MonoBehaviour
 
                     for (int i = 0; i < enemy.enemyActualEquipement.Count; i++)
                     {
-                        if (enemy.enemyActualEquipement[i].GetComponent<EquipementOwner>().equipementOwn.isShock)
+                        if (enemy.enemyActualEquipement[i].isChoc)
                         {
                             compChoc = i;
                         }
                     }
-
+                    
                     enemy.RemoveShockAlt(compChoc);
                 }
                 else

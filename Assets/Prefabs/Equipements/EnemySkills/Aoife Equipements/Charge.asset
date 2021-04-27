@@ -20,8 +20,8 @@ MonoBehaviour:
   valueCondition: 12
   currentCountdown: 12
   isBreak: 0
-  isShock: 0
-  currentlyOnField: 0
+  isShock: 1
+  currentlyOnField: 1
   conditions: 2
   side: 1
   skillName: Charge
