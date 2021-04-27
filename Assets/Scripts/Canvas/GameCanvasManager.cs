@@ -13,6 +13,8 @@ public class GameCanvasManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI enemyHealthText;
     [SerializeField] private TextMeshProUGUI playerHealthText;
+    [SerializeField] private TextMeshProUGUI armorText;
+    [SerializeField] private TextMeshProUGUI diceText;
 
     [SerializeField] private TextMeshProUGUI result;
 
@@ -29,6 +31,7 @@ public class GameCanvasManager : MonoBehaviour
         UpdateLimitBreakVisuel();
         UpdateHealth();
         result.enabled = false;
+        diceText.text = "D : " + Manager.Instance.enemyBehaviour.initialDiceCount.ToString();
     }
 
     private void Update()
@@ -59,6 +62,7 @@ public class GameCanvasManager : MonoBehaviour
     {
         playerHealthText.text = PlayerManager.Instance.health.ToString() + " / " + PlayerManager.Instance.maxHealth;
         enemyHealthText.text = EnemyBehaviour.Instance.health.ToString() + " / " + EnemyBehaviour.Instance.maxHealth;
+        armorText.text = "Armor : " + EnemyBehaviour.Instance.armor.ToString();
 
         if(PlayerManager.Instance.health <= 0)
         {

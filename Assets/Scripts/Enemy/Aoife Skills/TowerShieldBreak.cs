@@ -20,6 +20,7 @@ public class TowerShieldBreak : Skill
         BlockDice();
         equipementOwner.diceOwn = null;
         Manager.Instance.enemyBehaviour.armor += equipementOwner.diceOwn.valueDice;
+        Manager.Instance.canvasManager.UpdateHealth();
         equipementOwner.AnimationUse();
 
     }
