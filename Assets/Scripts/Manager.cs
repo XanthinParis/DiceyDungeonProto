@@ -131,11 +131,11 @@ public class Manager : Singleton<Manager>
                 playerManager.playerEquipementOwner.Add(equipOwner);
 
                 equipOwner.equipementOwn = playerManager.playerSkills[i];
-                equipOwner.UpdateVisuel();
+                
                 equipOwner.equipementOwn.currentlyOnField = true;
 
                 equipOwner.equipementOwn.initSkillValue();
-
+                equipOwner.UpdateVisuel();
                 equipOwner.position = i;
                 
                 numberOfBig++;
@@ -153,10 +153,10 @@ public class Manager : Singleton<Manager>
                 playerManager.playerEquipementOwner.Add(equipOwner);
 
                 equipOwner.equipementOwn = playerManager.playerSkills[i];
-                equipOwner.UpdateVisuel();
+                
                 equipOwner.equipementOwn.currentlyOnField = true;
                 equipOwner.equipementOwn.initSkillValue();
-
+                equipOwner.UpdateVisuel();
                 equipOwner.position = numberOfBig;
                 smallCount++;
                 if (smallCount ==2)

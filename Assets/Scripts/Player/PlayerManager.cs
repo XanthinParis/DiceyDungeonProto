@@ -98,9 +98,11 @@ public class PlayerManager : Singleton<PlayerManager>
 
         for (int i = 0; i < value; i++)
         {
-            equipementOwner.equipementOwn.currentCountdown--;
-            equipementOwner.diceValue.text = equipementOwner.equipementOwn.currentCountdown.ToString();
-            
+            if(equipementOwner.equipementOwn.countdownUsed == false)
+            {
+                equipementOwner.equipementOwn.currentCountdown--;
+                equipementOwner.diceValue.text = equipementOwner.equipementOwn.currentCountdown.ToString();
+            }
 
             if (equipementOwner.equipementOwn.currentCountdown <= 0 && equipementOwner.equipementOwn.countdownUsed == false)
             {

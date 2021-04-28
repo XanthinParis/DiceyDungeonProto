@@ -27,4 +27,5 @@ MonoBehaviour:
   skillName: Gants de Boxe
   skillDescription: "8 d\xE9gats."
   diceDescription: 
+  countdownUsed: 0
   equipementOwner: {fileID: 0}

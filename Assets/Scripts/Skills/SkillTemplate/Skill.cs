@@ -43,13 +43,13 @@ public abstract class Skill : ScriptableObject
             isBreak = false;
             isShock = false;
             currentCountdown = valueCondition;
+            countdownUsed = false;
         }
 
         if (countdownUsed)
         {
-            countdownUsed = false;
+            Debug.Log("la");
             currentCountdown = valueCondition;
-            equipementOwner.UpdateVisuelAlt();
         }
 
         if (isReusable)

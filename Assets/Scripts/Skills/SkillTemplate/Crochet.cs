@@ -17,15 +17,12 @@ public class Crochet : Skill
 
     public override void Use()
     {
-        
-
         equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
 
         Manager.Instance.enemyBehaviour.TakeDamages(damages);
         Manager.Instance.enemyBehaviour.numberOfBreak++;
 
         equipementOwner.AnimationUse();
-        countdownUsed = true;
     }
     
 }

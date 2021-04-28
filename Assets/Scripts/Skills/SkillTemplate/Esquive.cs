@@ -20,7 +20,6 @@ public class Esquive : Skill
 
         Manager.Instance.playerManager.isEsquive = true;
         equipementOwner.AnimationUse();
-        countdownUsed = true;
     }
 
 }
