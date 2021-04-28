@@ -29,6 +29,7 @@ public abstract class Skill : ScriptableObject
     public string skillName;
     public string skillDescription;
     public string diceDescription;
+    public bool countdownUsed = false;
     
     //Variable to Store when a Dice is put in a equipement;
     public EquipementOwner equipementOwner;
@@ -37,19 +38,26 @@ public abstract class Skill : ScriptableObject
 
     public void realInitSkillValue()
     {
-        isBreak = false;
-        isShock = false;
-
         if (conditions == conditionType.countdown && Manager.Instance.firstTurn)
         {
+            isBreak = false;
+            isShock = false;
             currentCountdown = valueCondition;
+        }
 
+        if (countdownUsed)
+        {
+            countdownUsed = false;
+            currentCountdown = valueCondition;
+            equipementOwner.UpdateVisuelAlt();
         }
 
         if (isReusable)
         {
             timeUsed = 0;
         }
+
+        
     }
 
     //Test the value of the Dice according conditionType;

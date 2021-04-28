@@ -17,10 +17,10 @@ public class Esquive : Skill
 
     public override void Use()
     {
-        //Bloquer les joueurs sur la position;
-        BlockDice();
 
         Manager.Instance.playerManager.isEsquive = true;
+        equipementOwner.AnimationUse();
+        countdownUsed = true;
     }
 
 }

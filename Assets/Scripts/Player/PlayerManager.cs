@@ -22,6 +22,7 @@ public class PlayerManager : Singleton<PlayerManager>
     public List<Skill> playerSkillsWithCountDown = new List<Skill>();
 
     public bool isEsquive = false;
+    
     public int directRepetition = 0;
 
     public int numberOfBurn = 0;
@@ -94,23 +95,23 @@ public class PlayerManager : Singleton<PlayerManager>
             equipementOwner.diceOwn.gameObject.SetActive(false);
         }
 
-        
 
         for (int i = 0; i < value; i++)
         {
             equipementOwner.equipementOwn.currentCountdown--;
             equipementOwner.diceValue.text = equipementOwner.equipementOwn.currentCountdown.ToString();
-            yield return new WaitForSeconds(0.1f);
+            
 
-            if (equipementOwner.equipementOwn.currentCountdown <= 0)
+            if (equipementOwner.equipementOwn.currentCountdown <= 0 && equipementOwner.equipementOwn.countdownUsed == false)
             {
+                equipementOwner.equipementOwn.countdownUsed = true;
                 equipementOwner.equipementOwn.currentCountdown = 0;
                 comesFromLimitBreak = false;
-                equipementOwner.equipementOwn.Use();
-                StopCoroutine(DelayCountdown(value,equipementOwner));
                 
+                equipementOwner.equipementOwn.Use();
+                StopCoroutine(DelayCountdown(value, equipementOwner));
             }
-            
+            yield return new WaitForSeconds(0.1f);
         }
 
         if (comesFromLimitBreak)

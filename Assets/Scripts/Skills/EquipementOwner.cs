@@ -65,6 +65,7 @@ public class EquipementOwner : MonoBehaviour
                 }
                 else
                 {
+
                     diceValue.text = equipementOwn.currentCountdown.ToString();
                 }
                 break;
@@ -80,6 +81,11 @@ public class EquipementOwner : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void UpdateVisuelAlt()
+    {
+        diceValue.text = equipementOwn.valueCondition.ToString();
     }
 
     private void Update()

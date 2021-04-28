@@ -17,7 +17,7 @@ public class Crochet : Skill
 
     public override void Use()
     {
-        currentCountdown = valueCondition;
+        
 
         equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
 
@@ -25,6 +25,7 @@ public class Crochet : Skill
         Manager.Instance.enemyBehaviour.numberOfBreak++;
 
         equipementOwner.AnimationUse();
+        countdownUsed = true;
     }
     
 }

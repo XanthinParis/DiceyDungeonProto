@@ -218,8 +218,6 @@ public class Manager : Singleton<Manager>
                     equipOwner.equipementOwn = enemyBehaviour.enemybreakSkillList[i];
 
                     equipOwner.isBreak = true;
-                    equipOwner.UpdateVisuel();
-
                     if (equipOwner.equipementOwn.isShock)
                     {
                         equipOwner.isChoc = true;
@@ -229,6 +227,7 @@ public class Manager : Singleton<Manager>
 
                     equipOwner.equipementOwn.currentlyOnField = true;
                     equipOwner.equipementOwn.initSkillValue();
+                    equipOwner.UpdateVisuel();
                     equipOwner.position = i;
                     numberOfBig++;
 
@@ -239,7 +238,7 @@ public class Manager : Singleton<Manager>
                     EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
                     enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
                     equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
-                    equipOwner.UpdateVisuel();
+                    
 
                     if (equipOwner.equipementOwn.isShock)
                     {
@@ -250,6 +249,7 @@ public class Manager : Singleton<Manager>
 
                     equipOwner.equipementOwn.currentlyOnField = true;
                     equipOwner.equipementOwn.initSkillValue();
+                    equipOwner.UpdateVisuel();
                     equipOwner.position = i;
                     numberOfBig++;
                 }
@@ -267,7 +267,7 @@ public class Manager : Singleton<Manager>
                 enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
                 equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
                 equipOwner.isBreak = true;
-                equipOwner.UpdateVisuel();
+                
 
                 if (equipOwner.isChoc)
                 {
@@ -277,7 +277,7 @@ public class Manager : Singleton<Manager>
                 
                 equipOwner.equipementOwn.currentlyOnField = true;
                 equipOwner.equipementOwn.initSkillValue();
-
+                equipOwner.UpdateVisuel();
                 equipOwner.position = numberOfBig;
                 smallCount++;
                 if (smallCount == 2)

@@ -17,13 +17,12 @@ public class GantsDeBoxe : Skill
 
     public override void Use()
     {
-        currentCountdown = valueCondition;
-
+        
         equipementOwner.GetComponent<BoxCollider2D>().enabled = false;
 
         Manager.Instance.enemyBehaviour.TakeDamages(damages);
         equipementOwner.AnimationUse();
-        
+
         Debug.Log("Correct");
     }
 
