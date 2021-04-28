@@ -424,24 +424,27 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     {
         for (int i = 0; i < numberOfBreak; i++)
         {
-            int indexChoose = Random.Range(0, enemySkillList.Count-1);
-
+           
+            int indexChoose = Random.Range(0, 2);
+            Debug.Log("indexChoose" + indexChoose);
             intBreak = indexChoose;
             enemyBreak = true;
-            numberOfBreak = 0;
+            
         }
+        numberOfBreak = 0;
     }
 
     public void InitShock()
     {
-        //Debug.Log(numberOfShock);
         for (int i = 0; i < numberOfShock; i++)
         {
+            Debug.Log(numberOfShock);
             int indexChoose = Random.Range(0, enemySkillList.Count);
             Debug.Log(indexChoose);
             enemySkillList[indexChoose].isShock = true;
             enemyShock = true;
         }
-        numberOfShock = 0; 
+        numberOfShock = 0;
     }
+   
 }

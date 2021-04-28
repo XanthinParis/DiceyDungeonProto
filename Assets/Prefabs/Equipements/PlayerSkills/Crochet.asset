@@ -17,14 +17,14 @@ MonoBehaviour:
   timeUsed: 0
   isBig: 0
   damages: 0
-  valueCondition: 0
-  currentCountdown: 0
+  valueCondition: 12
+  currentCountdown: 12
   isBreak: 0
   isShock: 0
-  currentlyOnField: 0
-  conditions: 0
+  currentlyOnField: 1
+  conditions: 2
   side: 0
-  skillName: 
-  skillDescription: 
-  diceDescription: 
+  skillName: Crochet
+  skillDescription: "Inflige 8 d\xE9gats + 1 Choc"
+  diceDescription: Impair
   equipementOwner: {fileID: 0}

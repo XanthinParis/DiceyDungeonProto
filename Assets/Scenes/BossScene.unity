@@ -3512,6 +3512,7 @@ MonoBehaviour:
   storedDice: []
   storedDiceSecurity: []
   enemyActualEquipement: []
+  enemyEquipementOwner: []
   enemySkillList:
   - {fileID: 11400000, guid: 48d1c768c2d716d4ab08b364559c166b, type: 2}
   - {fileID: 11400000, guid: bc87c7ecbcce2b84591d931a4db1be46, type: 2}
@@ -3520,11 +3521,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2ccf01ea2a6443e47879fc45f8ad2794, type: 2}
   - {fileID: 11400000, guid: 1367644e045e5cc448a950d8ff668c89, type: 2}
   - {fileID: 11400000, guid: 8b4541d7223658848b34e7cf1f7bfe93, type: 2}
-  enemyEquipementOwner: []
   enemySkillWithCountdown: []
   enemyAlt: {fileID: 1214102564}
   numberOfShock: 0
   numberOfBreak: 0
+  intBreak: 4
   armor: 0
   enemyShock: 0
   enemyBreak: 0
@@ -5409,6 +5410,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 64c7e5511dac3c64897d261166c04ada, type: 2}
   - {fileID: 11400000, guid: 7d3fd727fedd359468d0c7933a118ea7, type: 2}
   - {fileID: 11400000, guid: 4dd9bbc04149f044b916dcdeb44fc7a2, type: 2}
+  - {fileID: 11400000, guid: f321cc063a1468e44af86d9305a32046, type: 2}
   playerEquipementOwner: []
   playerSkillsWithCountDown: []
   isEsquive: 0

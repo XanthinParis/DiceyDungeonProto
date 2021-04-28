@@ -27,6 +27,7 @@ public class EquipementOwner : MonoBehaviour
 
     public ChocBehaviour chocBehaviour;
     public bool isChoc = false;
+    public bool isBreak = false;
 
     private void Start()
     {

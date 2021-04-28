@@ -197,7 +197,7 @@ public class Manager : Singleton<Manager>
 
         enemyBehaviour.enemyEquipementOwner.Clear();
         enemyBehaviour.enemyActualEquipement.Clear();
-
+        enemyBehaviour.enemySkillWithCountdown.Clear();
 
         enemyBehaviour.InitShock();
         enemyBehaviour.InitBreak();
@@ -209,13 +209,23 @@ public class Manager : Singleton<Manager>
         {
             if (enemyBehaviour.enemySkillList[i].isBig)
             {
-                if(i == EnemyBehaviour.Instance.intBreak)
+                if(i == enemyBehaviour.intBreak)
                 {
                     GameObject InitSkill = Instantiate(bigSkill, bigSkillPositionEnemy[numberOfBig].position, Quaternion.identity);
                     EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
                     enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
+                    enemyBehaviour.enemySkillList[i].isBreak = false;
                     equipOwner.equipementOwn = enemyBehaviour.enemybreakSkillList[i];
+
+                    equipOwner.isBreak = true;
                     equipOwner.UpdateVisuel();
+
+                    if (equipOwner.equipementOwn.isShock)
+                    {
+                        equipOwner.isChoc = true;
+                        equipOwner.chocItem.SetActive(true);
+                        equipOwner.GetComponent<BoxCollider2D>().enabled = false;
+                    }
 
                     equipOwner.equipementOwn.currentlyOnField = true;
                     equipOwner.equipementOwn.initSkillValue();
@@ -231,7 +241,12 @@ public class Manager : Singleton<Manager>
                     equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
                     equipOwner.UpdateVisuel();
 
-
+                    if (equipOwner.equipementOwn.isShock)
+                    {
+                        equipOwner.isChoc = true;
+                        equipOwner.chocItem.SetActive(true);
+                        equipOwner.GetComponent<BoxCollider2D>().enabled = false;
+                    }
 
                     equipOwner.equipementOwn.currentlyOnField = true;
                     equipOwner.equipementOwn.initSkillValue();
@@ -251,6 +266,7 @@ public class Manager : Singleton<Manager>
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
                 enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
                 equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
+                equipOwner.isBreak = true;
                 equipOwner.UpdateVisuel();
 
                 if (equipOwner.isChoc)
@@ -291,8 +307,10 @@ public class Manager : Singleton<Manager>
             }
         }
 
-        enemyBehaviour.enemyActualEquipement = enemyBehaviour.enemyEquipementOwner;
+        enemyBehaviour.intBreak = 4;
 
+        enemyBehaviour.enemyActualEquipement = enemyBehaviour.enemyEquipementOwner;
+        
         numberOfBig = 0;
         smallCount = 0;
         Manager.Instance.firstTurn = false;
@@ -337,9 +355,7 @@ public class Manager : Singleton<Manager>
             enemyBehaviour.EnemyBattle();
 
             yield return new WaitForSeconds(10f);
-            enemyBehaviour.enemyActualEquipement.Clear();
-            enemyBehaviour.storedDiceSecurity.Clear();
-            enemyBehaviour.storedDice.Clear();
+            
             EndTurn();
             
 
@@ -349,13 +365,14 @@ public class Manager : Singleton<Manager>
             //Equilibrer les valeurs entre les versions breaks et les version normales.
             if (enemyBehaviour.enemyActualEquipement[2].equipementOwn = enemyBehaviour.enemySkillList[2])
             {
-                enemyBehaviour.enemybreakSkillList[2].equipementOwner.GetComponent<EquipementOwner>().equipementOwn.currentCountdown = enemyBehaviour.enemySkillList[2].equipementOwner.GetComponent<EquipementOwner>().equipementOwn.currentCountdown;
+                Debug.Log("Pas break");
+                enemyBehaviour.enemybreakSkillList[2].currentCountdown = enemyBehaviour.enemySkillList[2].currentCountdown;
             }
             else if(enemyBehaviour.enemyActualEquipement[2].equipementOwn = enemyBehaviour.enemybreakSkillList[2])
             {
-                enemyBehaviour.enemySkillList[2].equipementOwner.GetComponent<EquipementOwner>().equipementOwn.currentCountdown = enemyBehaviour.enemybreakSkillList[2].equipementOwner.GetComponent<EquipementOwner>().equipementOwn.currentCountdown;
+                Debug.Log("break");
+                enemyBehaviour.enemySkillList[2].currentCountdown = enemyBehaviour.enemybreakSkillList[2].currentCountdown;
             }
-
 
             for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
             {
@@ -371,7 +388,7 @@ public class Manager : Singleton<Manager>
             }
 
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.5f);
             enemyBehaviour.enemyEquipementOwner.Clear();
             enemyBehaviour.storedDice.Clear();
             enemyBehaviour.enemySkillWithCountdown.Clear();

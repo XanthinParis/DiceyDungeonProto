@@ -73,7 +73,7 @@ public class EnemyBehaviourAlt : MonoBehaviour
 
                 if (enemy.enemyShock)
                 {
-                    int compChoc = 0;
+                    int compChoc = 3;
 
                     for (int i = 0; i < enemy.enemyActualEquipement.Count; i++)
                     {
@@ -109,11 +109,13 @@ public class EnemyBehaviourAlt : MonoBehaviour
         int breakint = 3;
         for (int i = 0; i < enemy.enemyActualEquipement.Count; i++)
         {
-            if (enemy.enemyActualEquipement[i].equipementOwn.isBreak)
+            if (enemy.enemyActualEquipement[i].isBreak)
             {
                 breakint = i;
             }
         }
+
+        Debug.Log("la competence break est : " + breakint);
 
         switch (breakint)
         {
