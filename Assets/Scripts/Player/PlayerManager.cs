@@ -47,21 +47,29 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void TakeDamages(int damages)
     {
-        health -= damages;
-        currentLimitBreakPV -= damages;
-
-        if (currentLimitBreakPV <= 0)
+        if (isEsquive)
         {
-            limitBreakAvailable = true;
-            currentLimitBreakPV = LimitBreakPV;
-            Manager.Instance.canvasManager.UpdateLimitBreakVisuel();
+            isEsquive = false;
+            Manager.Instance.canvasManager.UpdateHealth();
         }
-
-        if (health <= 0)
+        else
         {
-            health = 0;
+            health -= damages;
+            currentLimitBreakPV -= damages;
+
+            if (currentLimitBreakPV <= 0)
+            {
+                limitBreakAvailable = true;
+                currentLimitBreakPV = LimitBreakPV;
+                Manager.Instance.canvasManager.UpdateLimitBreakVisuel();
+            }
+
+            if (health <= 0)
+            {
+                health = 0;
+            }
+            Manager.Instance.canvasManager.UpdateHealth();
         }
-        Manager.Instance.canvasManager.UpdateHealth();
     }
 
     //S'active quand le joueur appuie sur le bouton;

@@ -199,8 +199,9 @@ public class Manager : Singleton<Manager>
         enemyBehaviour.enemyActualEquipement.Clear();
         enemyBehaviour.enemySkillWithCountdown.Clear();
 
-        enemyBehaviour.InitShock();
         enemyBehaviour.InitBreak();
+        enemyBehaviour.InitShock();
+        
 
         ///Le Gadget est placé dans le tableau de skill du player.
 
@@ -218,7 +219,7 @@ public class Manager : Singleton<Manager>
                     equipOwner.equipementOwn = enemyBehaviour.enemybreakSkillList[i];
 
                     equipOwner.isBreak = true;
-                    if (equipOwner.equipementOwn.isShock)
+                    if (i == enemyBehaviour.intShock)
                     {
                         equipOwner.isChoc = true;
                         equipOwner.chocItem.SetActive(true);
@@ -240,7 +241,7 @@ public class Manager : Singleton<Manager>
                     equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
                     
 
-                    if (equipOwner.equipementOwn.isShock)
+                    if (i == enemyBehaviour.intShock)
                     {
                         equipOwner.isChoc = true;
                         equipOwner.chocItem.SetActive(true);
@@ -269,8 +270,9 @@ public class Manager : Singleton<Manager>
                 equipOwner.isBreak = true;
                 
 
-                if (equipOwner.isChoc)
+                if (i == enemyBehaviour.intShock)
                 {
+                    equipOwner.isChoc = true;
                     equipOwner.chocItem.SetActive(true);
                     equipOwner.GetComponent<BoxCollider2D>().enabled = false;
                 }
@@ -280,6 +282,7 @@ public class Manager : Singleton<Manager>
                 equipOwner.UpdateVisuel();
                 equipOwner.position = numberOfBig;
                 smallCount++;
+
                 if (smallCount == 2)
                 {
                     smallCount = 0;
@@ -354,7 +357,15 @@ public class Manager : Singleton<Manager>
 
             enemyBehaviour.EnemyBattle();
 
-            yield return new WaitForSeconds(10f);
+            if (enemyBehaviour.enemyAlt.monsterName == EnemyBehaviourAlt.monster.Aoife)
+            {
+                yield return new WaitForSeconds(8f);
+            }
+            else
+            {
+                yield return new WaitForSeconds(3f);
+            }
+                
             
             EndTurn();
             
@@ -362,16 +373,19 @@ public class Manager : Singleton<Manager>
         }
         else                        // Fin du tour de l'enemy.
         {
-            //Equilibrer les valeurs entre les versions breaks et les version normales.
-            if (enemyBehaviour.enemyActualEquipement[2].equipementOwn = enemyBehaviour.enemySkillList[2])
+            if(enemyBehaviour.enemyAlt.monsterName == EnemyBehaviourAlt.monster.Aoife)
             {
-                Debug.Log("Pas break");
-                enemyBehaviour.enemybreakSkillList[2].currentCountdown = enemyBehaviour.enemySkillList[2].currentCountdown;
-            }
-            else if(enemyBehaviour.enemyActualEquipement[2].equipementOwn = enemyBehaviour.enemybreakSkillList[2])
-            {
-                Debug.Log("break");
-                enemyBehaviour.enemySkillList[2].currentCountdown = enemyBehaviour.enemybreakSkillList[2].currentCountdown;
+                //Equilibrer les valeurs entre les versions breaks et les version normales.
+                if (enemyBehaviour.enemyActualEquipement[2].equipementOwn = enemyBehaviour.enemySkillList[2])
+                {
+                    Debug.Log("Pas break");
+                    enemyBehaviour.enemybreakSkillList[2].currentCountdown = enemyBehaviour.enemySkillList[2].currentCountdown;
+                }
+                else if (enemyBehaviour.enemyActualEquipement[2].equipementOwn = enemyBehaviour.enemybreakSkillList[2])
+                {
+                    Debug.Log("break");
+                    enemyBehaviour.enemySkillList[2].currentCountdown = enemyBehaviour.enemybreakSkillList[2].currentCountdown;
+                }
             }
 
             for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)

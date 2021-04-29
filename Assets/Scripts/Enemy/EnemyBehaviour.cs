@@ -24,7 +24,8 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     //altération
     public int numberOfShock = 0;
     public int numberOfBreak = 0;
-    public int intBreak = 0;
+    public int intBreak = 3;
+    public int intShock = 3;
 
     public int armor;
 
@@ -147,6 +148,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             case 0:
                 StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 0, 1));
                 enemyAlt.ContinueAnalyse(false);
+                intShock = 4;
                 Debug.Log("RemoveChoc0");
                 break;
 
@@ -154,12 +156,14 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
                 StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 1));
                 enemyAlt.ContinueAnalyse(false);
                 Debug.Log("RemoveChoc1");
+                intShock = 4;
                 break;
 
             case 2:
                 StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 1));
                 enemyAlt.ContinueAnalyse(false);
                 Debug.Log("RemoveChoc2");
+                intShock = 4;
                 break;
 
             default:
@@ -167,15 +171,13 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         }
     }
 
-    public void NoShockAlt()
-    {
-
-    }
-
     public void BreakSkill0()
     {
+        Debug.Log("BreakSkill0");
+
         //Le meilleur dice va dans la compétence 0;
-        StartCoroutine(DiceToEquipement(storedDice[storedDice.Count-1].gameObject, 0, 2)); //Il reste 3 Dés;
+        StartCoroutine(DiceToEquipement(storedDice[storedDice.Count-1].gameObject, 0, 2)); //Il reste 3 Dés ou 4 si y'a pas eut de choc;
+        storedDice.Remove(storedDice[storedDice.Count - 1]);
 
         //ReTrier 
         storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
@@ -188,11 +190,13 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             if (storedDice[i].valueDice != 6 && !ChosseOne)
             {
                 ChosseOne = true;
-                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 3));   //Il reste 2 Dés;
-
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 3));   //Il reste entre 2 et 3 Dés si y'a pas eut de choc & si les dés ne sont pas des 6; 
+                                                                                    
+                storedDice.Remove(storedDice[i]);
             }
 
         }
+
         storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
 
         ChosseOne = false;
@@ -202,7 +206,8 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             if (storedDice[i].valueDice != 6 && !ChosseOne)
             {
                 ChosseOne = true;
-                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 4)); //Il reste 1 Dés;
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 4)); //Il reste entre 2 et 1 Dés si y'a pas eut de choc & si les dés ne sont pas des 6; 
+                storedDice.Remove(storedDice[i]);
             }
         }
 
@@ -210,15 +215,65 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
         ChosseOne = false;
 
-        StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 3));  
-        
+        //switch pour la dernière compétence.
+        switch (storedDice.Count)
+        {
+
+            case 3:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[2].gameObject, 2, 5));
+                    storedDice.Remove(storedDice[2]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 7));
+                    storedDice.Remove(storedDice[0]);
+                }
+                break;
+            case 2:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 7));
+                    storedDice.Remove(storedDice[0]);
+                }
+                break;
+            case 1:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[0]);
+                }
+                break;
+            default:
+                break;
+        }
+
     }
 
     public void BreakSkill1()
     {
+        Debug.Log("BreakSkill1");
+
         //Le meilleur dice va dans la compétence 0;
         StartCoroutine(DiceToEquipement(storedDice[storedDice.Count - 1].gameObject, 0, 2)); //Il reste 3 Dés;
-
+        storedDice.Remove(storedDice[storedDice.Count - 1]);
         //ReTrier 
         storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
 
@@ -229,33 +284,68 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             {
                 ChosseOne = true;
                 StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 3));   //Il reste 2 Dés;
-
+                storedDice.Remove(storedDice[i]);
             }
 
         }
         storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
 
-        //Il reste deux dés à mettre dans la compétence.
+        //switch pour la dernière compétence.
+        switch (storedDice.Count)
+        {
 
-        if (storedDice[1].valueDice >= enemyActualEquipement[2].equipementOwn.currentCountdown)
-        {
-            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 4));   //Il reste 2 Dés;
-        }
-        else if (storedDice[0].valueDice >= enemyActualEquipement[2].equipementOwn.currentCountdown)
-        {
-            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 4));
-        }
-        else
-        {
-            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 4));
-            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 5));
+            case 3:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[2].gameObject, 2, 5));
+                    storedDice.Remove(storedDice[2]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 7));
+                    storedDice.Remove(storedDice[0]);
+                }
+                break;
+            case 2:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 7));
+                    storedDice.Remove(storedDice[0]);
+                }
+                break;
+            case 1:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+                break;
+            default:
+                break;
         }
     }
 
     public void BreakSkill2()
     {
+        Debug.Log("BreakSkill2");
         //Le meilleur dice va dans la compétence 0;
-        StartCoroutine(DiceToEquipement(storedDice[storedDice.Count - 1].gameObject, 0, 2)); //Il reste 3 Dés;
+        StartCoroutine(DiceToEquipement(storedDice[storedDice.Count - 1].gameObject, 0, 2)); //Il reste 3/4 Dés;
 
         //ReTrier 
         storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
@@ -268,8 +358,8 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             if (storedDice[i].valueDice != 6 && !ChosseOne)
             {
                 ChosseOne = true;
-                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 3));   //Il reste 2 Dés;
-
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 3));   //Il reste 2/3 Dés;
+                storedDice.Remove(storedDice[i]);
             }
 
         }
@@ -282,15 +372,64 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             if (storedDice[i].valueDice != 6 && !ChosseOne)
             {
                 ChosseOne = true;
-                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 4)); //Il reste 1 Dés;
+                StartCoroutine(DiceToEquipement(storedDice[i].gameObject, 1, 4)); //Il reste 1/2 Dés;
+                storedDice.Remove(storedDice[i]);
             }
         }
         storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
 
         ChosseOne = false;
 
-        StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 3));   //Il reste 2 Dés;
-        //Le reste dans la Compétence 2;
+        //switch pour la dernière compétence.
+        switch (storedDice.Count)
+        {
+
+            case 3:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[2].gameObject, 2, 5));
+                    storedDice.Remove(storedDice[2]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 7));
+                    storedDice.Remove(storedDice[0]);
+                }
+                break;
+            case 2:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 7));
+                    storedDice.Remove(storedDice[0]);
+                }
+                break;
+            case 1:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+                break;
+            default:
+                break;
+        }
+
 
     }
 
@@ -336,15 +475,55 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
         ChosseOne = false;
 
-        StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 5));
-        storedDice.Remove(storedDice[0]);
-
-        if(storedDice.Count == 1 && enemyActualEquipement[2].equipementOwn.currentCountdown >0)
+        //switch pour la dernière compétence.
+        switch (storedDice.Count)
         {
-            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 6));
-            storedDice.Remove(storedDice[0]);
-        }
 
+            case 3:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[2].gameObject, 2, 5));
+                    storedDice.Remove(storedDice[2]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 7));
+                    storedDice.Remove(storedDice[0]);
+                }
+                break;
+            case 2:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 7));
+                    storedDice.Remove(storedDice[0]);
+                }
+                break;
+            case 1:
+                Debug.Log("switch");
+                if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
+                {
+                    StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 6));
+                    storedDice.Remove(storedDice[1]);
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     #endregion
@@ -361,13 +540,14 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
     public void RemoveChocInit(int index)
     {
-        if (enemyEquipementOwner[index].isChoc)
+        if (enemyActualEquipement[index].isChoc)
         {
-            enemyEquipementOwner[index].chocBehaviour.StartCoroutine(enemyEquipementOwner[index].chocBehaviour.RemoveChoc());
+            enemyActualEquipement[index].chocBehaviour.StartCoroutine(enemyEquipementOwner[index].chocBehaviour.RemoveChoc());
+            enemyActualEquipement[index].isChoc = false;
         }
         else
         {
-            enemyEquipementOwner[index].equipementOwn.TestValue();
+            enemyActualEquipement[index].equipementOwn.TestValue();
         }
     }
 
@@ -438,10 +618,9 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     {
         for (int i = 0; i < numberOfShock; i++)
         {
-            Debug.Log(numberOfShock);
-            int indexChoose = Random.Range(0, enemySkillList.Count);
-            Debug.Log(indexChoose);
-            enemySkillList[indexChoose].isShock = true;
+            int indexChoose = Random.Range(0, 2);
+            Debug.Log("indexChoose"+indexChoose);
+            intShock = indexChoose; 
             enemyShock = true;
         }
         numberOfShock = 0;

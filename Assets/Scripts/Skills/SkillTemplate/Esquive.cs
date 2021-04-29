@@ -17,7 +17,6 @@ public class Esquive : Skill
 
     public override void Use()
     {
-
         Manager.Instance.playerManager.isEsquive = true;
         equipementOwner.AnimationUse();
     }

@@ -123,10 +123,10 @@ public class EnemyBehaviourAlt : MonoBehaviour
                 enemy.BreakSkill0();
                 break;
             case 1:
-                enemy.BreakSkill0();
+                enemy.BreakSkill1();
                 break;
             case 2:
-                enemy.BreakSkill0();
+                enemy.BreakSkill2();
                 break;
             case 3:
                 enemy.NoBreak();

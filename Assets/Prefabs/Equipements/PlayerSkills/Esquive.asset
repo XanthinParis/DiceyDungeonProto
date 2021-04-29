@@ -18,7 +18,7 @@ MonoBehaviour:
   isBig: 0
   damages: 0
   valueCondition: 14
-  currentCountdown: 0
+  currentCountdown: 14
   isBreak: 0
   isShock: 0
   currentlyOnField: 0
@@ -27,4 +27,5 @@ MonoBehaviour:
   skillName: Esquive
   skillDescription: Esquive 1
   diceDescription: 
+  countdownUsed: 0
   equipementOwner: {fileID: 0}

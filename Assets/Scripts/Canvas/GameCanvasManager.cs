@@ -15,6 +15,7 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerHealthText;
     [SerializeField] private TextMeshProUGUI armorText;
     [SerializeField] private TextMeshProUGUI diceText;
+    [SerializeField] private TextMeshProUGUI esquiveText;
 
     [SerializeField] private TextMeshProUGUI result;
 
@@ -60,6 +61,15 @@ public class GameCanvasManager : MonoBehaviour
 
     public void UpdateHealth()
     {
+        if (PlayerManager.Instance.isEsquive)
+        {
+            esquiveText.enabled = true;
+        }
+        else
+        {
+            esquiveText.enabled = false;
+        }
+
         playerHealthText.text = PlayerManager.Instance.health.ToString() + " / " + PlayerManager.Instance.maxHealth;
         enemyHealthText.text = EnemyBehaviour.Instance.health.ToString() + " / " + EnemyBehaviour.Instance.maxHealth;
         armorText.text = "Armor : " + EnemyBehaviour.Instance.armor.ToString();
