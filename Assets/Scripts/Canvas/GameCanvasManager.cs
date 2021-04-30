@@ -17,7 +17,7 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI diceText;
     [SerializeField] private TextMeshProUGUI esquiveText;
 
-    [SerializeField] private TextMeshProUGUI result;
+    [SerializeField] private GameObject result;
 
     [SerializeField] private Transform[] cameraPos; //0Player //1Enemy;
     public GameObject upCross;
@@ -31,7 +31,7 @@ public class GameCanvasManager : MonoBehaviour
         downCross.SetActive(false);
         UpdateLimitBreakVisuel();
         UpdateHealth();
-        result.enabled = false;
+        result.SetActive(false);
         diceText.text = "D : " + Manager.Instance.enemyBehaviour.initialDiceCount.ToString();
     }
 
@@ -76,15 +76,15 @@ public class GameCanvasManager : MonoBehaviour
 
         if(PlayerManager.Instance.health <= 0)
         {
-            result.enabled = true;
-            result.text = "Défaite.";
+            result.SetActive(true);
+            result.GetComponent<TextMeshProUGUI>().text = "Défaite.";
             Manager.Instance.blockAction = true;
         }
 
         if (Manager.Instance.currentEnemy.GetComponent<EnemyBehaviour>().health <= 0)
         {
-            result.enabled = true;
-            result.text = "Victoire.";
+            result.SetActive(true);
+            result.GetComponent<TextMeshProUGUI>().text = "Victoire.";
             Manager.Instance.blockAction = true;
         }
     }
@@ -119,6 +119,11 @@ public class GameCanvasManager : MonoBehaviour
                 playerView = true;
             }
         }   
+    }
+
+    public void Quitter()
+    {
+        Application.Quit();
     }
 }
 

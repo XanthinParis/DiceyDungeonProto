@@ -143,12 +143,16 @@ public class Manager : Singleton<Manager>
         }
 
         int smallCount = 0;
+        int currentIndex = 1;
         //Instancier les petits skills après les grands.
-        for (int i = 0; i < playerManager.playerSkills.Count; i++)
+        for (int i = 2; i < playerManager.playerSkills.Count; i++)
         {
+            
             if (playerManager.playerSkills[i].isBig == false)
             {
-                GameObject InitSkill = Instantiate(smallSkill, smallSkillPositionPlayer[i+ numberOfBig].position, Quaternion.identity);
+               
+
+                GameObject InitSkill = Instantiate(smallSkill, smallSkillPositionPlayer[i+2].position, Quaternion.identity);
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
                 playerManager.playerEquipementOwner.Add(equipOwner);
 
@@ -158,13 +162,14 @@ public class Manager : Singleton<Manager>
                 equipOwner.equipementOwn.initSkillValue();
                 equipOwner.UpdateVisuel();
                 equipOwner.position = numberOfBig;
+
                 smallCount++;
-                if (smallCount ==2)
+
+                if (smallCount == 2 || smallCount == 4)
                 {
-                    smallCount = 0;
+
                     numberOfBig++;
                 }
-                
             }
         }
 
