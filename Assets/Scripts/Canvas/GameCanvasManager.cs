@@ -6,17 +6,22 @@ using TMPro;
 
 public class GameCanvasManager : MonoBehaviour
 {
+
+    [Header("Limit Break")]
     [SerializeField] private Button limitBreakButton;
     [SerializeField] private Color limitbreakColorDisable;
     [SerializeField] private Color limitbreakColorAble;
 
-
-    [SerializeField] private TextMeshProUGUI enemyHealthText;
+    [Header("PlayerUI")]
     [SerializeField] private TextMeshProUGUI playerHealthText;
-    [SerializeField] private TextMeshProUGUI armorText;
-    [SerializeField] private TextMeshProUGUI diceText;
     [SerializeField] private TextMeshProUGUI esquiveText;
 
+    [Header("EnemyUI")]
+    [SerializeField] private TextMeshProUGUI enemyHealthText;
+    [SerializeField] private TextMeshProUGUI armorText;
+    [SerializeField] private TextMeshProUGUI diceText;
+    
+    [Header("Ecran De Fin")]
     [SerializeField] private GameObject result;
 
     [SerializeField] private Transform[] cameraPos; //0Player //1Enemy;
@@ -44,7 +49,7 @@ public class GameCanvasManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    //Permet d'activer le button de la limit break une fois les conditions remplies.
     public void UpdateLimitBreakVisuel()
     {
         if (Manager.Instance.playerManager.limitBreakAvailable == true)
@@ -59,6 +64,7 @@ public class GameCanvasManager : MonoBehaviour
         }
     }
 
+    //Update la Vie du joueur et de l'ennemi (appelé lorsqu'ils prennent des dégats).
     public void UpdateHealth()
     {
         if (PlayerManager.Instance.isEsquive)
@@ -94,6 +100,7 @@ public class GameCanvasManager : MonoBehaviour
         StartCoroutine(SwitchCameraEnum());
     }
 
+    //Animation de la Caméra via tweening;
     private IEnumerator SwitchCameraEnum()
     {
         if(!Manager.Instance.blockAction)

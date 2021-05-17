@@ -98,6 +98,7 @@ public class EnemyBehaviourAlt : MonoBehaviour
 
     public void ContinueAnalyse(bool skip)
     {
+        //Retirer le premier dé de la liste si il y avait un Choc;
         if (!skip)
         {
             enemy.storedDice.Remove(enemy.storedDice[0]);

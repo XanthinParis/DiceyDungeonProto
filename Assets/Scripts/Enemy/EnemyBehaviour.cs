@@ -5,29 +5,33 @@ using System.Linq;
 
 public class EnemyBehaviour : Singleton<EnemyBehaviour>
 {
+    [Header("Values")]
     public int health;
     public int maxHealth;
-
     public int initialDiceCount;
     public int numberOfDice;
+
+    [Header("Dices")]
     public List<DiceBehaviour> storedDice = new List<DiceBehaviour>();
     public List<DiceBehaviour> storedDiceSecurity = new List<DiceBehaviour>();
 
+    [Header("Equipements")]
     public List<EquipementOwner> enemyActualEquipement = new List<EquipementOwner>();
     public List<EquipementOwner> enemyEquipementOwner = new List<EquipementOwner>();
     public List<Skill> enemySkillList = new List<Skill>();
     public List<Skill> enemybreakSkillList = new List<Skill>();
     public List<Skill> enemySkillWithCountdown = new List<Skill>();
 
+    //Change le fonctionnement de l'ennemi en fonction de qui il est.
     public EnemyBehaviourAlt enemyAlt;
 
-    //altération
+    [Header("Alétérations")]
     public int numberOfShock = 0;
     public int numberOfBreak = 0;
     public int intBreak = 3;
     public int intShock = 3;
 
-    public int armor;
+    public int armor = 0;
 
     public bool enemyShock = false;
     public bool enemyBreak = false;
@@ -42,11 +46,15 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         enemyAlt = Manager.Instance.currentEnemy.GetComponent<EnemyBehaviourAlt>();
     }
 
+    //Initialisation de l'ennemi;
     public void InitEnemy()
     {
         numberOfShock = 0;
         armor = 0;
         health = maxHealth;
+
+        enemyShock = false;
+        enemyBreak = false;
     }
 
     public void EnemyBattle()
@@ -54,7 +62,10 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         gameObject.GetComponent<EnemyBehaviourAlt>().EnemyBattleAlt();
     }
 
+    //Lance l'IA selon le type de l'ennemi : Ennemi HOTHEAD;
     #region HotHead
+
+    //Compétence1 Choc.
     public void Comp1Shoked()
     {
         bool thereIsA6 = false;
@@ -84,6 +95,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         }
     }
 
+    //Compétence0 Choc.
     public void Comp0Shoked()
     {
         if(storedDice[1].valueDice == 6)
@@ -100,6 +112,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
     }
 
+    //Pas de Compétence Choc.
     public void NoShock()
     {
         if (storedDice[0].valueDice >= enemySkillList[1].currentCountdown)
@@ -139,8 +152,10 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     }
     #endregion
 
+    //Lance l'IA selon le type de l'ennemi : Ennemi AOIFE;
     #region Aoife
 
+    //Remove la compétence Choc
     public void RemoveShockAlt(int shockComp)
     {
         switch (shockComp)
@@ -528,7 +543,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
     #endregion
 
-    //waiting time = 0 si c'est la première action.
+    //waiting time = 0 si c'est la première action. 
     public IEnumerator DiceToEquipement(GameObject selectedDice, int skillIndex, float waitingTime)
     {
         yield return new WaitForSeconds(waitingTime);
@@ -538,6 +553,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         RemoveChocInit(skillIndex);
     }
 
+    // A lancer pour activer la compétence ou remove l'altération Choc.
     public void RemoveChocInit(int index)
     {
         if (enemyActualEquipement[index].isChoc)
@@ -551,6 +567,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         }
     }
 
+    //A activer pour réduire le coundown d'un équipement
     public IEnumerator DelayCountdownEnemy(int value, EquipementOwner equipementOwner)
     {
         equipementOwner.diceOwn.transform.SetParent(equipementOwner.dicePosition.transform);
@@ -575,6 +592,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         }
     }
 
+    //A Appeler lorsque l'enemy prend des dégats.
     public void TakeDamages(int damages)
     {
         for (int i = 0; i < damages; i++)
@@ -600,6 +618,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
        
     }
 
+    //Faire qu'une compétence soit affaiblie.
     public void InitBreak()
     {
         for (int i = 0; i < numberOfBreak; i++)
@@ -614,6 +633,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         numberOfBreak = 0;
     }
 
+    //Faire qu'une compétence soit Choc (demande un dé pour être réactiver).
     public void InitShock()
     {
         for (int i = 0; i < numberOfShock; i++)
