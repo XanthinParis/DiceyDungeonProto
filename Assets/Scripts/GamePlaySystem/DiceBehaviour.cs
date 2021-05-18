@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class DiceBehaviour : MonoBehaviour
 {
@@ -14,11 +15,13 @@ public class DiceBehaviour : MonoBehaviour
 
     public bool isBurn = false;
 
+    [SerializeField] private TextMeshProUGUI diceBurnAlerte;
+
     // Start is called before the first frame update
     void Start()
     {
         valueDice = dice.value;
-
+        diceBurnAlerte.enabled = false;
         GetComponent<SpriteRenderer>().sprite = dice.asset;
     }
 
@@ -29,6 +32,7 @@ public class DiceBehaviour : MonoBehaviour
             if (isBurn)
             {
                 isBurn = false;
+                diceBurnAlerte.enabled = false;
                 gameObject.GetComponent<SpriteRenderer>().color = Color.white;
                 Manager.Instance.playerManager.TakeDamages(2);
             }
@@ -45,6 +49,9 @@ public class DiceBehaviour : MonoBehaviour
         {
             Manager.Instance.cursorBehaviour.currentSelected = gameObject;
         }
+
+        
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -52,7 +59,12 @@ public class DiceBehaviour : MonoBehaviour
         if(collision.gameObject == Manager.Instance.cursor && Manager.Instance.cursorBehaviour.currentSelected ==null)
         {
             cursorHere = true;
-            
+
+            if (isBurn)
+            {
+                //Activer text;
+                diceBurnAlerte.enabled = true;
+            }
         } 
     }
 
@@ -62,6 +74,11 @@ public class DiceBehaviour : MonoBehaviour
         {
             cursorHere = false;
             Manager.Instance.cursorBehaviour.currentSelected = null;
+
+            if (isBurn)
+            {
+                diceBurnAlerte.enabled = false;
+            }
         }
     }
 

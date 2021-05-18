@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class EnemyBehaviour : Singleton<EnemyBehaviour>
 {
@@ -35,6 +36,13 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
     public bool enemyShock = false;
     public bool enemyBreak = false;
+
+
+    [Header("Materials")]
+    [SerializeField] private Material baseMaterial;
+    [SerializeField] private Material whiteMaterial;
+    [SerializeField] private Image imageRend;
+
 
     private void Awake()
     {
@@ -84,8 +92,8 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
 
         if (thereIsA6)
         {
-            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 0, 1));
-            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 2));
+            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 1, 1));
+            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 0, 2));
             return;
         }
         else
@@ -533,7 +541,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
                 if (enemyActualEquipement[2].equipementOwn.currentCountdown != 0)
                 {
                     StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 2, 6));
-                    storedDice.Remove(storedDice[1]);
+                    storedDice.Remove(storedDice[0]);
                 }
                 break;
             default:
@@ -613,6 +621,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
                 Debug.Log("dead");
             }
             Manager.Instance.canvasManager.UpdateHealth();
+            StartCoroutine(SwapColor(2));
         }
 
        
@@ -645,5 +654,19 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         }
         numberOfShock = 0;
     }
-   
+
+    private IEnumerator SwapColor(int time)
+    {
+        for (int i = 0; i < time; i++)
+        {
+            yield return new WaitForSeconds(0.05f);
+            imageRend.material = baseMaterial;
+            yield return new WaitForSeconds(0.05f);
+            imageRend.material = whiteMaterial;
+        }
+
+        yield return new WaitForSeconds(0.05f);
+        imageRend.material = baseMaterial;
+    }
+
 }

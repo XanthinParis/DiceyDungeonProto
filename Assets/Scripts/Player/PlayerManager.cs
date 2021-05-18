@@ -1,33 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PlayerManager : Singleton<PlayerManager>
 {
+    [Header("Values")]
     public int initialDiceCount;
     public int numberOfDice;
-
     public float health;
     public float maxHealth;
 
+    [Header("Limit Break")]
     public int LimitBreakPV;
     public int currentLimitBreakPV;
     public bool limitBreakAvailable = false;
 
+    [Header("Dices")]
     public List<GameObject> storedDice = new List<GameObject>();
 
+    [Header("Skills")]
     public List<Skill> playerSkills = new List<Skill>();
     public List<EquipementOwner> playerEquipementOwner = new List<EquipementOwner>();
     public List<Skill> playerSkillsWithCountDown = new List<Skill>();
 
+    [Header("SkillsStuff")]
     public bool isEsquive = false;
-    
     public int directRepetition = 0;
-
     public int numberOfBurn = 0;
-
     public bool comesFromLimitBreak = false;
+
+    [Header("Materials")]
+    [SerializeField] private Material baseMaterial;
+    [SerializeField] private Material whiteMaterial;
+    [SerializeField] private Image imageRend;
 
     private void Awake()
     {
@@ -69,6 +76,9 @@ public class PlayerManager : Singleton<PlayerManager>
                 health = 0;
             }
             Manager.Instance.canvasManager.UpdateHealth();
+
+            //Lancer une fonction pour Afficher l'int.
+            StartCoroutine(SwapColor(3));
         }
     }
 
@@ -130,6 +140,20 @@ public class PlayerManager : Singleton<PlayerManager>
         }
 
         
+    }
+
+    private IEnumerator SwapColor(int time)
+    {
+        for (int i = 0; i < time; i++)
+        {
+            yield return new WaitForSeconds(0.05f);
+            imageRend.material = baseMaterial;
+            yield return new WaitForSeconds(0.05f);
+            imageRend.material = whiteMaterial;
+        }
+
+        yield return new WaitForSeconds(0.05f);
+        imageRend.material = baseMaterial;
     }
 }
 

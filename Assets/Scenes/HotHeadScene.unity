@@ -2992,6 +2992,9 @@ MonoBehaviour:
   armor: 0
   enemyShock: 0
   enemyBreak: 0
+  baseMaterial: {fileID: 0}
+  whiteMaterial: {fileID: 2100000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+  imageRend: {fileID: 1924842868}
 --- !u!4 &1057038028
 Transform:
   m_ObjectHideFlags: 0
@@ -3098,6 +3101,9 @@ MonoBehaviour:
   directRepetition: 0
   numberOfBurn: 0
   comesFromLimitBreak: 0
+  baseMaterial: {fileID: 0}
+  whiteMaterial: {fileID: 2100000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
+  imageRend: {fileID: 43882729}
 --- !u!4 &1121895641
 Transform:
   m_ObjectHideFlags: 0
@@ -3469,11 +3475,11 @@ MonoBehaviour:
   limitBreakButton: {fileID: 1275828362}
   limitbreakColorDisable: {r: 0.47450984, g: 0.45098042, b: 0.007843138, a: 1}
   limitbreakColorAble: {r: 0.9245283, g: 0.8790128, b: 0.02180491, a: 1}
-  enemyHealthText: {fileID: 1629005148}
   playerHealthText: {fileID: 963308623}
+  esquiveText: {fileID: 918394805}
+  enemyHealthText: {fileID: 1629005148}
   armorText: {fileID: 1014938792}
   diceText: {fileID: 1349316881}
-  esquiveText: {fileID: 918394805}
   result: {fileID: 653526750}
   cameraPos:
   - {fileID: 982436466}
