@@ -107,7 +107,7 @@ public class EnemyBehaviourAlt : MonoBehaviour
         //Trier à nouveau 
         Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
 
-        int breakint = 3;
+        int breakint = 4;
         for (int i = 0; i < enemy.enemyActualEquipement.Count; i++)
         {
             if (enemy.enemyActualEquipement[i].isBreak)
@@ -122,15 +122,19 @@ public class EnemyBehaviourAlt : MonoBehaviour
         {
             case 0:
                 enemy.BreakSkill0();
+                breakint = 4;
                 break;
             case 1:
                 enemy.BreakSkill1();
+                breakint = 4;
                 break;
             case 2:
                 enemy.BreakSkill2();
+                breakint = 4;
                 break;
             case 3:
                 enemy.NoBreak();
+                breakint = 4;
                 break;
             default:
                 break;

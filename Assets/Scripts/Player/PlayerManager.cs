@@ -36,6 +36,8 @@ public class PlayerManager : Singleton<PlayerManager>
     [SerializeField] private Material whiteMaterial;
     [SerializeField] private Image imageRend;
 
+    [SerializeField] private GameObject damageFeedbackPlayer;
+
     private void Awake()
     {
         CreateSingleton(true);
@@ -79,6 +81,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
             //Lancer une fonction pour Afficher l'int.
             StartCoroutine(SwapColor(3));
+            InstantiateDamageFeedback(damages);
         }
     }
 
@@ -99,6 +102,13 @@ public class PlayerManager : Singleton<PlayerManager>
                 }
             }
         }
+    }
+
+    public void InstantiateDamageFeedback(int damage)
+    {
+        GameObject feedback = Instantiate(damageFeedbackPlayer,Manager.Instance.canvasManager.playerDamageFeedbackPos.transform.position, Quaternion.identity);
+        feedback.GetComponent<FeedBackDamagePlayer>().damageText.text = "-" + damage;
+        feedback.transform.SetParent(Manager.Instance.canvasManager.playerDamageFeedbackPos.transform);
     }
 
     //Delay le compteur visuel pour un feedback sympa;

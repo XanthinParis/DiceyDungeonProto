@@ -43,7 +43,7 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     [SerializeField] private Material whiteMaterial;
     [SerializeField] private Image imageRend;
 
-
+    [SerializeField] private GameObject damageFeedbackEnemy;
     private void Awake()
     {
         CreateSingleton(true);
@@ -622,17 +622,18 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             }
             Manager.Instance.canvasManager.UpdateHealth();
             StartCoroutine(SwapColor(2));
+            InstantiateDamageFeedback(damages);
         }
 
        
     }
+
 
     //Faire qu'une compétence soit affaiblie.
     public void InitBreak()
     {
         for (int i = 0; i < numberOfBreak; i++)
         {
-           
             int indexChoose = Random.Range(0, 2);
             Debug.Log("indexChoose" + indexChoose);
             intBreak = indexChoose;
@@ -653,6 +654,13 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
             enemyShock = true;
         }
         numberOfShock = 0;
+    }
+
+    public void InstantiateDamageFeedback(int damage)
+    {
+        GameObject feedback =  Instantiate(damageFeedbackEnemy, Manager.Instance.canvasManager.enemyDamageFeedbackPos.transform.position, Quaternion.identity);
+        feedback.transform.SetParent(Manager.Instance.canvasManager.enemyDamageFeedbackPos.transform);
+        feedback.GetComponent<FeedBackDamagePlayer>().damageText.text = "-" + damage;
     }
 
     private IEnumerator SwapColor(int time)

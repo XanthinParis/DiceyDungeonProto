@@ -30,6 +30,10 @@ public class GameCanvasManager : MonoBehaviour
 
     private bool playerView = true;
 
+    [Header("FeedbackPosition")]
+    public GameObject playerDamageFeedbackPos;
+    public GameObject enemyDamageFeedbackPos;
+
     // Start is called before the first frame update
     void Start()
     {

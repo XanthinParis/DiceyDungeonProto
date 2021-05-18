@@ -314,15 +314,13 @@ public class Manager : Singleton<Manager>
                 enemyBehaviour.enemySkillWithCountdown.Add(enemyBehaviour.enemySkillList[i]);
             }
         }
-
-        enemyBehaviour.intBreak = 4;
+        enemyBehaviour.intShock = 4;
 
         enemyBehaviour.enemyActualEquipement = enemyBehaviour.enemyEquipementOwner;
-        
+
         numberOfBig = 0;
         smallCount = 0;
         Manager.Instance.firstTurn = false;
-        
     }
 
     public void EndTurn()
@@ -342,8 +340,8 @@ public class Manager : Singleton<Manager>
             }
 
             diceManager.ResetDiceEnemy();
-            
-            
+
+            canvasManager.SwitchCamera();
             yield return new WaitForSeconds(0.5f);
 
            
@@ -356,7 +354,7 @@ public class Manager : Singleton<Manager>
             playerManager.playerEquipementOwner.Clear();
             playerManager.playerSkillsWithCountDown.Clear();
             diceManager.ResetDicePlayer();
-            canvasManager.SwitchCamera();
+            
             canvasManager.upCross.SetActive(false);
             canvasManager.downCross.SetActive(false);
 
@@ -398,8 +396,8 @@ public class Manager : Singleton<Manager>
                 enemyBehaviour.enemyEquipementOwner[i].AnimationUse();
             }
 
-            yield return new WaitForSeconds(0.75f);
-
+            yield return new WaitForSeconds(0.5f);
+            canvasManager.SwitchCamera();
             for (int i = 0; i < enemyBehaviour.enemyEquipementOwner.Count; i++)
             {
                 Debug.Log("Destroy");
@@ -414,7 +412,7 @@ public class Manager : Singleton<Manager>
             enemyBehaviour.enemyActualEquipement.Clear();
 
             diceManager.ResetDiceEnemy();
-            canvasManager.SwitchCamera();
+            
             diceManager.GenerateDicePlayer();
             InitPlayerSkill();
             turn = GameTurn.Player;

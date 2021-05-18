@@ -16,6 +16,7 @@ public class DiceBehaviour : MonoBehaviour
     public bool isBurn = false;
 
     [SerializeField] private TextMeshProUGUI diceBurnAlerte;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +63,6 @@ public class DiceBehaviour : MonoBehaviour
 
             if (isBurn)
             {
-                //Activer text;
                 diceBurnAlerte.enabled = true;
             }
         } 
