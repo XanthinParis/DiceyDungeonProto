@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class EquipementOwner : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class EquipementOwner : MonoBehaviour
     [SerializeField] public TextMeshProUGUI diceValue;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI diceDescription;
+    [SerializeField] private Image BgImage;
+    [SerializeField] private Image BgTopImage;
 
     public GameObject chocItem;
 
@@ -49,6 +52,11 @@ public class EquipementOwner : MonoBehaviour
         skillName.text = equipementOwn.skillName;
         description.text = equipementOwn.skillDescription;
         diceDescription.text = equipementOwn.diceDescription;
+
+        //Changer les couleurs de chaque skill.
+        BgImage.color = equipementOwn.BGColor;
+        BgTopImage.color = equipementOwn.topBGColor;
+       
 
         switch (equipementOwn.conditions)
         {

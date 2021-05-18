@@ -30,6 +30,8 @@ public abstract class Skill : ScriptableObject
     public string skillDescription;
     public string diceDescription;
     public bool countdownUsed = false;
+    public Color BGColor;
+    public Color topBGColor;
     
     //Variable to Store when a Dice is put in a equipement;
     public EquipementOwner equipementOwner;
