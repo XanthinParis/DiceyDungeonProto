@@ -25,20 +25,7 @@ public class EnemyBehaviourAlt : MonoBehaviour
         {
             case monster.Hothead:
                 #region HotHead
-                int valueDice0 = enemy.storedDice[0].GetComponent<DiceBehaviour>().dice.value;
-                int valueDice1 = enemy.storedDice[1].GetComponent<DiceBehaviour>().dice.value;
-
-                int maxValue = 0;
-
-                if (valueDice0 > valueDice1)
-                {
-                    maxValue = valueDice0;
-                }
-                else
-                {
-                    maxValue = valueDice1;
-                }
-
+              
                 for (int i = 0; i < enemy.enemySkillList.Count; i++)
                 {
                     if (enemy.enemySkillList[i].isShock)

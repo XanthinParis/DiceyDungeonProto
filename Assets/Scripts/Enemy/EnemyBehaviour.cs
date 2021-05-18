@@ -76,28 +76,19 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     //Compétence1 Choc.
     public void Comp1Shoked()
     {
-        bool thereIsA6 = false;
-
         //Trier les dés selon leur valeurs.
         Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
 
-        //Check si ya un 6
-        for (int i = 0; i < storedDice.Count; i++)
+        if (storedDice[1].valueDice == 6 || storedDice[1].valueDice == 5)
         {
-            if (storedDice[i].GetComponent<DiceBehaviour>().valueDice == 6)
-            {
-                thereIsA6 = true;
-            }
-        }
-
-        if (thereIsA6)
-        {
-            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 1, 1));
-            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 0, 2));
+            //Si y'a un 6 compétence 0 plus worth
+            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 0, 1));
+            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 2));
             return;
         }
         else
         {
+            //La 1 est mieux même si Choc
             StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 1));
             StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 1, 2));
         }
@@ -106,16 +97,29 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     //Compétence0 Choc.
     public void Comp0Shoked()
     {
-        if(storedDice[1].valueDice == 6)
+        //Trier les dés selon leur valeurs.
+        Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
+
+       
+        if (storedDice[1].valueDice == 6 || storedDice[1].valueDice == 5)
         {
             //Cpt0 plus worth
-            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 0, 1));
-            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 2));
+            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 0, 1));
+            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 0, 2));
         }
         else //Cpt 1 plus worth
         {
             StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 1, 1));
-            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 2));
+
+            if (enemySkillList[1].currentCountdown != 0)
+            {
+                StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 2));
+            }
+            else
+            {
+                StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 0, 2));
+            }
+
         }
 
     }
@@ -123,40 +127,10 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
     //Pas de Compétence Choc.
     public void NoShock()
     {
-        if (storedDice[0].valueDice >= enemySkillList[1].currentCountdown)
-        {
-            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 1));
-            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 0, 2));
-            return;
-        }
-        else if (storedDice[1].valueDice >= enemySkillList[1].currentCountdown)
-        {
-            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 1, 1));
-            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 0, 2));
-            return;
-        }
-        else
-        {
-            if(storedDice[0].valueDice == 6)
-            {
-                StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 1, 1));
-                StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 0, 2));
-                return;
-            }
+        Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
 
-            if (storedDice[0].valueDice + storedDice[1].valueDice >= enemySkillList[1].currentCountdown)
-            {
-                StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 1));
-                StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 1, 2));
-                return;
-            }
-            else
-            {
-                StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 0, 1));
-                StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 2));
-                return;
-            }
-        }
+        StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 0, 1));
+        StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 2));
     }
     #endregion
 
