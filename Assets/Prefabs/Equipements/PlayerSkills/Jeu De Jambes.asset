@@ -27,4 +27,7 @@ MonoBehaviour:
   skillName: Jeu de Jambes
   skillDescription: "Relance un d\xE9."
   diceDescription: 
+  countdownUsed: 0
+  BGColor: {r: 0.36862746, g: 0.6509804, b: 0.43529415, a: 1}
+  topBGColor: {r: 0.14901961, g: 0.39607847, b: 0.20392159, a: 1}
   equipementOwner: {fileID: 0}

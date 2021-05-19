@@ -27,4 +27,7 @@ MonoBehaviour:
   skillName: Coup de Pied
   skillDescription: "Infliger 2 d\xE9gats + Choc"
   diceDescription: impair
+  countdownUsed: 0
+  BGColor: {r: 0.94117653, g: 0.54509807, b: 0.2509804, a: 1}
+  topBGColor: {r: 0.61960787, g: 0.29803923, b: 0.10196079, a: 1}
   equipementOwner: {fileID: 0}

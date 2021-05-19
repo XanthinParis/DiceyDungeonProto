@@ -28,4 +28,6 @@ MonoBehaviour:
   skillDescription: "8 d\xE9gats."
   diceDescription: 
   countdownUsed: 0
+  BGColor: {r: 0.9921569, g: 0.36862746, b: 0.41960788, a: 1}
+  topBGColor: {r: 0.5254902, g: 0.14509805, b: 0.18039216, a: 1}
   equipementOwner: {fileID: 0}

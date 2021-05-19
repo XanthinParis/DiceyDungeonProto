@@ -27,4 +27,7 @@ MonoBehaviour:
   skillName: BroadSword
   skillDescription: "Inflige X + 2 d\xE9gats."
   diceDescription: "X = valeur d\xE9."
+  countdownUsed: 0
+  BGColor: {r: 0.9921569, g: 0.36862746, b: 0.42352945, a: 1}
+  topBGColor: {r: 0.7294118, g: 0.20392159, b: 0.25490198, a: 1}
   equipementOwner: {fileID: 0}

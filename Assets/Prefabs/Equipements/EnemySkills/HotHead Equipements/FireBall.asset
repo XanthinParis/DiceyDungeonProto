@@ -27,4 +27,7 @@ MonoBehaviour:
   skillName: Fireball
   skillDescription: "x D\xE9gats + 1 Burn"
   diceDescription: X
+  countdownUsed: 0
+  BGColor: {r: 0.98823535, g: 0.36862746, b: 0.42352945, a: 1}
+  topBGColor: {r: 0.73333335, g: 0.20392159, b: 0.25882354, a: 1}
   equipementOwner: {fileID: 0}

@@ -27,4 +27,7 @@ MonoBehaviour:
   skillName: FireBreath
   skillDescription: 'Deals 4 + 1 Burn '
   diceDescription: 
+  countdownUsed: 0
+  BGColor: {r: 0.98823535, g: 0.36862746, b: 0.42352945, a: 1}
+  topBGColor: {r: 0.7294118, g: 0.20000002, b: 0.25490198, a: 1}
   equipementOwner: {fileID: 0}

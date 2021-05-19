@@ -723,11 +723,14 @@ MonoBehaviour:
   diceValue: {fileID: 7294242325437369507}
   description: {fileID: 1533451399282634302}
   diceDescription: {fileID: 6638884988251010804}
+  BgImage: {fileID: 1533451399835614534}
+  BgTopImage: {fileID: 1533451400041986157}
   chocItem: {fileID: 2510200396587312053}
   dicePosition: {fileID: 7438578095021168793}
   diceHere: 0
   chocBehaviour: {fileID: 8252245782464145637}
   isChoc: 0
+  isBreak: 0
 --- !u!61 &4694388117681220247
 BoxCollider2D:
   m_ObjectHideFlags: 0

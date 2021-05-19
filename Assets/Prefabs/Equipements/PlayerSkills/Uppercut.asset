@@ -27,4 +27,7 @@ MonoBehaviour:
   skillName: Uppercut
   skillDescription: "20 d\xE9gats."
   diceDescription: 
+  countdownUsed: 0
+  BGColor: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  topBGColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
   equipementOwner: {fileID: 0}
