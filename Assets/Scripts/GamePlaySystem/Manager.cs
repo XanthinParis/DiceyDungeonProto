@@ -144,14 +144,12 @@ public class Manager : Singleton<Manager>
 
         int smallCount = 0;
         int currentIndex = 1;
+        
         //Instancier les petits skills après les grands.
         for (int i = 2; i < playerManager.playerSkills.Count; i++)
         {
-            
             if (playerManager.playerSkills[i].isBig == false)
             {
-               
-
                 GameObject InitSkill = Instantiate(smallSkill, smallSkillPositionPlayer[i+2].position, Quaternion.identity);
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
                 playerManager.playerEquipementOwner.Add(equipOwner);
@@ -167,7 +165,6 @@ public class Manager : Singleton<Manager>
 
                 if (smallCount == 2 || smallCount == 4)
                 {
-
                     numberOfBig++;
                 }
             }
@@ -220,10 +217,10 @@ public class Manager : Singleton<Manager>
                     GameObject InitSkill = Instantiate(bigSkill, bigSkillPositionEnemy[numberOfBig].position, Quaternion.identity);
                     EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
                     enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
-                    enemyBehaviour.enemySkillList[i].isBreak = false;
+                    enemyBehaviour.enemySkillList[i].isBreak = true;
+                    equipOwner.isBreak = true;
                     equipOwner.equipementOwn = enemyBehaviour.enemybreakSkillList[i];
 
-                    equipOwner.isBreak = true;
                     if (i == enemyBehaviour.intShock)
                     {
                         equipOwner.isChoc = true;
@@ -272,8 +269,11 @@ public class Manager : Singleton<Manager>
                 EquipementOwner equipOwner = InitSkill.GetComponent<EquipementOwner>();
                 enemyBehaviour.enemyEquipementOwner.Add(equipOwner);
                 equipOwner.equipementOwn = enemyBehaviour.enemySkillList[i];
-                equipOwner.isBreak = true;
-                
+
+                if(i == enemyBehaviour.intBreak)
+                {
+                    equipOwner.isBreak = true;
+                }
 
                 if (i == enemyBehaviour.intShock)
                 {

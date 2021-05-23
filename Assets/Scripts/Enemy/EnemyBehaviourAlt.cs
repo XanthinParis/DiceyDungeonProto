@@ -20,7 +20,6 @@ public class EnemyBehaviourAlt : MonoBehaviour
     
     public void EnemyBattleAlt()
     {
-
         switch (monsterName)
         {
             case monster.Hothead:
@@ -28,10 +27,11 @@ public class EnemyBehaviourAlt : MonoBehaviour
               
                 for (int i = 0; i < enemy.enemySkillList.Count; i++)
                 {
-                    if (enemy.enemySkillList[i].isShock)
+                    if (enemy.enemyEquipementOwner[i].isChoc)
                     {
                         enemy.enemyShock = true;
                     }
+                    
                 }
 
                 //Si l'ennemy a une compétence en Choc, il faut voir ce qui est le plus rentable pour lui de faire.  
@@ -40,10 +40,12 @@ public class EnemyBehaviourAlt : MonoBehaviour
                     if (enemy.enemySkillList[1].isShock)   // Si c'est la compétence 1 qui est choc, il faut que check si un des valeurs des deux dés est suffisantes pour que ca soit worth.
                     {
                         enemy.Comp1Shoked();
+                        enemy.enemyShock = false;
                     }
                     else //Dans le cas ou la compétence 0 est sous Choc
                     {
                         enemy.Comp0Shoked();
+                        enemy.enemyShock = false;
                     }
                 }
                 else
