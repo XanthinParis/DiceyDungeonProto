@@ -79,9 +79,21 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         //Trier les dés selon leur valeurs.
         Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
 
-        Debug.Log("Comp1Shoked");
-        Debug.Log(Manager.Instance.enemyBehaviour.storedDice[1]);
-        Debug.Log(Manager.Instance.enemyBehaviour.storedDice[0]);
+        if (storedDice[1].valueDice == 6 || storedDice[1].valueDice == 5)
+        {
+            Debug.Log("Comp1Shoked,0");
+            //Si y'a un 6 compétence 0 plus worth
+            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 0, 1));
+            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 2));
+            return;
+        }
+        else
+        {
+            Debug.Log("Comp1Shoked,1");
+            //La 1 est mieux même si Choc
+            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 1));
+            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 1, 2));
+        }
     }
 
     //Compétence0 Choc.
@@ -90,19 +102,33 @@ public class EnemyBehaviour : Singleton<EnemyBehaviour>
         //Trier les dés selon leur valeurs.
         Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
 
-        Debug.Log("Comp0Shoked");
-        Debug.Log(Manager.Instance.enemyBehaviour.storedDice[1]);
-        Debug.Log(Manager.Instance.enemyBehaviour.storedDice[0]);
+        if (storedDice[1].valueDice == 6 || storedDice[1].valueDice == 5)
+        {
+            Debug.Log("Comp0Shoked,0");
+            //Cpt0 plus worth
+            StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 0, 1));
+            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 0, 2));
+        }
+        else //Cpt 1 plus worth
+        {
+            Debug.Log("Comp0Shoked,1");
+            StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 1, 1));
+
+            if (enemyActualEquipement[1].equipementOwn.currentCountdown != 0)
+            {
+                StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 2));
+            }
+        }
+
     }
 
     //Pas de Compétence Choc.
     public void NoShock()
     {
         Manager.Instance.enemyBehaviour.storedDice = Manager.Instance.enemyBehaviour.storedDice.OrderBy(e => e.GetComponent<DiceBehaviour>().valueDice).ToList();
-
-        Debug.Log("NoShocked");
-        Debug.Log(Manager.Instance.enemyBehaviour.storedDice[1]);
-        Debug.Log(Manager.Instance.enemyBehaviour.storedDice[0]);
+        Debug.Log("NoShoked");
+        StartCoroutine(DiceToEquipement(storedDice[1].gameObject, 0, 1));
+        StartCoroutine(DiceToEquipement(storedDice[0].gameObject, 1, 2));
     }
     #endregion
 
